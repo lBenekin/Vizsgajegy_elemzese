@@ -19,6 +19,21 @@ namespace ExamServer.Data
             optionsBuilder.UseSqlServer(connectionString);
             base.OnConfiguring(optionsBuilder);
         }
-        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Grade>()
+            .HasOne(g => g.Student)
+            .WithMany(s => s.Grades)
+            .HasForeignKey(g => g.StudentId);
+
+            modelBuilder.Entity<Grade>()
+                .HasOne(g => g.Subject)
+                .WithMany(s => s.Grades)
+                .HasForeignKey(g => g.SubjectId);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

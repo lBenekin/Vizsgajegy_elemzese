@@ -12,7 +12,7 @@ namespace ExamServer.Data
         void Delete(int id);
     }
 
-    public class StudentRepository
+    public class StudentRepository : IStudentRepository
     {
         private readonly SchoolDbContext _context;
 
