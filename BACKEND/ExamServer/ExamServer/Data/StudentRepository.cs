@@ -33,9 +33,9 @@ namespace ExamServer.Data
         public Student GetById(int id)
         {
             return _context.Students
-        .Include(s => s.Grades)         // Betöltjük a Grades adatokat is
-        .ThenInclude(g => g.Subject)    // Betöltjük a kapcsolódó Subject adatokat is
-        .FirstOrDefault(s => s.Id == id);
+                .Include(s => s.Grades) 
+                .ThenInclude(g => g.Subject)
+                .FirstOrDefault(s => s.Id == id);
         }
 
         public void Add(Student student)

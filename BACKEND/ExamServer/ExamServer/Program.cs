@@ -9,7 +9,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SchoolDbContext>();
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
 builder.Services.AddTransient<ISubjectRepository, SubjectRepository>();
-builder.Services.AddTransient<IGradeRepository, GradeRepository>();
 
 builder.Services.AddSwaggerGen();
 

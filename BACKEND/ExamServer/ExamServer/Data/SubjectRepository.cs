@@ -1,4 +1,5 @@
 ﻿using ExamServer.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace ExamServer.Data
@@ -26,12 +27,15 @@ namespace ExamServer.Data
 
         public IEnumerable<Subject> GetAll()
         {
-            return _context.Subjects.ToList();
+            return _context.Subjects.Include(s => s.Grades).ToList();
         }
 
         public Subject GetById(int id)
         {
-            return _context.Subjects.Find(id);
+            return _context.Subjects
+                .Include(s => s.Grades)
+                .ThenInclude(g => g.Student)
+                .FirstOrDefault(s => s.Id == id);
         }
 
         public void Add(Subject subject)
