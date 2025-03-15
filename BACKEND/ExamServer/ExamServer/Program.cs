@@ -1,21 +1,28 @@
 using ExamServer.Data;
 using ExamServer.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<SchoolDbContext>();
-builder.Services.AddTransient<ISchoolRepository<Student>, StudentRepository>();
-builder.Services.AddTransient<ISchoolRepository<Subject>, SubjectRepository>();
-builder.Services.AddTransient<ISchoolRepository<Grade>, GradeRepository>();
+builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+builder.Services.AddTransient<ISubjectRepository, SubjectRepository>();
+builder.Services.AddTransient<IGradeRepository, GradeRepository>();
+
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 app.UseRouting();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapGet("/", () => "Hello World!");
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 app.Run();

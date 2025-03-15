@@ -3,7 +3,19 @@ using System;
 
 namespace ExamServer.Data
 {
-    public class GradeRepository : ISchoolRepository<Grade>
+    public interface IGradeRepository
+    {
+        IEnumerable<Grade> GetAll();
+
+        Grade GetById(int id);
+
+        void Add(Grade entity);
+
+        void Update(Grade entity);
+
+        void Delete(int id);
+    }
+    public class GradeRepository : IGradeRepository
     {
         private readonly SchoolDbContext _context;
 

@@ -5,14 +5,6 @@ namespace ExamServer.Models
 {
     public class Subject
     {
-        public Subject(int id, string name, string code, string description)
-        {
-            Id = id;
-            Name = name;
-            Code = code;
-            Description = description;
-            Grades = new HashSet<Grade>();
-        }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

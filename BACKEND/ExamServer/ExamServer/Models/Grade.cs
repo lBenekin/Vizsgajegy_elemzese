@@ -5,14 +5,6 @@ namespace ExamServer.Models
 {
     public class Grade
     {
-        public Grade(int id, int studentId, int subjectId, int gradeValue)
-        {
-            Id = id;
-            StudentId = studentId;
-            SubjectId = subjectId;
-            GradeValue = gradeValue;
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
