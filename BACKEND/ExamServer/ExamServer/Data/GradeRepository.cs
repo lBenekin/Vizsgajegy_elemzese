@@ -3,15 +3,7 @@ using System;
 
 namespace ExamServer.Data
 {
-    public interface IGradeRepository
-    {
-        IEnumerable<Grade> GetAll();
-        Grade GetById(int id);
-        void Add(Grade grade);
-        void Update(Grade grade);
-        void Delete(int id);
-    }
-    public class GradeRepository : IGradeRepository
+    public class GradeRepository : ISchoolRepository<Grade>
     {
         private readonly SchoolDbContext _context;
 

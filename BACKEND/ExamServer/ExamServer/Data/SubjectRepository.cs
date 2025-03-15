@@ -3,15 +3,7 @@ using System;
 
 namespace ExamServer.Data
 {
-    public interface ISubjectRepository
-    {
-        IEnumerable<Subject> GetAll();
-        Subject GetById(int id);
-        void Add(Subject subject);
-        void Update(Subject subject);
-        void Delete(int id);
-    }
-    public class SubjectRepository :ISubjectRepository
+    public class SubjectRepository :ISchoolRepository<Subject>
     {
         private readonly SchoolDbContext _context;
 

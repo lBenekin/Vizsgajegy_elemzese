@@ -1,13 +1,14 @@
 using ExamServer.Data;
+using ExamServer.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<SchoolDbContext>();
-builder.Services.AddTransient<IStudentRepository, StudentRepository>();
-builder.Services.AddTransient<ISubjectRepository, SubjectRepository>();
-builder.Services.AddTransient<IGradeRepository, GradeRepository>();
+builder.Services.AddTransient<ISchoolRepository<Student>, StudentRepository>();
+builder.Services.AddTransient<ISchoolRepository<Subject>, SubjectRepository>();
+builder.Services.AddTransient<ISchoolRepository<Grade>, GradeRepository>();
 
 var app = builder.Build();
 app.UseRouting();
