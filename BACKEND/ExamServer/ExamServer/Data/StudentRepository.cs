@@ -74,14 +74,34 @@ namespace ExamServer.Data
             };
         }
 
-        private double GetDistribution(Student student)
+        private Dictionary<double, int> GetDistribution(Student student)
         {
             if (student == null)
-                return 0;
+                return new Dictionary<double, int>();
+
+            // A hallgató jegyei
             var grades = student.Grades.Select(g => g.GradeValue).ToList();
-            var max = grades.Max();
-            var min = grades.Min();
-            return max - min;
+
+            // A jegyek 1-től 5-ig terjednek, így inicializáljuk az eloszlást
+            var gradeRange = new Dictionary<double, int>
+            {
+                { 1, 0 },
+                { 2, 0 },
+                { 3, 0 },
+                { 4, 0 },
+                { 5, 0 }
+            };
+
+            // Jegyek eloszlása
+            foreach (var grade in grades)
+            {
+                if (gradeRange.ContainsKey(grade))
+                {
+                    gradeRange[grade]++;
+                }
+            }
+
+            return gradeRange;
         }
 
         private double GetMode(Student student)

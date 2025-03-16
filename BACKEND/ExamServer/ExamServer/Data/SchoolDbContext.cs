@@ -32,16 +32,20 @@ namespace ExamServer.Data
             modelBuilder.Entity<Subject>().HasData(
                 new Subject(1, "Mathematics", "MATH101", "Basic Mathematics course"),
                 new Subject(2, "English", "ENG101", "English Language course"),
-                new Subject(3, "History", "HIST101", "Introduction to History")
+                new Subject(3, "History", "HIST101", "Introduction to History"),
+                new Subject(4, "IT", "it", "billgates"),
+                new Subject(5, "PE", "pe", "yes")
             );
 
             // Seed adatok a Grade entitáshoz
             modelBuilder.Entity<Grade>().HasData(
-                new Grade(1, 1, 1, 85),  // John Doe - Mathematics - Grade 85
+                new Grade(1, 1, 1, 5),  // John Doe - Mathematics - Grade 85
                 new Grade(2, 2, 1, 92),  // Jane Smith - Mathematics - Grade 92
                 new Grade(3, 3, 2, 78),  // Mark Johnson - English - Grade 78
-                new Grade(4, 1, 3, 88),  // John Doe - History - Grade 88
-                new Grade(5, 2, 2, 95)   // Jane Smith - English - Grade 95
+                new Grade(4, 1, 2, 4),  // John Doe - History - Grade 88
+                new Grade(5, 1, 3, 5),
+                new Grade(6, 1, 4, 1),
+                new Grade(7, 1, 5, 3)
             );
             modelBuilder.Entity<Grade>()
             .HasOne(g => g.Student)
