@@ -79,10 +79,8 @@ namespace ExamServer.Data
             if (student == null)
                 return new Dictionary<double, int>();
 
-            // A hallgató jegyei
             var grades = student.Grades.Select(g => g.GradeValue).ToList();
 
-            // A jegyek 1-től 5-ig terjednek, így inicializáljuk az eloszlást
             var gradeRange = new Dictionary<double, int>
             {
                 { 1, 0 },
@@ -92,7 +90,6 @@ namespace ExamServer.Data
                 { 5, 0 }
             };
 
-            // Jegyek eloszlása
             foreach (var grade in grades)
             {
                 if (gradeRange.ContainsKey(grade))
