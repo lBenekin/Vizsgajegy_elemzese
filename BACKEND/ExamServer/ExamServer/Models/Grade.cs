@@ -6,12 +6,8 @@ namespace ExamServer.Models
 {
     public class Grade
     {
-        public Grade(int id, int studentId, int subjectId, int gradeValue)
+        public Grade()
         {
-            Id = id;
-            StudentId = studentId;
-            SubjectId = subjectId;
-            GradeValue = gradeValue;
         }
 
         [Key]

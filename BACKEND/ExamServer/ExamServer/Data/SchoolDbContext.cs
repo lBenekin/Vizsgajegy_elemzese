@@ -21,36 +21,41 @@ namespace ExamServer.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Student>().HasData(
-                new Student(1, "John", "Doe", new DateTime(2000, 5, 15), "john.doe@example.com"),
-                new Student(2, "Jane", "Smith", new DateTime(1999, 8, 25), "jane.smith@example.com"),
-                new Student(3, "Mark", "Johnson", new DateTime(2001, 2, 5), "mark.johnson@example.com"),
-                new Student(4, "Filip", "Ugovsek", new DateTime(2011, 1, 10), "filip.ugovsek@example.com")
-
-            );
+        new Student { Id = 1, FirstName = "John", LastName = "Doe", DateOfBirth = new DateTime(2000, 5, 15), Email = "john.doe@example.com" },
+        new Student { Id = 2, FirstName = "Jane", LastName = "Smith", DateOfBirth = new DateTime(1999, 8, 25), Email = "jane.smith@example.com" },
+        new Student { Id = 3, FirstName = "Mark", LastName = "Johnson", DateOfBirth = new DateTime(2001, 2, 5), Email = "mark.johnson@example.com" },
+        new Student { Id = 4, FirstName = "Filip", LastName = "Ugovsek", DateOfBirth = new DateTime(2011, 1, 10), Email = "filip.ugovsek@example.com" }
+    );
 
             // Seed adatok a Subject entitáshoz
             modelBuilder.Entity<Subject>().HasData(
-                new Subject(1, "Mathematics", "MATH101", "Basic Mathematics course"),
-                new Subject(2, "English", "ENG101", "English Language course"),
-                new Subject(3, "History", "HIST101", "Introduction to History"),
-                new Subject(4, "IT", "it", "billgates"),
-                new Subject(5, "PE", "pe", "yes")
+                new Subject { Id = 1, Name = "Mathematics", Code = "MATH101", Description = "Basic Mathematics course" },
+                new Subject { Id = 2, Name = "English", Code = "ENG101", Description = "English Language course" },
+                new Subject { Id = 3, Name = "History", Code = "HIST101", Description = "Introduction to History" },
+                new Subject { Id = 4, Name = "IT", Code = "IT101", Description = "Introduction to Information Technology" },
+                new Subject { Id = 5, Name = "PE", Code = "PE101", Description = "Physical Education" }
             );
 
             // Seed adatok a Grade entitáshoz
             modelBuilder.Entity<Grade>().HasData(
-                new Grade(1, 1, 1, 5),  // John Doe - Mathematics - Grade 85
-                new Grade(2, 2, 1, 92),  // Jane Smith - Mathematics - Grade 92
-                new Grade(3, 3, 2, 78),  // Mark Johnson - English - Grade 78
-                new Grade(4, 1, 2, 4),  // John Doe - History - Grade 88
-                new Grade(5, 1, 3, 5),
-                new Grade(6, 1, 4, 1),
-                new Grade(7, 1, 5, 3)
+                new Grade { Id = 1, StudentId = 1, SubjectId = 1, GradeValue = 5 },  // John Doe - Mathematics - 5
+                new Grade { Id = 2, StudentId = 2, SubjectId = 1, GradeValue = 4 },  // Jane Smith - Mathematics - 4
+                new Grade { Id = 3, StudentId = 3, SubjectId = 2, GradeValue = 3 },  // Mark Johnson - English - 3
+                new Grade { Id = 4, StudentId = 1, SubjectId = 2, GradeValue = 4 },  // John Doe - English - 4
+                new Grade { Id = 10, StudentId = 1, SubjectId = 2, GradeValue = 2 },  // John Doe - English - 2
+                new Grade { Id = 11, StudentId = 1, SubjectId = 2, GradeValue = 3 },  // John Doe - English - 3
+                new Grade { Id = 5, StudentId = 1, SubjectId = 3, GradeValue = 5 },  // John Doe - History - 5
+                new Grade { Id = 6, StudentId = 1, SubjectId = 4, GradeValue = 1 },  // John Doe - IT - 1
+                new Grade { Id = 7, StudentId = 1, SubjectId = 5, GradeValue = 3 },  // John Doe - PE - 3
+                new Grade { Id = 8, StudentId = 4, SubjectId = 1, GradeValue = 2 },  // Filip Ugovsek - Mathematics - 2
+                new Grade { Id = 9, StudentId = 4, SubjectId = 4, GradeValue = 5 }   // Filip Ugovsek - IT - 5
             );
+
+            // Grade kapcsolatok (maradnak változatlanul)
             modelBuilder.Entity<Grade>()
-            .HasOne(g => g.Student)
-            .WithMany(s => s.Grades)
-            .HasForeignKey(g => g.StudentId);
+                .HasOne(g => g.Student)
+                .WithMany(s => s.Grades)
+                .HasForeignKey(g => g.StudentId);
 
             modelBuilder.Entity<Grade>()
                 .HasOne(g => g.Subject)

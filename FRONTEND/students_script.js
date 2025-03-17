@@ -32,6 +32,8 @@ fetch('http://localhost:5196/api/students')
             const gradesCell = document.createElement('td');
             if (student.grades && student.grades.length > 0) {
                 const gradesText = student.grades.map(grade => {
+                    fetch(`http://localhost:5196/api/subjects/${grade.subjectId}`)
+                    .then(subjectResponse => subjectResponse.json())
                     return `Tantárgy ID: ${grade.subjectId}, Jegy: ${grade.gradeValue}`;
                 }).join('<br>');
                 gradesCell.innerHTML = gradesText;

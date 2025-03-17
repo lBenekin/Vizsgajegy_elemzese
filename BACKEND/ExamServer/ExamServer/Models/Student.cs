@@ -1,18 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ExamServer.Models
 {
     public class Student
     {
-        public Student(int id, string firstName, string lastName, DateTime dateOfBirth, string email)
+        public Student()
         {
-            Id = id;
-            FirstName = firstName;
-            LastName = lastName;
-            DateOfBirth = dateOfBirth;
-            Email = email;
             Grades = new HashSet<Grade>();
+            //Subjects = new HashSet<StudentSubject>();
         }
 
         [Key]
@@ -21,9 +18,10 @@ namespace ExamServer.Models
         public string FirstName { get; set; } 
         public string LastName { get; set; } 
         public DateTime DateOfBirth { get; set; }
-        public string Email { get; set; } 
-
-        public ICollection<Grade> Grades { get; set; } 
+        public string Email { get; set; }
+        [JsonIgnore]
+        public ICollection<Grade> Grades { get; set; }
+        //public ICollection<StudentSubject> Subjects { get; set; }
     }
 
 }

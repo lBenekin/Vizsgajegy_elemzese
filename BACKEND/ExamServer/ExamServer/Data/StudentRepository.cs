@@ -35,9 +35,9 @@ namespace ExamServer.Data
         public Student GetById(int id)
         {
             return _context.Students
-                .Include(s => s.Grades) 
-                .ThenInclude(g => g.Subject)
-                .FirstOrDefault(s => s.Id == id);
+        .Include(s => s.Grades)
+            .ThenInclude(g => g.Subject) // Betöltjük a tantárgyakat is a jegyekhez
+        .FirstOrDefault(s => s.Id == id);
         }
         public void Add(Student student)
         {
@@ -67,13 +67,25 @@ namespace ExamServer.Data
                 return null;
             return new Statistic
             {
-                Average = GetAverage(student),
+                Average = Math.Round(GetAverage(student),2),
                 Median = GetMedian(student),
                 Mode = GetMode(student),
-                Distribution = GetDistribution(student)
+                Distribution = GetDistribution(student),
+                Difference = GetDifference(student)
             };
         }
-
+        private List<int> GetDifference(Student student)
+        {
+            if (student == null)
+                return new List<int>();
+            var grades = student.Grades.Select(g => g.GradeValue).ToList();
+            var differences = new List<int>();
+            for (int i = 0; i < grades.Count - 1; i++)
+            {
+                differences.Add(grades[i + 1] - grades[i]);
+            }
+            return differences;
+        }
         private Dictionary<double, int> GetDistribution(Student student)
         {
             if (student == null)

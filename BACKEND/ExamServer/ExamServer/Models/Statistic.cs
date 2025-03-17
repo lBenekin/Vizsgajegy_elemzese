@@ -6,5 +6,6 @@
         public double Median { get; set; }
         public double Mode { get; set; }
         public Dictionary<double, int> Distribution { get; set; }
+        public List<int> Difference { get; set; }
     }
 }

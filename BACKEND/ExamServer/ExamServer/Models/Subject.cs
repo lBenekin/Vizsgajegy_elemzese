@@ -5,13 +5,10 @@ namespace ExamServer.Models
 {
     public class Subject
     {
-        public Subject(int id, string name, string code, string description)
+        public Subject()
         {
-            Id = id;
-            Name = name;
-            Code = code;
-            Description = description;
             Grades = new HashSet<Grade>();
+            //Students = new HashSet<StudentSubject>();
         }
 
         [Key]
@@ -21,5 +18,6 @@ namespace ExamServer.Models
         public string Code { get; set; }
         public string Description { get; set; }
         public ICollection<Grade> Grades { get; set; }
+        //public ICollection<StudentSubject> Students { get; set; }
     }
 }
