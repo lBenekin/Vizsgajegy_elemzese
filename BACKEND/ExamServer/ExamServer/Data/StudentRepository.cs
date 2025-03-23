@@ -9,8 +9,8 @@ namespace ExamServer.Data
         IEnumerable<Student> GetAll();
 
         Student GetById(int id);
-
-        Statistic GetStatistics(int id);
+        Statistic GetStudentStatistics(int id);
+        Statistic GetStudentStatisticsBySubject(int id, int subjectId);
         void Add(Student entity);
 
         void Update(Student entity);
@@ -60,38 +60,49 @@ namespace ExamServer.Data
                 _context.SaveChanges();
             }
         }
-        public Statistic GetStatistics(int id)
+        public Statistic GetStudentStatistics(int id)
         {
             var student = GetById(id);
             if (student == null)
                 return null;
+            var grades = student.Grades.Select(g => g.GradeValue).ToList();
             return new Statistic
             {
-                Average = Math.Round(GetAverage(student),2),
-                Median = GetMedian(student),
-                Mode = GetMode(student),
-                Distribution = GetDistribution(student),
-                Difference = GetDifference(student)
+                Average = Math.Round(GetAverage(grades),2),
+                Median = GetMedian(grades),
+                Mode = GetMode(grades),
+                Distribution = GetDistribution(grades)
             };
         }
-        private List<int> GetDifference(Student student)
+        public Statistic GetStudentStatisticsBySubject(int id, int subjectId)
         {
+            var student = GetById(id);
             if (student == null)
-                return new List<int>();
-            var grades = student.Grades.Select(g => g.GradeValue).ToList();
+                return null;
+            var subject = student.Grades.FirstOrDefault(g => g.SubjectId == subjectId).Subject;
+            if (subject == null)
+                return null;
+            var grades = student.Grades.Where(g => g.SubjectId == subjectId).Select(g => g.GradeValue).ToList();
+            return new Statistic
+            {
+                Average = Math.Round(GetAverage(grades), 2),
+                Median = GetMedian(grades),
+                Mode = GetMode(grades),
+                Distribution = GetDistribution(grades),
+                Difference = GetDifference(grades)
+            };
+        }
+        private List<int> GetDifference(List<int> grades)
+        {
             var differences = new List<int>();
             for (int i = 0; i < grades.Count - 1; i++)
             {
-                differences.Add(grades[i + 1] - grades[i]);
+                differences.Add(Math.Abs(grades[i + 1] - grades[i]));
             }
             return differences;
         }
-        private Dictionary<double, int> GetDistribution(Student student)
+        private Dictionary<double, int> GetDistribution(List<int> grades)
         {
-            if (student == null)
-                return new Dictionary<double, int>();
-
-            var grades = student.Grades.Select(g => g.GradeValue).ToList();
 
             var gradeRange = new Dictionary<double, int>
             {
@@ -112,12 +123,8 @@ namespace ExamServer.Data
 
             return gradeRange;
         }
-
-        private double GetMode(Student student)
+        private double GetMode(List<int> grades)
         {
-            if (student == null)
-                return 0;
-            var grades = student.Grades.Select(g => g.GradeValue).ToList();
             var mode = grades.GroupBy(g => g)
                 .OrderByDescending(g => g.Count())
                 .Select(g => g.Key)
@@ -125,21 +132,19 @@ namespace ExamServer.Data
             return mode;
         }
 
-        private double GetMedian(Student student)
+        private double GetMedian(List<int> grades)
         {
-            if (student == null)
-                return 0;
-            var grades = student.Grades.Select(g => g.GradeValue).OrderBy(g => g).ToList();
+            grades.Sort();
             var count = grades.Count;
             if (count % 2 == 0)
                 return (grades[count / 2 - 1] + grades[count / 2]) / 2;
             return grades[count / 2];
         }
 
-        private double GetAverage(Student student)
+        private double GetAverage(List<int> grades)
         {
-            return student == null ? 0 : student.Grades.Average(g => g.GradeValue);
+            return grades.Average();
         }
-        
+
     }
 }

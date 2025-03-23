@@ -11,6 +11,7 @@
   "profiles": {
     "http": {
       "commandName": "Project",
+      "launchUrl": "swagger/index.html",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5196",
@@ -20,6 +21,7 @@
     },
     "IIS Express": {
       "commandName": "IISExpress",
+      "launchUrl": "swagger/index.html",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

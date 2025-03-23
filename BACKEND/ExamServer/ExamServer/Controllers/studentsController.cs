@@ -31,6 +31,30 @@ namespace ExamServer.Controllers
                 return NotFound();
             return Ok(student);
         }
+        [HttpGet("{id}/subjects")]
+        public IActionResult GetSubjectsByStudentId(int id)
+        {
+            var student = _repository.GetById(id);
+            if (student == null)
+                return NotFound();
+
+            var subjectsWithGrades = student.Grades
+                .GroupBy(g => g.Subject)
+                .Select(group => new
+                {
+                    Subject = new
+                    {
+                        Id = group.Key.Id,
+                        Name = group.Key.Name,
+                        Code = group.Key.Code,
+                        Description = group.Key.Description
+                    },
+                    Grades = group.Select(g => g.GradeValue).ToList()
+                })
+                .ToList();
+
+            return Ok(subjectsWithGrades);
+        }
         [HttpGet("{id}/grades")]
         public IActionResult GetGradesByStudentId(int id)
         {
@@ -42,7 +66,7 @@ namespace ExamServer.Controllers
         [HttpGet("{id}/statistics")]
         public IActionResult GetStudentStatistics(int id)
         {
-            var statistics = _repository.GetStatistics(id);
+            var statistics = _repository.GetStudentStatistics(id);
             if (statistics == null)
                 return NotFound();
             return Ok(statistics);
@@ -50,7 +74,7 @@ namespace ExamServer.Controllers
         [HttpGet("{id}/{subjectId}/statistics")]
         public IActionResult GetStudentSubjectStatistics(int id, int subjectId)
         {
-            var statistics = _repository.GetStatistics(id);
+            var statistics = _repository.GetStudentStatisticsBySubject(id, subjectId);
             if (statistics == null)
                 return NotFound();
             return Ok(statistics);
@@ -83,30 +107,7 @@ namespace ExamServer.Controllers
             _repository.Delete(id);
             return NoContent();
         }
-        [HttpGet("{id}/subjects")]
-        public IActionResult GetSubjectsByStudentId(int id)
-        {
-            var student = _repository.GetById(id);
-            if (student == null)
-                return NotFound();
-
-            var subjectsWithGrades = student.Grades
-                .GroupBy(g => g.Subject)
-                .Select(group => new
-                {
-                    Subject = new
-                    {
-                        Id = group.Key.Id,
-                        Name = group.Key.Name,
-                        Code = group.Key.Code,
-                        Description = group.Key.Description
-                    },
-                    Grades = group.Select(g => g.GradeValue).ToList()
-                })
-                .ToList();
-
-            return Ok(subjectsWithGrades);
-        }
+        
     }
 }
 

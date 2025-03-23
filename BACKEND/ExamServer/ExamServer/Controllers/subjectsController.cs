@@ -32,7 +32,14 @@ namespace ExamServer.Controllers
                 return NotFound();
             return Ok(subject);
         }
-
+        [HttpGet("{id}/grades")]
+        public IActionResult GetGradesBySubjectId(int id)
+        {
+            var subject = _repository.GetById(id);
+            if (subject == null)
+                return NotFound();
+            return Ok(subject.Grades);
+        }
 
         [HttpPost]
         public IActionResult Post([FromBody] Subject subject)
