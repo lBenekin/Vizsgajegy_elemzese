@@ -1,4 +1,5 @@
 ﻿using ExamServer.Models;
+using ExamServer.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -101,50 +102,50 @@ namespace ExamServer.Data
             }
             return differences;
         }
-        private Dictionary<double, int> GetDistribution(List<int> grades)
-        {
+        //private Dictionary<double, int> GetDistribution(List<int> grades)
+        //{
 
-            var gradeRange = new Dictionary<double, int>
-            {
-                { 1, 0 },
-                { 2, 0 },
-                { 3, 0 },
-                { 4, 0 },
-                { 5, 0 }
-            };
+        //    var gradeRange = new Dictionary<double, int>
+        //    {
+        //        { 1, 0 },
+        //        { 2, 0 },
+        //        { 3, 0 },
+        //        { 4, 0 },
+        //        { 5, 0 }
+        //    };
 
-            foreach (var grade in grades)
-            {
-                if (gradeRange.ContainsKey(grade))
-                {
-                    gradeRange[grade]++;
-                }
-            }
+        //    foreach (var grade in grades)
+        //    {
+        //        if (gradeRange.ContainsKey(grade))
+        //        {
+        //            gradeRange[grade]++;
+        //        }
+        //    }
 
-            return gradeRange;
-        }
-        private double GetMode(List<int> grades)
-        {
-            var mode = grades.GroupBy(g => g)
-                .OrderByDescending(g => g.Count())
-                .Select(g => g.Key)
-                .FirstOrDefault();
-            return mode;
-        }
+        //    return gradeRange;
+        //}
+        //private double GetMode(List<int> grades)
+        //{
+        //    var mode = grades.GroupBy(g => g)
+        //        .OrderByDescending(g => g.Count())
+        //        .Select(g => g.Key)
+        //        .FirstOrDefault();
+        //    return mode;
+        //}
 
-        private double GetMedian(List<int> grades)
-        {
-            grades.Sort();
-            var count = grades.Count;
-            if (count % 2 == 0)
-                return (grades[count / 2 - 1] + grades[count / 2]) / 2;
-            return grades[count / 2];
-        }
+        //private double GetMedian(List<int> grades)
+        //{
+        //    grades.Sort();
+        //    var count = grades.Count;
+        //    if (count % 2 == 0)
+        //        return (grades[count / 2 - 1] + grades[count / 2]) / 2;
+        //    return grades[count / 2];
+        //}
 
-        private double GetAverage(List<int> grades)
-        {
-            return grades.Average();
-        }
+        //private double GetAverage(List<int> grades)
+        //{
+        //    return grades.Average();
+        //}
 
     }
 }
