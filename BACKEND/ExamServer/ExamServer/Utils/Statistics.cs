@@ -46,5 +46,15 @@
         {
             return grades.Average();
         }
+        public static List<int> GetDifference(List<int> grades)
+        {
+            var differences = new List<int>();
+            differences.Add(grades[0]);
+            for (int i = 0; i < grades.Count - 1; i++)
+            {
+                differences.Add(Math.Abs(grades[i + 1] - grades[i]));
+            }
+            return differences;
+        }
     }
 }

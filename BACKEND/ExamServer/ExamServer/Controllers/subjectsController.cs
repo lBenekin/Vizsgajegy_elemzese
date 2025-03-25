@@ -40,7 +40,14 @@ namespace ExamServer.Controllers
                 return NotFound();
             return Ok(subject.Grades);
         }
-
+        [HttpGet("{id}/statistics")]
+        public IActionResult GetStudentStatistics(int id)
+        {
+            var statistics = _repository.GetSubjectStatistics(id);
+            if (statistics == null)
+                return NotFound();
+            return Ok(statistics);
+        }
         [HttpPost]
         public IActionResult Post([FromBody] Subject subject)
         {

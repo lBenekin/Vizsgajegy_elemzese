@@ -40,6 +40,38 @@ namespace ExamServer.Data
             .ThenInclude(g => g.Subject) // Betöltjük a tantárgyakat is a jegyekhez
         .FirstOrDefault(s => s.Id == id);
         }
+        public Statistic GetStudentStatistics(int id)
+        {
+            var student = GetById(id);
+            if (student == null)
+                return null;
+            var grades = student.Grades.Select(g => g.GradeValue).ToList();
+            return new Statistic
+            {
+                Average = Math.Round(Statistics.GetAverage(grades),2),
+                Median = Statistics.GetMedian(grades),
+                Mode = Statistics.GetMode(grades),
+                Distribution = Statistics.GetDistribution(grades)
+            };
+        }
+        public Statistic GetStudentStatisticsBySubject(int id, int subjectId)
+        {
+            var student = GetById(id);
+            if (student == null)
+                return null;
+            var subject = student.Grades.FirstOrDefault(g => g.SubjectId == subjectId).Subject;
+            if (subject == null)
+                return null;
+            var grades = student.Grades.Where(g => g.SubjectId == subjectId).Select(g => g.GradeValue).ToList();
+            return new Statistic
+            {
+                Average = Math.Round(Statistics.GetAverage(grades), 2),
+                Median = Statistics.GetMedian(grades),
+                Mode = Statistics.GetMode(grades),
+                Distribution = Statistics.GetDistribution(grades),
+                Difference = Statistics.GetDifference(grades)
+            };
+        }
         public void Add(Student student)
         {
             _context.Students.Add(student);
@@ -61,47 +93,15 @@ namespace ExamServer.Data
                 _context.SaveChanges();
             }
         }
-        public Statistic GetStudentStatistics(int id)
-        {
-            var student = GetById(id);
-            if (student == null)
-                return null;
-            var grades = student.Grades.Select(g => g.GradeValue).ToList();
-            return new Statistic
-            {
-                Average = Math.Round(GetAverage(grades),2),
-                Median = GetMedian(grades),
-                Mode = GetMode(grades),
-                Distribution = GetDistribution(grades)
-            };
-        }
-        public Statistic GetStudentStatisticsBySubject(int id, int subjectId)
-        {
-            var student = GetById(id);
-            if (student == null)
-                return null;
-            var subject = student.Grades.FirstOrDefault(g => g.SubjectId == subjectId).Subject;
-            if (subject == null)
-                return null;
-            var grades = student.Grades.Where(g => g.SubjectId == subjectId).Select(g => g.GradeValue).ToList();
-            return new Statistic
-            {
-                Average = Math.Round(GetAverage(grades), 2),
-                Median = GetMedian(grades),
-                Mode = GetMode(grades),
-                Distribution = GetDistribution(grades),
-                Difference = GetDifference(grades)
-            };
-        }
-        private List<int> GetDifference(List<int> grades)
-        {
-            var differences = new List<int>();
-            for (int i = 0; i < grades.Count - 1; i++)
-            {
-                differences.Add(Math.Abs(grades[i + 1] - grades[i]));
-            }
-            return differences;
-        }
+        //private List<int> GetDifference(List<int> grades)
+        //{
+        //    var differences = new List<int>();
+        //    for (int i = 0; i < grades.Count - 1; i++)
+        //    {
+        //        differences.Add(Math.Abs(grades[i + 1] - grades[i]));
+        //    }
+        //    return differences;
+        //}
         //private Dictionary<double, int> GetDistribution(List<int> grades)
         //{
 
