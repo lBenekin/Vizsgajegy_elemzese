@@ -1,3 +1,0 @@
-Hallgatók (id,name,birt_date,email)
-Tárgyak (id,name,code)
-Jegyek (id, student_id, subject_id, grade, date)

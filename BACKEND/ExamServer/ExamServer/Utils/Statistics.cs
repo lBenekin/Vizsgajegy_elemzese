@@ -1,4 +1,6 @@
-﻿namespace ExamServer.Utils
+﻿using System.Diagnostics;
+
+namespace ExamServer.Utils
 {
     public class Statistics
     {
@@ -35,11 +37,11 @@
 
         public static double GetMedian(List<int> grades)
         {
-            grades.Sort();
-            var count = grades.Count;
+            List<int> sortedGrades = grades.OrderBy(g => g).ToList();
+            var count = sortedGrades.Count;
             if (count % 2 == 0)
-                return (grades[count / 2 - 1] + grades[count / 2]) / 2;
-            return grades[count / 2];
+                return (sortedGrades[count / 2 - 1] + sortedGrades[count / 2]) / 2;
+            return sortedGrades[count / 2];
         }
 
         public static double GetAverage(List<int> grades)
@@ -49,7 +51,11 @@
         public static List<int> GetDifference(List<int> grades)
         {
             var differences = new List<int>();
-            differences.Add(grades[0]);
+            //differences.Add(grades[0]);
+            for (int i = 0; i < grades.Count; i++)
+            {
+                Debug.WriteLine(grades[i]);
+            }
             for (int i = 0; i < grades.Count - 1; i++)
             {
                 differences.Add(Math.Abs(grades[i + 1] - grades[i]));
