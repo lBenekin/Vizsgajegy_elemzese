@@ -7,7 +7,6 @@ fetch('http://localhost:5196/api/students/1/statistics')
         document.getElementById("average").textContent = data.average ?? '-';
         document.getElementById("median").textContent = data.median ?? '-';
         document.getElementById("mode").textContent = data.mode ?? '-';
-        console.log(data.average);
         setCardBackground('average-card', data.average);
         setCardBackground('median-card', data.median);
         setCardBackground('mode-card', data.mode);
@@ -66,7 +65,6 @@ fetch('http://localhost:5196/api/students/1/statistics')
         .then(data => {
             const differences = data.difference; // [2, 1, 1]
             const grades = [2, 3, 4, 5]; // Az osztályzatok skálája
-            console.log(differences[0]);
             drawLineChart(grades, differences);
         })
         .catch(error => console.error("Hiba történt az API hívás során:", error));
@@ -146,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             const differences = data.difference; // [2, 1, 1]
             const grades = [2, 3, 4, 5]; // Az osztályzatok skálája
-            console.log(differences[0]);
             drawLineChart(grades, differences);
         })
         .catch(error => console.error("Hiba történt az API hívás során:", error));
@@ -213,5 +210,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
         drawAxes();
         drawChartLine();
+        
     }
+
+
+
+
+    fetchStudents();
+    document.getElementById("studentsSelector").addEventListener("change", function () {
+        const selectedStudentId = this.value;
+        if (selectedStudentId) {
+            fetchSubjectsForStudent(selectedStudentId);
+        } else {
+            clearSubjects(); // Ha nincs kiválasztott diák, töröljük a tárgyakat
+        }
+    });
+    function fetchStudents()
+    {
+        fetch('http://localhost:5196/api/students')
+        .then(response => response.json())
+        .then(data => {
+            //studentsSelector = document.getElementById("studentsSelector");
+            data.forEach(student => {
+                const option = document.createElement("option");
+                option.value = student.id;
+                option.textContent = `${student.firstName} ${student.lastName}`;
+                studentsSelector.appendChild(option);
+
+
+            });
+        });
+    }
+
+    function fetchSubjectsForStudent(studentId)
+    {
+        console.log(studentId);
+        subjectsSelector = document.getElementById("subjectsSelector");
+        subjectsSelector.innerHTML = "";
+        fetch(`http://localhost:5196/api/students/${studentId}/subjects`)
+        .then(response => response.json())
+        .then(data => {
+            
+            data.forEach(subject => {
+                const option = document.createElement("option");
+                option.value = subject["subject"].id;
+                option.textContent = `${subject["subject"].name}`;
+                subjectsSelector.appendChild(option);
+
+
+            });
+        });
+    }
+
 });
+

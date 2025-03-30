@@ -1,9 +1,24 @@
 body {
-    background-image: url('assets/images/graduation2.webp');
+    background-image: url('../assets/images/graduation2.webp');
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
     height: 100%;
+    }
+    #selectorContainer{
+        gap:20px;
+    }
+    select{
+        min-height: 30px;
+        padding: 10px;
+        border: black solid 1.5px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 18px;
+    }
+    select option{
+        font-weight: 600;
+
     }
     #content{
         background-color: #ffffffc3;
@@ -45,8 +60,8 @@ body {
         height: 200px;
         border: black solid 2px;
         justify-content: center;
+        width: 50%;
     }
-    
     /*.diagram widtfh: 48% kell és akkor dinamikus*/
     .nav-link{
         font-size: large;
