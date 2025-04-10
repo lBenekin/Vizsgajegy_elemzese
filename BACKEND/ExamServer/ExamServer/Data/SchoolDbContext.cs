@@ -42,10 +42,12 @@ namespace ExamServer.Data
                 new Grade { Id = 2, StudentId = 2, SubjectId = 1, GradeValue = 4 },  // Jane Smith - Mathematics - 4
                 new Grade { Id = 3, StudentId = 3, SubjectId = 2, GradeValue = 3 },  // Mark Johnson - English - 3
                 new Grade { Id = 4, StudentId = 1, SubjectId = 2, GradeValue = 5 },  // John Doe - English - 4
-                new Grade { Id = 10, StudentId = 1, SubjectId = 2, GradeValue = 1 },  // John Doe - English - 2
-                new Grade { Id = 11, StudentId = 1, SubjectId = 2, GradeValue = 4 },  // John Doe - English - 3
-                new Grade { Id = 12, StudentId = 1, SubjectId = 2, GradeValue = 3 },  // John Doe - English - 3
-                new Grade { Id = 13, StudentId = 1, SubjectId = 2, GradeValue = 4 },  // John Doe - English - 3
+                new Grade { Id = 10, StudentId = 1, SubjectId = 2, GradeValue = 1 },  // John Doe - English - 1
+                new Grade { Id = 11, StudentId = 1, SubjectId = 2, GradeValue = 4 },  // John Doe - English - 4
+                new Grade { Id = 12, StudentId = 1, SubjectId = 2, GradeValue = 4 },  // John Doe - English - 3
+                new Grade { Id = 13, StudentId = 1, SubjectId = 2, GradeValue = 1 },  // John Doe - English - 4
+                new Grade { Id = 14, StudentId = 1, SubjectId = 2, GradeValue = 5 },  // John Doe - English - 1
+                new Grade { Id = 15, StudentId = 1, SubjectId = 2, GradeValue = 4 },  // John Doe - English - 5
                 new Grade { Id = 5, StudentId = 1, SubjectId = 3, GradeValue = 5 },  // John Doe - History - 5
                 new Grade { Id = 6, StudentId = 1, SubjectId = 4, GradeValue = 1 },  // John Doe - IT - 1
                 new Grade { Id = 7, StudentId = 1, SubjectId = 5, GradeValue = 3 },  // John Doe - PE - 3

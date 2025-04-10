@@ -36,11 +36,11 @@
         <div class="row mt-4 m-4" id="selectorContainer">
             <h3>Select student</h3>
             <select id="studentsSelector">
-                <option value="" disabled selected hidden>Select your option</option>
+                <option value="" disabled selected hidden>Válaszd ki a tanulót</option>
             </select>
             <h3>Select subject</h3>
             <select id="subjectsSelector" >
-                <option value="" disabled selected hidden>Select your option</option>
+                <option value="" disabled selected hidden>Válaszd ki a tárgyat</option>
             </select>
         </div>    
 
@@ -50,7 +50,7 @@
             <div class="col-md-4" >
                 <div class="card shadow" id="average-card">
                     <div class="card-body">
-                        <h5 class="card-title">Average grade</h5>
+                        <h5 class="card-title">Átlag</h5>
                         <p class="card-text display-6" id="average">-</p>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
             <div class="col-md-4">
                 <div class="card shadow" id="median-card">
                     <div class="card-body">
-                        <h5 class="card-title">Median</h5>
+                        <h5 class="card-title">Medián</h5>
                         <p class="card-text display-6" id="median">-</p>
                     </div>
                 </div>
@@ -66,17 +66,20 @@
             <div class="col-md-4">
                 <div class="card shadow" id="mode-card">
                     <div class="card-body">
-                        <h5 class="card-title">Mode</h5>
+                        <h5 class="card-title">Módusz</h5>
                         <p class="card-text display-6" id="mode">-</p>
                     </div>
                 </div>
             </div>
         </div>
-        <h3 class="m-4">Grade deviation</h3>
+        <h3 class="m-4">Vizsgajegyek eloszlása</h3>
 
         <div class="diagram-container d-flex m-4">
+            <div id="yAxis" class="y-axis"></div>
             <div id="histogram" class="diagram d-flex align-items-end"></div>
-            <div class="d-flex"><canvas id="chartCanvas" width="400" height="300"></canvas></div>
+            <div class="d-flex">
+                <canvas id="chartCanvas" width="400" height="300"></canvas>
+            </div>
         </div>
     </div>
 

@@ -5161,19 +5161,19 @@
   },
   "packageFolders": {
     "C:\\Users\\Bence\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "D:\\Visual Studio Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Bence\\Desktop\\Suli\\4.félév\\VIZSGAJEGYELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\ExamServer.csproj",
+      "projectUniqueName": "D:\\Egyetem\\4.félév\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\ExamServer.csproj",
       "projectName": "ExamServer",
-      "projectPath": "C:\\Users\\Bence\\Desktop\\Suli\\4.félév\\VIZSGAJEGYELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\ExamServer.csproj",
+      "projectPath": "D:\\Egyetem\\4.félév\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\ExamServer.csproj",
       "packagesPath": "C:\\Users\\Bence\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Bence\\Desktop\\Suli\\4.félév\\VIZSGAJEGYELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\obj\\",
+      "outputPath": "D:\\Egyetem\\4.félév\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "D:\\Visual Studio Shared\\NuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\Bence\\AppData\\Roaming\\NuGet\\NuGet.Config",
