@@ -6,7 +6,7 @@ body {
     height: 100%;
     }
     #selectorContainer{
-        gap:20px;
+        gap: 15px;
     }
     select{
         min-height: 30px;
@@ -14,7 +14,7 @@ body {
         border: black solid 1.5px;
         border-radius: 10px;
         font-weight: 600;
-        font-size: 18px;
+        font-size: 16px;
     }
     select option{
         font-weight: 600;

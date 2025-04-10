@@ -33,10 +33,12 @@
         </nav>
         <h1 class="text-center">Vizsgajegyek Statisztikája</h1>
 
-        <div class="row text-center mt-4 m-4" id="selectorContainer">
+        <div class="row mt-4 m-4" id="selectorContainer">
+            <h3>Select student</h3>
             <select id="studentsSelector">
                 <option value="" disabled selected hidden>Select your option</option>
             </select>
+            <h3>Select subject</h3>
             <select id="subjectsSelector" >
                 <option value="" disabled selected hidden>Select your option</option>
             </select>
@@ -48,7 +50,7 @@
             <div class="col-md-4" >
                 <div class="card shadow" id="average-card">
                     <div class="card-body">
-                        <h5 class="card-title">Átlagos jegy</h5>
+                        <h5 class="card-title">Average grade</h5>
                         <p class="card-text display-6" id="average">-</p>
                     </div>
                 </div>
@@ -56,7 +58,7 @@
             <div class="col-md-4">
                 <div class="card shadow" id="median-card">
                     <div class="card-body">
-                        <h5 class="card-title">Medián</h5>
+                        <h5 class="card-title">Median</h5>
                         <p class="card-text display-6" id="median">-</p>
                     </div>
                 </div>
@@ -64,13 +66,13 @@
             <div class="col-md-4">
                 <div class="card shadow" id="mode-card">
                     <div class="card-body">
-                        <h5 class="card-title">Leggyakoribb jegy</h5>
+                        <h5 class="card-title">Mode</h5>
                         <p class="card-text display-6" id="mode">-</p>
                     </div>
                 </div>
             </div>
         </div>
-        <h2 class="m-4">Osztályzatok Eloszlása</h2>
+        <h3 class="m-4">Grade deviation</h3>
 
         <div class="diagram-container d-flex m-4">
             <div id="histogram" class="diagram d-flex align-items-end"></div>
