@@ -37,7 +37,7 @@ body {
         background-color: #B22222;
         /* A szélesség dinamikusan is állítható, itt most fix: */
         width: 100px;
-        margin: 5px;
+        margin: 0px 5px 0px 5px;
         display: inline-block;
         vertical-align: bottom;
         color: white;
@@ -50,6 +50,7 @@ body {
             1px -1px 2px black,
             -1px 1px 2px black;
         transition: height 0.3s ease;
+        z-index: 2;
       }
       .diagram-container {
         justify-content: center;
@@ -57,23 +58,36 @@ body {
         gap: 20px;
         flex-wrap: wrap;
       }
-    #histogram {
+      #histogram {
+        position: relative;
         height: 200px;
         border: 2px solid black;
         display: flex;
         align-items: flex-end;
+        justify-content: center;
         width: 50%;
-        position: relative;
+        overflow: hidden;
       }
       .y-axis {
         display: flex;
         flex-direction: column-reverse;
         justify-content: space-between;
-        height: 170px;   /* Ugyanannyi, mint a histogram magassága */
+        height: 200px; /* Egyezik a histogram magasságával */
         margin-right: 5px;
         font-size: 14px;
+        position: relative;
+        width: 30px;
       }
-      
+      .grid-line {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 1.5px;
+        background-color: black;
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: 1;
+      }
     /*.diagram widtfh: 48% kell és akkor dinamikus*/
     .nav-link{
         font-size: large;

@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/students_style.css">
     <link rel="stylesheet" href="styles/style.css">
-    <script src="students_script.js"></script>
+    <script src="scripts/students_script.js"></script>
 </head>
 <body class="container">
     <div id="content">
@@ -34,23 +34,27 @@
         </nav>
         <h1 class="text-center">Tanulók kezelése</h1>
     
-        <div class="student-picker-container" class="row text-center mt-4 m-4">
-            <select name="" id="students_picker"></select>
-        </div>
+        <!--<div class="student-selector-container" class="row text-center mt-4 m-4">
+            <select name="" id="students-selector"></select>
+        </div>-->
 
         <div class="studentsTable-container">
-            <table id="studentsTable" border="1" cellpadding="10">
+            <!-- Görgethető tartalom, amit beállítunk -->
+            <div class="scrollable-table-container">
+              <table id="studentsTable" class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>Diák neve</th>
-                        <th>Születési dátum</th>
-                        <th>Email</th>
-                        <th>Tantárgyak és jegyek</th>
-                    </tr>
+                  <tr>
+                    <th>Diák neve</th>
+                    <th>Születési dátum</th>
+                    <th>Email</th>
+                    <th>Tantárgyak</th>
+                  </tr>
                 </thead>
                 <tbody>
+                  <!-- Itt töltjük fel az adatokat dinamikusan -->
                 </tbody>
-            </table>
+              </table>
+            </div>
         </div>
     </div>
 </body>

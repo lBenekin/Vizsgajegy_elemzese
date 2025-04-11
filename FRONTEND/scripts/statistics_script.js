@@ -62,23 +62,36 @@ function showStatistics(studentId, subjectId) {
       setCardBackground("mode-card", data.mode);
 
       //histogram
-      const yAxis = document.getElementById("yAxis");
-      yAxis.innerHTML = "";
-      for (let i = 0; i <= 5; i++) {
-        let label = document.createElement("span");
-        label.textContent = i;
-        // Opcionálisan beállíthatod, hogy a címkék egymás között egyenletesen oszlanak el
-        yAxis.appendChild(label);
-      }
-
       const histogram = document.getElementById("histogram");
       histogram.innerHTML = "";
+
+      // Dinamikus vízszintes vonalak (pl. 6 osztás = 0-5)
+      let maxY = 1; // Kezdő érték, hogy ne osztódjon nullával
+      if (data.distribution && Object.keys(data.distribution).length > 0) {
+        // Megkeressük a legnagyobb count értéket a distribution objektumban
+        maxY = Math.max(...Object.values(data.distribution)) + 1;
+      }
+      console.log("maxY: ", maxY);
+
+      // Dinamikus vízszintes vonalak (pl. 0-tól maxY-ig)
+      for (let i = 0; i <= maxY; i++) {
+        const line = document.createElement("hr");
+        line.className = "grid-line";
+        line.style.marginBottom = "-40px";
+        line.style.bottom = `${(i / maxY) * 100}%`;
+        histogram.appendChild(line);
+      }
+
+      // Sávok kirajzolása
       if (data.distribution && Object.keys(data.distribution).length > 0) {
         Object.entries(data.distribution).forEach(([grade, count]) => {
           let bar = document.createElement("div");
           bar.className = "bar";
-          bar.style.height = count * 30 + "px";
+          console.log(count);
+
+          bar.style.height = (count / maxY) * 100 + "%";
           bar.textContent = grade;
+
           if (count == 0) {
             bar.style.height = "30px";
             bar.style.backgroundColor = "rgba(255, 255, 255, 0)";

@@ -1,50 +1,45 @@
-fetch('http://localhost:5196/api/students')
-    .then(response => response.json())
-    .then(data => {
-        studentsPicker = document.getElementById("students_picker");
+fetch("http://localhost:5196/api/students")
+  .then((response) => response.json())
+  .then((data) => {
+    const table = document.getElementById("studentsTable");
+    let tableBody = table.querySelector("tbody");
+    tableBody.innerHTML = "";
 
-        const table = document.getElementById('studentsTable');
-        let tableBody = table.querySelector('tbody');
-        tableBody.innerHTML = '';
+    data.forEach((student) => {
+      const row = document.createElement("tr");
 
-        data.forEach(student => {
-            const option = document.createElement("option");
-            option.value = student.id;
-            option.textContent = `${student.firstName} ${student.lastName}`;
-            studentsPicker.appendChild(option);
+      const nameCell = document.createElement("td");
+      nameCell.textContent = `${student.firstName} ${student.lastName}`;
+      row.appendChild(nameCell);
 
+      const dobCell = document.createElement("td");
+      dobCell.textContent = new Date(student.dateOfBirth).toLocaleDateString();
+      row.appendChild(dobCell);
 
+      const emailCell = document.createElement("td");
+      emailCell.textContent = student.email;
+      row.appendChild(emailCell);
 
-            const row = document.createElement('tr');
+      const subjectsCell = document.createElement("td");
 
-            const nameCell = document.createElement('td');
-            nameCell.textContent = `${student.firstName} ${student.lastName}`;
-            row.appendChild(nameCell);
-
-            const dobCell = document.createElement('td');
-            dobCell.textContent = new Date(student.dateOfBirth).toLocaleDateString();
-            row.appendChild(dobCell);
-
-            const emailCell = document.createElement('td');
-            emailCell.textContent = student.email;
-            row.appendChild(emailCell);
-
-            const gradesCell = document.createElement('td');
-            if (student.grades && student.grades.length > 0) {
-                const gradesText = student.grades.map(grade => {
-                    fetch(`http://localhost:5196/api/subjects/${grade.subjectId}`)
-                    .then(subjectResponse => subjectResponse.json())
-                    return `Tantárgy ID: ${grade.subjectId}, Jegy: ${grade.gradeValue}`;
-                }).join('<br>');
-                gradesCell.innerHTML = gradesText;
-            } else {
-                gradesCell.textContent = 'Nincs jegy';
-            }
-            row.appendChild(gradesCell);
-
-            tableBody.appendChild(row);
-
-
-            
+      // Lekérjük az adott diák tantárgyait
+      fetch(`http://localhost:5196/api/students/${student.id}/subjects`)
+        .then((subjectResponse) => subjectResponse.json())
+        .then((subjects) => {
+          if (subjects && subjects.length > 0) {
+            // A tantárgyak neveinek összefűzése
+            const subjectsText = subjects.map((subject) => subject.subject.name).join(", ");
+            subjectsCell.textContent = subjectsText;
+          } else {
+            subjectsCell.textContent = "Nincs tantárgy";
+          }
+        })
+        .catch((error) => {
+          console.error("Hiba történt a tantárgyak betöltésekor:", error);
+          subjectsCell.textContent = "Hiba a tantárgyak betöltésében";
         });
+
+      row.appendChild(subjectsCell);
+      tableBody.appendChild(row);
     });
+  });
