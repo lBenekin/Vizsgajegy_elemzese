@@ -427,6 +427,14 @@
           "email": {
             "type": "string",
             "nullable": true
+          },
+          "subjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subject"
+            },
+            "nullable": true,
+            "readOnly": true
           }
         },
         "additionalProperties": false

@@ -21,7 +21,11 @@ namespace ExamServer.Models
         public string Email { get; set; }
         [JsonIgnore]
         public ICollection<Grade> Grades { get; set; }
-        //public ICollection<StudentSubject> Subjects { get; set; }
+        [NotMapped] //Nem rakja Db-be
+        public IEnumerable<Subject> Subjects => Grades
+            ?.Select(g => g.Subject)
+            .Distinct()
+            .ToList();
     }
 
 }

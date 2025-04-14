@@ -30,7 +30,12 @@ namespace ExamServer.Data
 
         public IEnumerable<Student> GetAll()
         {
-            return _context.Students.Include(s => s.Grades).ToList();
+            var students = _context.Students
+                .Include(s => s.Grades)
+                    .ThenInclude(g => g.Subject)
+                .ToList();
+
+            return (students);
         }
 
         public Student GetById(int id)
