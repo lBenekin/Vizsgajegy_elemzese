@@ -29,12 +29,12 @@ namespace ExamServer.Data
 
             // Seed adatok a Subject entitáshoz
             modelBuilder.Entity<Subject>().HasData(
-                new Subject { Id = 1, Name = "Mathematics", Code = "MATH101", Description = "Basic Mathematics course" },
-                new Subject { Id = 2, Name = "English", Code = "ENG101", Description = "English Language course" },
-                new Subject { Id = 3, Name = "History", Code = "HIST101", Description = "Introduction to History" },
-                new Subject { Id = 4, Name = "IT", Code = "IT101", Description = "Introduction to Information Technology" },
-                new Subject { Id = 5, Name = "PE", Code = "PE101", Description = "Physical Education" }
-            );
+                new Subject { Id = 1, Name = "Mathematics", Code = "MATH101", Description = "Alapfokú matematika kurzus" },
+                new Subject { Id = 2, Name = "English", Code = "ENG101", Description = "Angol nyelvi kurzus" },
+                new Subject { Id = 3, Name = "History", Code = "HIST101", Description = "Bevezetés a történelembe" },
+                new Subject { Id = 4, Name = "IT", Code = "IT101", Description = "Bevezetés az informatikába" },
+                new Subject { Id = 5, Name = "PE", Code = "PE101", Description = "Testnevelés" }
+);
 
             // Seed adatok a Grade entitáshoz
             modelBuilder.Entity<Grade>().HasData(

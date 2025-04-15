@@ -5,6 +5,9 @@ body {
     background-attachment: fixed;
     height: 100%;
     }
+    h1{
+      padding: 10px;
+    }
     #selectorContainer{
         gap: 15px;
     }
@@ -91,4 +94,13 @@ body {
     /*.diagram widtfh: 48% kell és akkor dinamikus*/
     .nav-link{
         font-size: large;
+    }
+    input{
+      border: black 1px solid;
+      border-radius: 6px;
+      font-size: 20px;
+      padding: 10px;
+      margin: 20px;
+      width: 300px;
+      text-align: center;
     }

@@ -38,7 +38,7 @@
             <select name="" id="students-selector"></select>
         </div>-->
 
-        <div class="studentsTable-container">
+        <div class="studentsTable-container container mt-5">
             <!-- Görgethető tartalom, amit beállítunk -->
             <div class="scrollable-table-container">
               <table id="studentsTable" class="table table-striped table-bordered text-center">
@@ -75,10 +75,6 @@
                   <div class="list-column">
                     <h4>Összes tantárgy</h4>
                     <div id="left">
-                      <div class="list" draggable="true">Matematika</div>
-                      <div class="list" draggable="true">Fizika</div>
-                      <div class="list" draggable="true">Irodalom</div>
-                      <div class="list" draggable="true">Biológia</div>
                     </div>
                   </div>
                   <div class="list-column">
@@ -88,8 +84,9 @@
                 </div>
               </div>
         </div>
-        <div id="save-button-container">
-            <button id="save-button">Mentés</button>
+        <div id="student-buttons-container">
+            <button id="delete-button" class="student-button">Tanuló törlése</button>
+            <button id="save-button" class="student-button">Mentés</button>
         </div>
     </div>
 </body>

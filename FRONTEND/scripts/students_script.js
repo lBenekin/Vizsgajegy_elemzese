@@ -47,9 +47,12 @@ fetch("http://localhost:5196/api/students")
       row.addEventListener("click", function (e) {
         // A kattintott sor adatainak kinyerése
         const clickedRow = e.currentTarget;
-
         // Adatok kinyerése a sorból (dataset használata)
+        document.querySelectorAll("#studentsTable tbody tr").forEach((r) => {
+          r.classList.remove("active-row");
+        });
 
+        clickedRow.classList.add("active-row");
         const selectedStudent = students.find((student) => student.id == row.id);
 
         // A form mezők értékeinek beállítása

@@ -84,8 +84,9 @@ namespace ExamServer.Controllers
         public IActionResult Post([FromBody] Student student)
         {
             if (student == null)
-                return BadRequest("Student cannot be null");
-            _repository.Add(student);
+                return BadRequest("Student is null");
+
+            _repository.Add(student); // innen jönnek a subject ID-k
             return CreatedAtAction(nameof(Get), new { id = student.Id }, student);
         }
 
