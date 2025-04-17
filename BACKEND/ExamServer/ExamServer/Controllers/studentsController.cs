@@ -100,7 +100,19 @@ namespace ExamServer.Controllers
             _repository.Update(student);
             return NoContent();
         }
+        [HttpPut("{id}/subjects")]
+        public IActionResult PutSubjects(int id, List<int> subjectIds)
+        {
+            if (subjectIds == null)
+                return BadRequest("Subject ID list is required.");
 
+            var student = _repository.GetById(id);
+            if (student == null)
+                return NotFound($"Student with id {id} not found.");
+
+            _repository.UpdateStudentSubjects(id, subjectIds);
+            return NoContent();
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

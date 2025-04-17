@@ -15,6 +15,7 @@ namespace ExamServer.Data
         void Add(Student entity);
 
         void Update(Student entity);
+        void UpdateStudentSubjects(int studentId, List<int> newSubjectIds);
 
         void Delete(int id);
 
@@ -94,9 +95,45 @@ namespace ExamServer.Data
             var student = _context.Students.Find(id);
             if (student != null)
             {
+                _context.Grades.RemoveRange(student.Grades);
+
                 _context.Students.Remove(student);
                 _context.SaveChanges();
             }
+        }
+
+        public void UpdateStudentSubjects(int studentId, List<int> newSubjectIds)
+        {
+            var student = _context.Students
+                .Include(s => s.Grades)
+                .FirstOrDefault(s => s.Id == studentId);
+
+            if (student == null)
+                throw new Exception("Student not found");
+
+            var currentSubjectIds = student.Grades.Select(g => g.SubjectId).Distinct().ToList();
+
+            var subjectsToAdd = newSubjectIds.Except(currentSubjectIds).ToList();
+            var subjectsToRemove = currentSubjectIds.Except(newSubjectIds).ToList();
+
+            foreach (var subjectId in subjectsToAdd)
+            {
+                student.Grades.Add(new Grade
+                {
+                    StudentId = studentId,
+                    SubjectId = subjectId,
+                    GradeValue = -1, // strázsa érték
+                    IsRealGrade = false
+                });
+            }
+
+            var gradesToRemove = student.Grades
+                .Where(g => subjectsToRemove.Contains(g.SubjectId)) //Berakom hogy && !g.IsRealGrade és akkor csak a strázsa lesz törölve így mindegyik hozzá tartozó jegy
+                .ToList();
+
+            _context.Grades.RemoveRange(gradesToRemove);
+
+            _context.SaveChanges();
         }
         //private List<int> GetDifference(List<int> grades)
         //{

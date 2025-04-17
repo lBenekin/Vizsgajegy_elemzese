@@ -1,4 +1,5 @@
 let students = [];
+let selectedStudentId = null;
 fetch("http://localhost:5196/api/students")
   .then((response) => response.json())
   .then((data) => {
@@ -54,7 +55,7 @@ fetch("http://localhost:5196/api/students")
 
         clickedRow.classList.add("active-row");
         const selectedStudent = students.find((student) => student.id == row.id);
-
+        selectedStudentId = row.id;
         // A form mezők értékeinek beállítása
         document.querySelector('input[placeholder="Név"]').value = `${selectedStudent.firstName} ${selectedStudent.lastName}`;
         document.querySelector('input[type="date"]').value = new Date(selectedStudent.dateOfBirth).toISOString().split("T")[0]; // Formátum: yyyy-mm-dd
@@ -69,6 +70,7 @@ fetch("http://localhost:5196/api/students")
           subjectElement.innerHTML = subject.name;
           rightDiv.appendChild(subjectElement);
         });
+
         updateSubjectEditor();
       });
     });
@@ -99,4 +101,12 @@ function updateSubjectEditor() {
       });
     });
   }
+}
+function saveStudent() {}
+function deleteStudent() {
+  fetch("http://localhost:5196/api/students/" + selectedStudentId, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: null,
+  });
 }

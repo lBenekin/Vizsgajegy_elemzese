@@ -243,6 +243,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ExamServer.Controllers.studentsController",
+    "Method": "PutSubjects",
+    "RelativePath": "api/students/{id}/subjects",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "subjectIds",
+        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ExamServer.Controllers.subjectsController",
     "Method": "GetAll",
     "RelativePath": "api/subjects",
