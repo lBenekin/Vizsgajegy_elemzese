@@ -21,10 +21,10 @@ namespace ExamServer.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Student>().HasData(
-        new Student { Id = 1, FirstName = "John", LastName = "Doe", DateOfBirth = new DateTime(2000, 5, 15), Email = "john.doe@example.com" },
-        new Student { Id = 2, FirstName = "Jane", LastName = "Smith", DateOfBirth = new DateTime(1999, 8, 25), Email = "jane.smith@example.com" },
-        new Student { Id = 3, FirstName = "Mark", LastName = "Johnson", DateOfBirth = new DateTime(2001, 2, 5), Email = "mark.johnson@example.com" },
-        new Student { Id = 4, FirstName = "Filip", LastName = "Ugovsek", DateOfBirth = new DateTime(2011, 1, 10), Email = "filip.ugovsek@example.com" }
+        new Student { Id = 1, Name = "John Doe", DateOfBirth = new DateTime(2000, 5, 15), Email = "john.doe@example.com" },
+        new Student { Id = 2, Name = "Jane Smith", DateOfBirth = new DateTime(1999, 8, 25), Email = "jane.smith@example.com" },
+        new Student { Id = 3, Name = "Mark Johnson", DateOfBirth = new DateTime(2001, 2, 5), Email = "mark.johnson@example.com" },
+        new Student { Id = 4, Name = "Filip Ugovsek", DateOfBirth = new DateTime(2011, 1, 10), Email = "filip.ugovsek@example.com" }
     );
 
             // Seed adatok a Subject entitáshoz

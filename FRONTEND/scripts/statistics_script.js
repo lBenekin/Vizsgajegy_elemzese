@@ -29,7 +29,7 @@ function fetchStudents() {
       data.forEach((student) => {
         const option = document.createElement("option");
         option.value = student.id;
-        option.textContent = `${student.firstName} ${student.lastName}`;
+        option.textContent = student.name;
         studentsSelector.appendChild(option);
       });
     });

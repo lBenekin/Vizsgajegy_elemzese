@@ -34,9 +34,21 @@
         </nav>
         <h1 class="text-center">Tanulók kezelése</h1>
     
-        <!--<div class="student-selector-container" class="row text-center mt-4 m-4">
-            <select name="" id="students-selector"></select>
-        </div>-->
+        <div class="container-fluid">
+            <h2>Tantárgy létrehozása</h2>
+            <div>
+                <form id="add-form">
+                    <div>
+                        <input type="text" placeholder="Név" required>
+                        <input type="text" placeholder="Tárgykód" required>
+                        <input type="text" placeholder="Leírás" required>
+                    </div>
+                    <div>
+                        <button>Hozzáadás</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <div class="studentsTable-container container mt-5">
             <!-- Görgethető tartalom, amit beállítunk -->
@@ -62,9 +74,9 @@
                 <div id="edit-student-container-forms" class="list-column">
                     <h4>Tanuló adatai</h4>
                     <form action="">
-                        <input type="text" placeholder="Név">
-                        <input type="email" placeholder="Email">
-                        <input type="date">
+                        <input type="text" placeholder="Név" id="nameBox">
+                        <input type="email" placeholder="Email" id="emailBox">
+                        <input type="date" id="dateBox">
                     </form>  
                 </div>
                 
@@ -73,7 +85,7 @@
                 <h2>Tantárgyak szerkesztése</h2>
                 <div class="list-container">
                   <div class="list-column">
-                    <h4>Összes tantárgy</h4>
+                    <h4>Felvehető tantárgyak</h4>
                     <div id="left">
                     </div>
                   </div>

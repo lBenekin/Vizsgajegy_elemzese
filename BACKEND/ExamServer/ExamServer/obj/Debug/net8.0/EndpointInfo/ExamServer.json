@@ -631,11 +631,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "firstName": {
-            "type": "string",
-            "nullable": true
-          },
-          "lastName": {
+          "name": {
             "type": "string",
             "nullable": true
           },
