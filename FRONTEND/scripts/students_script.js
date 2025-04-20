@@ -83,7 +83,7 @@ async function deleteStudent() {
     alert("Nem választottál ki tanulót!");
     return;
   }
-  const confirmation = confirm("Biztosan törölni szeretnéd?");
+  const confirmation = confirm(`Biztosan törölni szeretnéd? (${selectedStudent.name})`);
 
   if (confirmation) {
     await fetch("http://localhost:5196/api/students/" + selectedStudent.id, {
@@ -92,6 +92,7 @@ async function deleteStudent() {
       body: null,
     });
     loadStudents();
+    clearInputs();
   }
 }
 async function loadStudents() {
@@ -119,7 +120,13 @@ async function loadStudents() {
         row.appendChild(emailCell);
 
         const subjectsCell = document.createElement("td");
-        subjectsCell.textContent = student.subjects.map((subject) => subject.name).join(", ");
+        if (student.subjects.length === 0) {
+          subjectsCell.textContent = "Még nincs tárgya";
+          subjectsCell.style.color = "red";
+        } else {
+          subjectsCell.textContent = student.subjects.map((subject) => subject.name).join(", ");
+          subjectsCell.style.color = "black";
+        }
 
         row.appendChild(subjectsCell);
         tableBody.appendChild(row);
@@ -160,4 +167,25 @@ function clearInputs() {
   document.getElementById("dateBox").value = ""; // Formátum: yyyy-mm-dd
   document.getElementById("left").innerHTML = "";
   document.getElementById("right").innerHTML = "";
+  document.getElementById("addNameBox").value = "";
+  document.getElementById("addDateBox").value = "";
+  document.getElementById("addEmailBox").value = "";
+}
+async function addStudent() {
+  const name = document.getElementById("addNameBox").value;
+  const date = document.getElementById("addDateBox").value;
+  const email = document.getElementById("addEmailBox").value;
+  const newStudent = {
+    name: name,
+    dateOfBirth: date,
+    email: email,
+  };
+  console.log(JSON.stringify(newStudent));
+
+  await fetch("http://localhost:5196/api/students/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newStudent),
+  });
+  loadStudents();
 }

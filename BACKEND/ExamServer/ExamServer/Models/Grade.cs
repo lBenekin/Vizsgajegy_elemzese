@@ -24,6 +24,7 @@ namespace ExamServer.Models
         public Subject Subject { get; set; }
         public int GradeValue { get; set; }
         public bool IsRealGrade { get; set; } = true;
+        public string Comment { get; set; } = string.Empty;
     }
 
 }

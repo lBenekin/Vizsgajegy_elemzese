@@ -6,6 +6,11 @@ namespace ExamServer.Utils
     {
         public static Dictionary<double, int> GetDistribution(List<int> grades)
         {
+            int falseGradeIndex = grades.IndexOf(-1);
+            if (falseGradeIndex != -1)
+            {
+                grades.RemoveAt(falseGradeIndex);
+            }
 
             var gradeRange = new Dictionary<double, int>
             {
@@ -28,6 +33,11 @@ namespace ExamServer.Utils
         }
         public static double GetMode(List<int> grades)
         {
+            int falseGradeIndex = grades.IndexOf(-1);
+            if (falseGradeIndex != -1)
+            {
+                grades.RemoveAt(falseGradeIndex);
+            }
             var mode = grades.GroupBy(g => g)
                 .OrderByDescending(g => g.Count())
                 .Select(g => g.Key)
@@ -38,6 +48,10 @@ namespace ExamServer.Utils
         public static double GetMedian(List<int> grades)
         {
             List<int> sortedGrades = grades.OrderBy(g => g).ToList();
+            if (sortedGrades[0] == -1)
+            {
+                sortedGrades.RemoveAt(0);
+            }
             var count = sortedGrades.Count;
             if (count % 2 == 0)
                 return (sortedGrades[count / 2 - 1] + sortedGrades[count / 2]) / 2;
@@ -46,16 +60,26 @@ namespace ExamServer.Utils
 
         public static double GetAverage(List<int> grades)
         {
-            return grades.Average();
+            int falseGrade = 0;
+            int sum = 0;
+            for (int i = 0; i < grades.Count; i++)
+            {
+                if (grades[i] != -1)
+                {
+                    sum += grades[i];   
+                }
+            }
+            return sum / (grades.Count - falseGrade);
         }
         public static List<int> GetDifference(List<int> grades)
         {
+            int falseGradeIndex = grades.IndexOf(-1);
+            if (falseGradeIndex != -1)
+            {
+                grades.RemoveAt(falseGradeIndex);
+            }
             var differences = new List<int>();
             //differences.Add(grades[0]);
-            for (int i = 0; i < grades.Count; i++)
-            {
-                Debug.WriteLine(grades[i]);
-            }
             for (int i = 0; i < grades.Count - 1; i++)
             {
                 differences.Add(Math.Abs(grades[i + 1] - grades[i]));

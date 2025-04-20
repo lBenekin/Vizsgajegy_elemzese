@@ -36,17 +36,13 @@
     
         <div class="container-fluid">
             <h2>Tantárgy létrehozása</h2>
-            <div>
-                <form id="add-form">
-                    <div>
-                        <input type="text" placeholder="Név" required>
-                        <input type="text" placeholder="Tárgykód" required>
-                        <input type="text" placeholder="Leírás" required>
-                    </div>
-                    <div>
-                        <button>Hozzáadás</button>
-                    </div>
-                </form>
+            <div id="add-form-inputs-container">
+                <input type="text" placeholder="Név" id="addNameBox" required>
+                <input type="date" id="addDateBox">
+                <input type="text" placeholder="Email" id="addEmailBox" required>
+            </div>
+            <div id="add-form-button-container">
+                <button id="addStudentButton" onclick="addStudent(event)">Hozzáadás</button>
             </div>
         </div>
 
@@ -73,11 +69,9 @@
                 <h2>Tanulók szerkesztése</h2>
                 <div id="edit-student-container-forms" class="list-column">
                     <h4>Tanuló adatai</h4>
-                    <form action="">
-                        <input type="text" placeholder="Név" id="nameBox">
-                        <input type="email" placeholder="Email" id="emailBox">
-                        <input type="date" id="dateBox">
-                    </form>  
+                    <input type="text" placeholder="Név" id="nameBox">
+                    <input type="email" placeholder="Email" id="emailBox">
+                    <input type="date" id="dateBox"> 
                 </div>
                 
             </div>

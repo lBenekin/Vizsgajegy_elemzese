@@ -16,10 +16,17 @@
     font-size: 18px;
     background-color: #d0d0d0;
   }
-  #add-form{
-    justify-items: center;
+  .form-inputs-container{
+    display: flex;
+    justify-content: center;
+
   }
-  #add-form button{
+  .form-button-container{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .form-button-container button{
     width: 150px;
     height: 50px;
     padding: 5px;
@@ -29,23 +36,16 @@
     border-radius: 10px;
     background-color: #B22222;
   }
+  #edit-form-button-container{
+    gap: 30px;
+  }
+  #edit-form-button-container button{
+    gap: 30px;
+    width: 200px;
+  }
   button:active{
     position: relative;
     top: 2px;
-  }
-  #edit-form{
-    justify-items: center;
-    margin-bottom: 80px;
-  }
-  #edit-form button{
-    width: 150px;
-    height: 50px;
-    padding: 5px;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    border-radius: 10px;
-    margin-top: 20px;
   }
   #save-button{
     background-color: rgb(34, 132, 27);

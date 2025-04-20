@@ -620,6 +620,10 @@
           },
           "isRealGrade": {
             "type": "boolean"
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

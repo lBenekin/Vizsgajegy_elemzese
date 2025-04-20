@@ -33,18 +33,14 @@
         </nav>
         <h1 class="text-center">Tantárgyak kezelése</h1>
         <div class="container-fluid">
-            <h2>Tanuló hozzáadása</h2>
-            <div>
-                <form id="add-form">
-                    <div>
-                        <input type="text" placeholder="Név" required>
-                        <input type="text" placeholder="Tárgykód" required>
-                        <input type="text" placeholder="Leírás" required>
-                    </div>
-                    <div>
-                        <button>Hozzáadás</button>
-                    </div>
-                </form>
+            <h2>Tantárgy létrehozása</h2>
+            <div class="form-inputs-container">
+                <input type="text" placeholder="Név" id="addNameBox" required>
+                <input type="date" id="addDateBox">
+                <input type="text" placeholder="Email" id="addEmailBox" required>
+            </div>
+            <div class="form-button-container">
+                <button id="addStudentButton" onclick="addStudent(event)">Hozzáadás</button>
             </div>
         </div>
         <div class="container mt-5">
@@ -64,17 +60,15 @@
         <div class="container-fluid">
             <h2>Tantárgy szerkesztése</h2>
             <div>
-                <form id="edit-form">
-                    <div>
-                        <input type="text" placeholder="Név" id="name-editInput" required>
-                        <input type="text" placeholder="Tárgykód" id="code-editInput"required>
-                        <input type="text" placeholder="Leírás" id="description-editInput" required>
-                    </div>
-                    <div>
-                        <button id="delete-button">Tanuló törlése</button>
-                        <button id="save-button">Mentés</button>
-                    </div>
-                </form>
+                <div class="form-inputs-container">
+                    <input type="text" placeholder="Név" id="name-editInput" required>
+                    <input type="text" placeholder="Tárgykód" id="code-editInput"required>
+                    <input type="text" placeholder="Leírás" id="description-editInput" required>
+                </div>
+                <div class="form-button-container" id="edit-form-button-container">
+                    <button id="delete-button">Tantárgy törlése</button>
+                    <button id="save-button">Mentés</button>
+                </div>
             </div>
         </div>
     </div>
