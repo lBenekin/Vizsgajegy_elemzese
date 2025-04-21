@@ -70,12 +70,11 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "dbo.Grades [Data]",
+              "Title": "dbo.Grades.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/SchoolDb/True/SqlTable/dbo.Grades.sql",
-              "ToolTip": "dbo.Grades [Data]",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/SchoolDb/True/SqlTable/dbo.Grades.sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-04-20T15:03:07.842Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-20T15:03:07.842Z"
             },
             {
               "$type": "Document",
@@ -184,8 +183,7 @@
               "RelativeToolTip": "ExamServer\\Data\\StudentRepository.cs",
               "ViewState": "AgIAAGkAAAAAAAAAAAAawH0AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T09:37:46.711Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-14T09:37:46.711Z"
             },
             {
               "$type": "Document",
@@ -197,8 +195,7 @@
               "RelativeToolTip": "ExamServer\\Controllers\\studentsController.cs",
               "ViewState": "AgIAAFkAAAAAAAAAAIAywHAAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T09:37:36.483Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-14T09:37:36.483Z"
             },
             {
               "$type": "Document",
@@ -222,8 +219,7 @@
               "RelativeToolTip": "ExamServer\\Utils\\Statistics.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAmwAwAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T07:34:31.9Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-26T07:34:31.9Z"
             }
           ]
         }

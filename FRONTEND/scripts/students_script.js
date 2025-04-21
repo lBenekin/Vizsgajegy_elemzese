@@ -77,6 +77,8 @@ async function saveStudent() {
     body: JSON.stringify(studentSubjectIds),
   });
   loadStudents();
+  clearInputs();
+  selectedStudent = null;
 }
 async function deleteStudent() {
   if (selectedStudent == null) {
@@ -93,6 +95,7 @@ async function deleteStudent() {
     });
     loadStudents();
     clearInputs();
+    selectedStudent = null;
   }
 }
 async function loadStudents() {
@@ -162,14 +165,14 @@ async function loadStudents() {
     });
 }
 function clearInputs() {
-  document.getElementById("nameBox").value = "";
-  document.getElementById("emailBox").value = "";
-  document.getElementById("dateBox").value = ""; // Formátum: yyyy-mm-dd
-  document.getElementById("left").innerHTML = "";
-  document.getElementById("right").innerHTML = "";
-  document.getElementById("addNameBox").value = "";
-  document.getElementById("addDateBox").value = "";
-  document.getElementById("addEmailBox").value = "";
+  const inputs = document.getElementsByTagName("input");
+  Array.from(inputs).forEach((input) => {
+    input.value = "";
+  });
+  rightDiv = document.getElementById("right");
+  rightDiv.innerHTML = "";
+  leftDiv = document.getElementById("left");
+  leftDiv.innerHTML = "";
 }
 async function addStudent() {
   const name = document.getElementById("addNameBox").value;

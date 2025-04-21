@@ -37,9 +37,12 @@
         <div class="container-fluid">
             <h2>Tantárgy létrehozása</h2>
             <div id="add-form-inputs-container">
-                <input type="text" placeholder="Név" id="addNameBox" required>
-                <input type="date" id="addDateBox">
-                <input type="text" placeholder="Email" id="addEmailBox" required>
+                <form action="">
+                    <input type="text" placeholder="Név" id="addNameBox" required>
+                    <input type="date" id="addDateBox">
+                    <input type="email" placeholder="Email" id="addEmailBox" required>
+
+                </form>
             </div>
             <div id="add-form-button-container">
                 <button id="addStudentButton" onclick="addStudent(event)">Hozzáadás</button>

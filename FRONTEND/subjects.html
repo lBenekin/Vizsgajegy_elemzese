@@ -36,11 +36,11 @@
             <h2>Tantárgy létrehozása</h2>
             <div class="form-inputs-container">
                 <input type="text" placeholder="Név" id="addNameBox" required>
-                <input type="date" id="addDateBox">
-                <input type="text" placeholder="Email" id="addEmailBox" required>
+                <input type="text" placeholder="Tárgykód" id="addCodeBox" required>
+                <input type="text" placeholder="Leírás" id="addDescriptionBox" required>
             </div>
             <div class="form-button-container">
-                <button id="addStudentButton" onclick="addStudent(event)">Hozzáadás</button>
+                <button id="addStudentButton" onclick="addSubject()">Hozzáadás</button>
             </div>
         </div>
         <div class="container mt-5">
@@ -61,13 +61,13 @@
             <h2>Tantárgy szerkesztése</h2>
             <div>
                 <div class="form-inputs-container">
-                    <input type="text" placeholder="Név" id="name-editInput" required>
-                    <input type="text" placeholder="Tárgykód" id="code-editInput"required>
-                    <input type="text" placeholder="Leírás" id="description-editInput" required>
+                    <input type="text" placeholder="Név" id="nameBox" required>
+                    <input type="text" placeholder="Tárgykód" id="codeBox"required>
+                    <input type="text" placeholder="Leírás" id="descriptionBox" required>
                 </div>
                 <div class="form-button-container" id="edit-form-button-container">
-                    <button id="delete-button">Tantárgy törlése</button>
-                    <button id="save-button">Mentés</button>
+                    <button id="delete-button" onclick="deleteSubject()">Tantárgy törlése</button>
+                    <button id="save-button" onclick="saveSubject()">Mentés</button>
                 </div>
             </div>
         </div>
