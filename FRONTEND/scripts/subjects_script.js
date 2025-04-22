@@ -68,6 +68,7 @@ async function addSubject() {
     body: JSON.stringify(newSubject),
   });
   loadSubjects();
+  clearInputs();
 }
 async function deleteSubject() {
   if (selectedSubject == null) {
@@ -84,7 +85,6 @@ async function deleteSubject() {
     });
     loadSubjects();
     clearInputs();
-    selectedSubject = null;
   }
 }
 async function saveSubject() {
@@ -108,11 +108,11 @@ async function saveSubject() {
   });
   loadSubjects();
   clearInputs();
-  selectedSubject = null;
 }
 function clearInputs() {
   const inputs = document.getElementsByTagName("input");
   Array.from(inputs).forEach((input) => {
     input.value = "";
   });
+  selectedSubject = null;
 }

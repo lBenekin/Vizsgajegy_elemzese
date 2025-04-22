@@ -44,7 +44,24 @@
             </select>
         </div>    
 
-
+        <div>
+            <form id="addGradeForm">
+                <label for="gradeValue">Jegy:</label>
+                <select id="gradeValue" required>
+                  <option value="">Válassz jegyet</option>
+                  <option value="1">1 - Elégtelen</option>
+                  <option value="2">2 - Elégséges</option>
+                  <option value="3">3 - Közepes</option>
+                  <option value="4">4 - Jó</option>
+                  <option value="5">5 - Jeles</option>
+                </select>
+              
+                <label for="comment">Megjegyzés:</label>
+                <input type="text" id="comment" placeholder="Pl. dolgozat, felelés...">
+              
+                <button type="submit">Mentés</button>
+              </form>
+        </div>
 
         <div class="row text-center mt-4 m-4">
             <div class="col-md-4" >

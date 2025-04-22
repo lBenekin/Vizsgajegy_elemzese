@@ -78,7 +78,6 @@ async function saveStudent() {
   });
   loadStudents();
   clearInputs();
-  selectedStudent = null;
 }
 async function deleteStudent() {
   if (selectedStudent == null) {
@@ -95,7 +94,6 @@ async function deleteStudent() {
     });
     loadStudents();
     clearInputs();
-    selectedStudent = null;
   }
 }
 async function loadStudents() {
@@ -173,6 +171,7 @@ function clearInputs() {
   rightDiv.innerHTML = "";
   leftDiv = document.getElementById("left");
   leftDiv.innerHTML = "";
+  selectedStudent = null;
 }
 async function addStudent() {
   const name = document.getElementById("addNameBox").value;
