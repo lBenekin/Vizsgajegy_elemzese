@@ -104,17 +104,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "string"
+                "$ref": "#/components/schemas/Grade"
               }
             },
             "text/json": {
               "schema": {
-                "type": "string"
+                "$ref": "#/components/schemas/Grade"
               }
             },
             "application/*+json": {
               "schema": {
-                "type": "string"
+                "$ref": "#/components/schemas/Grade"
               }
             }
           }
@@ -617,9 +617,6 @@
           "gradeValue": {
             "type": "integer",
             "format": "int32"
-          },
-          "isRealGrade": {
-            "type": "boolean"
           },
           "comment": {
             "type": "string",

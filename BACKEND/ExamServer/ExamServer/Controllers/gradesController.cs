@@ -43,8 +43,13 @@ namespace ExamServer.Controllers
 
         // PUT api/<gradesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Grade grade)
         {
+            if (grade == null)
+                return BadRequest("Grade cannot be null");
+            grade.Id = id;
+            _repository.Update(grade);
+            return NoContent();
         }
 
         // DELETE api/<gradesController>/5

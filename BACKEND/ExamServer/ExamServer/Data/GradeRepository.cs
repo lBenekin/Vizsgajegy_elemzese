@@ -9,7 +9,7 @@ namespace ExamServer.Data
         Student GetById(int id);
         void Add(Grade entity);
 
-        void Update(Grade entity);
+        void Update(Grade grade);
 
         void Delete(int id);
 
@@ -47,9 +47,19 @@ namespace ExamServer.Data
             throw new NotImplementedException();
         }
 
-        public void Update(Grade entity)
+        public void Update(Grade grade)
         {
-            throw new NotImplementedException();
+            /*var existingGrade = _context.Grades.Find(grade.Id);
+            existingGrade = grade;
+            if (existingGrade != null)
+            {
+                existingGrade.GradeValue = grade.GradeValue;
+                existingGrade.Comment = grade.Comment;
+                existingGrade.IsRealGrade = grade.IsRealGrade;
+                _context.SaveChanges();
+            }*/
+            _context.Grades.Update(grade);
+            _context.SaveChanges();
         }
     }
 }
