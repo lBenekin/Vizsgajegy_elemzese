@@ -1,22 +1,4 @@
-#subjectsTable tbody tr:hover td{
-    background-color: #e87777;
-    border: #e87777 1px solid;
-    cursor: pointer;
-  }
-  #subjectsTable tbody tr.active-row td {
-    background-color: #e87777;
-    border: 1px solid #e87777;
-  }
-  #subjectsTable tbody tr td{
-    padding: 20px;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  #subjectsTable thead th{
-    font-size: 18px;
-    background-color: #d0d0d0;
-  }
-  .form-inputs-container{
+ .form-inputs-container{
     display: flex;
     justify-content: center;
 
@@ -36,16 +18,4 @@
   button:active{
     position: relative;
     top: 2px;
-  }
-  #save-button{
-    background-color: rgb(34, 132, 27);
-  }
-  #save-button:hover{
-    background-color: rgb(27, 107, 21);
-  }
-  #delete-button{
-    background-color: #d40606;
-  }
-  #delete-button:hover{
-    background-color: #ba0b0b;
   }

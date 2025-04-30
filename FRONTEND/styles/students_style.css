@@ -16,28 +16,6 @@
     display: flex;
     justify-content: center;
   }
-  
-  #studentsTable tbody tr:hover td{
-    background-color: #e87777;
-    border: #e87777 1px solid;
-    cursor: pointer;
-  }
-  #studentsTable tbody tr.active-row td {
-    background-color: #e87777;
-    border: 1px solid #e87777;
-  }
-  
-  #studentsTable tbody tr td{
-    padding: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    align-content: center;
-  }
-  #studentsTable thead th{
-    font-size: 18px;
-    background-color: #d0d0d0;
-    align-content: center;
-  }
   #edit-container{
     display: flex;
     margin: 10px;
@@ -63,30 +41,6 @@
     justify-content: center;
     margin: 60px 0 15px 0;
     gap: 20px;
-  }
-  .student-button{
-    width: 200px;
-    height: 50px;
-    font-size: 22px;
-    font-weight: bold;
-    color: white;
-    border-radius: 10px;
-  }
-  .student-button:active{
-    position: relative;
-    top: 2px;
-  }
-  #save-button{
-    background-color: rgb(34, 132, 27);
-  }
-  #save-button:hover{
-    background-color: rgb(27, 107, 21);
-  }
-  #delete-button{
-    background-color: #d40606;
-  }
-  #delete-button:hover{
-    background-color: #ba0b0b;
   }
   .list-container {
     width: 100%;
