@@ -35,7 +35,6 @@ async function loadSubjects() {
           });
 
           clickedRow.classList.add("active-row");
-          const selectedsubject = subjects.find((subject) => subject.id == row.id);
 
           document.querySelectorAll("#subjectsTable tbody tr").forEach((r) => {
             r.classList.remove("active-row");
@@ -89,7 +88,7 @@ async function deleteSubject() {
 }
 async function saveSubject() {
   if (selectedSubject == null) {
-    alert("Nem választottál ki tanulót!");
+    alert("Nem választottál ki tantárgyat!");
     return;
   }
   const name = document.getElementById("nameBox").value;

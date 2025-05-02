@@ -1,7 +1,8 @@
-﻿using ExamServer.Models;
+﻿using System;
+using ExamServer.Models;
 using ExamServer.Utils;
 using Microsoft.EntityFrameworkCore;
-using System;
+using Microsoft.Identity.Client;
 
 namespace ExamServer.Data
 {
@@ -10,16 +11,18 @@ namespace ExamServer.Data
         IEnumerable<Student> GetAll();
 
         Student GetById(int id);
+        IEnumerable<Subject> GetSubjectByStudentId(int id);
         Statistic GetStudentStatistics(int id);
         Statistic GetStudentStatisticsBySubject(int id, int subjectId);
+        IEnumerable<Grade> GetStudentGradesBySubject(int id, int subjectId);
         void Add(Student entity);
 
         void Update(Student entity);
         void UpdateStudentSubjects(int studentId, List<int> newSubjectIds);
 
         void Delete(int id);
-
     }
+
     public class StudentRepository : IStudentRepository
     {
         private readonly SchoolDbContext _context;
@@ -31,9 +34,9 @@ namespace ExamServer.Data
 
         public IEnumerable<Student> GetAll()
         {
-            var students = _context.Students
-                .Include(s => s.Grades)
-                    .ThenInclude(g => g.Subject)
+            var students = _context
+                .Students.Include(s => s.Grades)
+                .ThenInclude(g => g.Subject)
                 .ToList();
 
             return (students);
@@ -41,11 +44,23 @@ namespace ExamServer.Data
 
         public Student GetById(int id)
         {
-            return _context.Students
-        .Include(s => s.Grades)
-            .ThenInclude(g => g.Subject) // Betöltjük a tantárgyakat is a jegyekhez
-        .FirstOrDefault(s => s.Id == id);
+            return _context
+                .Students.Include(s => s.Grades)
+                .ThenInclude(g => g.Subject) // Betöltjük a tantárgyakat is a jegyekhez
+                .FirstOrDefault(s => s.Id == id);
         }
+
+        public IEnumerable<Subject> GetSubjectByStudentId(int id)
+        {
+            var subjects = _context
+                .Grades.Include(g => g.Subject)
+                .Where(g => g.StudentId == id && !g.IsRealGrade)
+                .Select(g => g.Subject)
+                .ToList();
+
+            return subjects;
+        }
+
         public Statistic GetStudentStatistics(int id)
         {
             var student = GetById(id);
@@ -54,12 +69,13 @@ namespace ExamServer.Data
             var grades = student.Grades.Select(g => g.GradeValue).ToList();
             return new Statistic
             {
-                Average = Math.Round(Statistics.GetAverage(grades),2),
+                Average = Math.Round(Statistics.GetAverage(grades), 2),
                 Median = Statistics.GetMedian(grades),
                 Mode = Statistics.GetMode(grades),
-                Distribution = Statistics.GetDistribution(grades)
+                Distribution = Statistics.GetDistribution(grades),
             };
         }
+
         public Statistic GetStudentStatisticsBySubject(int id, int subjectId)
         {
             var student = GetById(id);
@@ -68,16 +84,32 @@ namespace ExamServer.Data
             var subject = student.Grades.FirstOrDefault(g => g.SubjectId == subjectId).Subject;
             if (subject == null)
                 return null;
-            var grades = student.Grades.Where(g => g.SubjectId == subjectId).Select(g => g.GradeValue).ToList();
+            var grades = student
+                .Grades.Where(g => g.SubjectId == subjectId)
+                .Select(g => g.GradeValue)
+                .ToList();
             return new Statistic
             {
                 Average = Math.Round(Statistics.GetAverage(grades), 2),
                 Median = Statistics.GetMedian(grades),
                 Mode = Statistics.GetMode(grades),
                 Distribution = Statistics.GetDistribution(grades),
-                Difference = Statistics.GetDifference(grades)
+                Difference = Statistics.GetDifference(grades),
             };
         }
+
+        public IEnumerable<Grade> GetStudentGradesBySubject(int id, int subjectId)
+        {
+            var student = GetById(id);
+            if (student == null)
+                return null;
+            var subject = student.Grades.FirstOrDefault(g => g.SubjectId == subjectId).Subject;
+            if (subject == null)
+                return null;
+            var grades = student.Grades.Where(g => g.SubjectId == subjectId);
+            return grades;
+        }
+
         public void Add(Student student)
         {
             _context.Students.Add(student);
@@ -104,8 +136,8 @@ namespace ExamServer.Data
 
         public void UpdateStudentSubjects(int studentId, List<int> newSubjectIds)
         {
-            var student = _context.Students
-                .Include(s => s.Grades)
+            var student = _context
+                .Students.Include(s => s.Grades)
                 .FirstOrDefault(s => s.Id == studentId);
 
             if (student == null)
@@ -118,17 +150,19 @@ namespace ExamServer.Data
 
             foreach (var subjectId in subjectsToAdd)
             {
-                student.Grades.Add(new Grade
-                {
-                    StudentId = studentId,
-                    SubjectId = subjectId,
-                    GradeValue = -1, // strázsa érték
-                    IsRealGrade = false
-                });
+                student.Grades.Add(
+                    new Grade
+                    {
+                        StudentId = studentId,
+                        SubjectId = subjectId,
+                        GradeValue = -1, // strázsa érték
+                        IsRealGrade = false,
+                    }
+                );
             }
 
-            var gradesToRemove = student.Grades
-                .Where(g => subjectsToRemove.Contains(g.SubjectId)) //Berakom hogy && !g.IsRealGrade és akkor csak a strázsa lesz törölve így mindegyik hozzá tartozó jegy
+            var gradesToRemove = student
+                .Grades.Where(g => subjectsToRemove.Contains(g.SubjectId)) //Berakom hogy && !g.IsRealGrade és akkor csak a strázsa lesz törölve így mindegyik hozzá tartozó jegy
                 .ToList();
 
             _context.Grades.RemoveRange(gradesToRemove);
@@ -188,6 +222,5 @@ namespace ExamServer.Data
         //{
         //    return grades.Average();
         //}
-
     }
 }

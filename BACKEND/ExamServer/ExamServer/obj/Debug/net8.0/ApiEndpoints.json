@@ -169,6 +169,27 @@
   },
   {
     "ContainingType": "ExamServer.Controllers.studentsController",
+    "Method": "GetStudentSubjectGrades",
+    "RelativePath": "api/students/{id}/{subjectId}/grades",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "subjectId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamServer.Controllers.studentsController",
     "Method": "GetStudentSubjectStatistics",
     "RelativePath": "api/students/{id}/{subjectId}/statistics",
     "HttpMethod": "GET",

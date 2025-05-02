@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedStudentId = this.value;
     if (selectedStudentId) {
       fetchSubjectsForStudent(selectedStudentId);
-      showStatistics(selectedStudentId);
+      //showStatistics(selectedStudentId);
     } else {
       clearSubjects(); // Ha nincs kiválasztott diák, töröljük a tárgyakat
     }
@@ -16,12 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedSubjectId = this.value;
     if (selectedSubjectId) {
       showStatistics(selectedStudentId, selectedSubjectId);
+      showGrades(selectedStudentId, selectedSubjectId);
     } else {
       clearSubjects(); // Ha nincs kiválasztott diák, töröljük a tárgyakat
     }
   });
 });
-function fetchStudents() {
+function fetchStudents(studentId, subjectId) {
   fetch("http://localhost:5196/api/students")
     .then((response) => response.json())
     .then((data) => {
@@ -35,23 +36,85 @@ function fetchStudents() {
     });
 }
 function fetchSubjectsForStudent(studentId) {
-  console.log(studentId);
   subjectsSelector = document.getElementById("subjectsSelector");
   subjectsSelector.innerHTML = "";
   fetch(`http://localhost:5196/api/students/${studentId}/subjects`)
     .then((response) => response.json())
     .then((data) => {
-      data.forEach((subject) => {
+      if (data.length === 0) return;
+
+      data.forEach((subject, index) => {
         const option = document.createElement("option");
-        option.value = subject["subject"].id;
-        option.textContent = `${subject["subject"].name}`;
+        option.value = subject.id;
+        option.textContent = `${subject.name}`;
+        if (index === 0) option.selected = true; // első kiválasztása
         subjectsSelector.appendChild(option);
       });
+
+      // automatikusan meghívjuk a stat/jegyek lekérőt az első tárgyra
+      const selectedSubjectId = subjectsSelector.value;
+      showStatistics(studentId, selectedSubjectId);
+      showGrades(studentId, selectedSubjectId);
     });
 }
 
+function showGrades(studentId, subjectId) {
+  fetch(`http://localhost:5196/api/students/${studentId}/${subjectId}/grades`)
+    .then((response) => response.json())
+    .then((data) => {
+      const table = document.getElementById("gradesTable");
+      let tableBody = table.querySelector("tbody");
+      tableBody.innerHTML = "";
+
+      data.forEach((grade) => {
+        if (grade.gradeValue == -1) {
+          return;
+        }
+        const row = document.createElement("tr");
+        row.id = grade.id;
+
+        const valueCell = document.createElement("td");
+        const gradeSpan = document.createElement("span");
+        gradeSpan.id = `${grade.id}-grade`;
+        gradeSpan.innerHTML = grade.gradeValue;
+        gradeSpan.classList.add("grade-style");
+        valueCell.appendChild(gradeSpan);
+        row.appendChild(valueCell);
+
+        const commentCell = document.createElement("td");
+        commentCell.textContent = grade.comment.trim().length === 0 ? "Nincs megjegyzés" : `${grade.comment}`;
+        row.appendChild(commentCell);
+
+        const editButton = document.createElement("button");
+        editButton.innerHTML = "Szerkesztés";
+        editButton.classList.add("edit-button");
+        const editButtonCell = document.createElement("td");
+        editButtonCell.appendChild(editButton);
+        row.appendChild(editButtonCell);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = "Törlés";
+        deleteButton.classList.add("delete-button");
+        const deleteButtonCell = document.createElement("td");
+        deleteButtonCell.appendChild(deleteButton);
+        row.appendChild(deleteButtonCell);
+
+        tableBody.appendChild(row);
+        setCardBackground(gradeSpan.id, grade.gradeValue);
+      });
+    });
+}
+function setCardBackground(cardId, value) {
+  const card = document.getElementById(cardId);
+  console.log(card);
+  if (value < 3) {
+    card.style.backgroundColor = `rgb(255,${(value - 1) * 127.5} , 0)`;
+  } else {
+    card.style.backgroundColor = `rgb(${255 - (value - 3) * 127.5}, 255, 0)`;
+  }
+}
 function showStatistics(studentId, subjectId) {
-  fetch(`http://localhost:5196/api/students/${studentId}/statistics`)
+  fetch(`http://localhost:5196/api/students/${studentId}/${subjectId}/statistics`)
     .then((response) => response.json())
     .then((data) => {
       document.getElementById("average").textContent = data.average ?? "-";
@@ -87,7 +150,6 @@ function showStatistics(studentId, subjectId) {
         Object.entries(data.distribution).forEach(([grade, count]) => {
           let bar = document.createElement("div");
           bar.className = "bar";
-          console.log(count);
 
           bar.style.height = (count / maxY) * 100 + "%";
           bar.textContent = grade;
@@ -109,26 +171,15 @@ function showStatistics(studentId, subjectId) {
       document.getElementById("lineChart").innerHTML = "<p>Hiba történt az adatok betöltésekor.</p>";
     });
 
-  function setCardBackground(cardId, value) {
-    const card = document.getElementById(cardId);
-    if (value < 3) {
-      card.style.backgroundColor = `rgb(255,${(value - 1) * 127.5} , 0)`;
-    } else {
-      card.style.backgroundColor = `rgb(${255 - (value - 3) * 127.5}, 255, 0)`;
-    }
-  }
   const canvas = document.getElementById("chartCanvas");
   const ctx = canvas.getContext("2d");
 
   // Adatok betöltése az API-ból
-  console.log("studentID: ", studentId);
-  console.log("subjectID: ", subjectId);
   fetch(`http://localhost:5196/api/students/${studentId}/${subjectId}/statistics`) // Cseréld le a megfelelő API URL-re
     .then((response) => response.json())
     .then((data) => {
       const differences = data.difference; // [2, 1, 1]
       const grades = [2, 3, 4, 5]; // Az osztályzatok skálája
-      console.log(subjectId);
       drawLineChart(grades, differences);
     })
     .catch((error) => console.error("Hiba történt az API hívás során:", error));

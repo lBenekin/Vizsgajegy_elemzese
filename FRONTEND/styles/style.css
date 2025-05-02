@@ -67,7 +67,7 @@ body {
     }
 
 
-.tableStyle tbody tr:hover td{
+.tableStyle:not(.no-hover) tbody tr:hover td{
   background-color: #e87777;
     border: #e87777 1px solid;
     cursor: pointer;
@@ -87,6 +87,9 @@ body {
   background-color: #d0d0d0;
   align-content: center;
 }
+.tableStyle{
+  margin: 0px;
+}
 .deleteButtonStyle{
   background-color: #d40606;
 }
@@ -98,4 +101,10 @@ body {
 }
 .saveButtonStyle:hover{
   background-color: rgb(27, 107, 21);
+}
+.scrollable-table-container {
+  max-height: 400px; /* Beállíthatod a kívánt maximális magasságot */
+  overflow-y: auto;  /* Automatikus függőleges görgetés, ha szükséges */
+  margin-bottom: 10px;
+  border: 1px solid #ddd; /* A táblázat körüli keret */
 }

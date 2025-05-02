@@ -1,5 +1,6 @@
 ﻿using ExamServer.Data;
 using ExamServer.Models;
+using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExamServer.Controllers
@@ -34,26 +35,10 @@ namespace ExamServer.Controllers
         [HttpGet("{id}/subjects")]
         public IActionResult GetSubjectsByStudentId(int id)
         {
-            var student = _repository.GetById(id);
-            if (student == null)
+            var subjects = _repository.GetSubjectByStudentId(id);
+            if (subjects == null)
                 return NotFound();
-
-            var subjectsWithGrades = student.Grades
-                .GroupBy(g => g.Subject)
-                .Select(group => new
-                {
-                    Subject = new
-                    {
-                        Id = group.Key.Id,
-                        Name = group.Key.Name,
-                        Code = group.Key.Code,
-                        Description = group.Key.Description
-                    },
-                    Grades = group.Select(g => g.GradeValue).ToList()
-                })
-                .ToList();
-
-            return Ok(subjectsWithGrades);
+            return Ok(subjects);
         }
         [HttpGet("{id}/grades")]
         public IActionResult GetGradesByStudentId(int id)
@@ -79,7 +64,14 @@ namespace ExamServer.Controllers
                 return NotFound();
             return Ok(statistics);
         }
-
+        [HttpGet("{id}/{subjectId}/grades")]
+        public IActionResult GetStudentSubjectGrades(int id, int subjectId)
+        {
+            var grades = _repository.GetStudentGradesBySubject(id, subjectId);
+            if (grades == null)
+                return NotFound();
+            return Ok(grades);
+        }
         [HttpPost]
         public IActionResult Post([FromBody] Student student)
         {

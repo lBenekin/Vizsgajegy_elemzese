@@ -6,6 +6,10 @@ namespace ExamServer.Utils
     {
         public static Dictionary<double, int> GetDistribution(List<int> grades)
         {
+            if (grades.Count == 1)
+            {
+                return null;
+            }
             int falseGradeIndex = grades.IndexOf(-1);
             if (falseGradeIndex != -1)
             {
@@ -18,7 +22,7 @@ namespace ExamServer.Utils
                 { 2, 0 },
                 { 3, 0 },
                 { 4, 0 },
-                { 5, 0 }
+                { 5, 0 },
             };
 
             foreach (var grade in grades)
@@ -31,14 +35,20 @@ namespace ExamServer.Utils
 
             return gradeRange;
         }
+
         public static double GetMode(List<int> grades)
         {
+            if (grades.Count == 1)
+            {
+                return 0;
+            }
             int falseGradeIndex = grades.IndexOf(-1);
             if (falseGradeIndex != -1)
             {
                 grades.RemoveAt(falseGradeIndex);
             }
-            var mode = grades.GroupBy(g => g)
+            var mode = grades
+                .GroupBy(g => g)
                 .OrderByDescending(g => g.Count())
                 .Select(g => g.Key)
                 .FirstOrDefault();
@@ -47,6 +57,10 @@ namespace ExamServer.Utils
 
         public static double GetMedian(List<int> grades)
         {
+            if (grades.Count == 1)
+            {
+                return 0;
+            }
             List<int> sortedGrades = grades.OrderBy(g => g).ToList();
             if (sortedGrades[0] == -1)
             {
@@ -60,19 +74,40 @@ namespace ExamServer.Utils
 
         public static double GetAverage(List<int> grades)
         {
+            if (grades.Count == 1)
+            {
+                return 0;
+            }
+            Debug.Write("Grades: ");
+            foreach (var item in grades)
+            {
+                Debug.Write(item + " ");
+            }
+            Debug.WriteLine("");
             int falseGrade = 0;
-            int sum = 0;
+            double sum = 0;
             for (int i = 0; i < grades.Count; i++)
             {
                 if (grades[i] != -1)
                 {
-                    sum += grades[i];   
+                    sum += grades[i];
                 }
+                else
+                {
+                    falseGrade++;
+                }
+                Debug.WriteLine("Sum: " + sum);
+                Debug.WriteLine("falseGrade: " + falseGrade);
             }
             return sum / (grades.Count - falseGrade);
         }
+
         public static List<int> GetDifference(List<int> grades)
         {
+            if (grades.Count == 1)
+            {
+                return null;
+            }
             int falseGradeIndex = grades.IndexOf(-1);
             if (falseGradeIndex != -1)
             {

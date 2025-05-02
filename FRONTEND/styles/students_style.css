@@ -1,12 +1,6 @@
 .student-selector-container{
     margin: 20px 20px 100px 20px;
 }
-.scrollable-table-container {
-    max-height: 400px; /* Beállíthatod a kívánt maximális magasságot */
-    overflow-y: auto;  /* Automatikus függőleges görgetés, ha szükséges */
-    margin-bottom: 10px;
-    border: 1px solid #ddd; /* A táblázat körüli keret */
-  }
   #add-form-inputs-container{
     display: flex;
     justify-content: center;

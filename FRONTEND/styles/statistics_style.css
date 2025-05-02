@@ -53,3 +53,40 @@
     pointer-events: none;
     z-index: 1;
   }
+
+#addGradeForm{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 300px;
+  margin: 0 auto;
+  align-items: center;
+  background-color: rebeccapurple;
+}
+#commentInput{
+  border: black 1px solid;
+      border-radius: 6px;
+      font-size: 20px;
+      padding: 10px;
+      margin: 20px;
+      width: 280px;
+      min-width: 200px;
+      text-align: center;
+}
+
+.edit-button{
+  background-color: rgb(255, 238, 0);
+  color: black;
+}
+.delete-button{
+  background-color: #df1616;
+  color: black;
+}
+.grade-style{
+  padding: 10px 40px 10px 40px;
+  margin: 10px;
+  
+  font-size: 26px;
+  border-radius: 10px;
+  border: black solid 1px
+}
