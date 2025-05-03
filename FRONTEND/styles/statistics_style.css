@@ -53,7 +53,26 @@
     pointer-events: none;
     z-index: 1;
   }
-
+#addGradeContainer{
+  background-color: white;
+  border: 2px dotted black;
+  padding-bottom: 20px;
+  margin-top: 50px;
+}
+#gradeRadiosContainer{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 80px;
+  gap: auto;
+}
+#gradeRadiosContainer label{
+  font-size: 32px;
+  padding: 10px 30px 10px 30px;
+}
+input[type="radio"]{
+  display: none;
+}
 #addGradeForm{
   display: flex;
   flex-direction: column;
@@ -61,7 +80,6 @@
   max-width: 300px;
   margin: 0 auto;
   align-items: center;
-  background-color: rebeccapurple;
 }
 #commentInput{
   border: black 1px solid;
@@ -69,8 +87,11 @@
       font-size: 20px;
       padding: 10px;
       margin: 20px;
-      width: 280px;
+      width: 400px;
       min-width: 200px;
+      min-height: 100px;
+      max-height: 200px;
+      
       text-align: center;
 }
 

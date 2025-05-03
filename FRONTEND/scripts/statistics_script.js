@@ -1,9 +1,12 @@
+let selectedGrade = null;
+let selectedStudentId = null;
+let selectedSubjectId = null;
 document.addEventListener("DOMContentLoaded", () => {
   const studentsSelector = document.getElementById("studentsSelector");
   const subjectsSelector = document.getElementById("subjectsSelector");
   fetchStudents();
   studentsSelector.addEventListener("change", function () {
-    const selectedStudentId = this.value;
+    selectedStudentId = this.value;
     if (selectedStudentId) {
       fetchSubjectsForStudent(selectedStudentId);
       //showStatistics(selectedStudentId);
@@ -12,8 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   subjectsSelector.addEventListener("change", function () {
-    const selectedStudentId = studentsSelector.value;
-    const selectedSubjectId = this.value;
+    selectedStudentId = studentsSelector.value;
+    selectedSubjectId = this.value;
     if (selectedSubjectId) {
       showStatistics(selectedStudentId, selectedSubjectId);
       showGrades(selectedStudentId, selectedSubjectId);
@@ -52,7 +55,7 @@ function fetchSubjectsForStudent(studentId) {
       });
 
       // automatikusan meghívjuk a stat/jegyek lekérőt az első tárgyra
-      const selectedSubjectId = subjectsSelector.value;
+      selectedSubjectId = subjectsSelector.value;
       showStatistics(studentId, selectedSubjectId);
       showGrades(studentId, selectedSubjectId);
     });
@@ -65,6 +68,16 @@ function showGrades(studentId, subjectId) {
       const table = document.getElementById("gradesTable");
       let tableBody = table.querySelector("tbody");
       tableBody.innerHTML = "";
+
+      if (data.length == 1 && data[0].gradeValue == -1) {
+        const row = document.createElement("tr");
+        const noValueCell = document.createElement("td");
+        noValueCell.innerHTML = "Nincs elérhető jegy";
+        noValueCell.colSpan = 4;
+        noValueCell.classList.add("text-center");
+        row.appendChild(noValueCell);
+        tableBody.appendChild(row);
+      }
 
       data.forEach((grade) => {
         if (grade.gradeValue == -1) {
@@ -95,6 +108,9 @@ function showGrades(studentId, subjectId) {
         const deleteButton = document.createElement("button");
         deleteButton.innerHTML = "Törlés";
         deleteButton.classList.add("delete-button");
+        deleteButton.onclick = function (event) {
+          deleteGrade(event);
+        };
         const deleteButtonCell = document.createElement("td");
         deleteButtonCell.appendChild(deleteButton);
         row.appendChild(deleteButtonCell);
@@ -247,7 +263,44 @@ function showStatistics(studentId, subjectId) {
     drawChartLine();
   }
 }
+async function addGrade() {
+  const gradeValue = document.querySelector('#gradeRadiosContainer input[name="grade"]:checked').value;
+  console.log(gradeValue);
+  const comment = document.getElementById("commentInput").value;
+  const newGrade = {
+    studentId: selectedStudentId,
+    subjectId: selectedSubjectId,
+    gradeValue: gradeValue,
+    comment: comment,
+  };
+  console.log(JSON.stringify(newGrade));
 
+  await fetch("http://localhost:5196/api/grades/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newGrade),
+  });
+  showGrades(selectedStudentId, selectedSubjectId);
+  showStatistics(selectedStudentId, selectedSubjectId);
+}
+async function deleteGrade(e) {
+  const gradeId = e.target.closest("tr").id;
+  await fetch("http://localhost:5196/api/grades/" + gradeId, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: null,
+  });
+  showGrades(selectedStudentId, selectedSubjectId);
+  showStatistics(selectedStudentId, selectedSubjectId);
+}
+async function editGrade(e) {
+  //TODO
+  await fetch("http://localhost:5196/api/grades/" + selectedSubject.id, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedSubject),
+  });
+}
 /*document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("chartCanvas");
   const ctx = canvas.getContext("2d");

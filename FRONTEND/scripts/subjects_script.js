@@ -7,8 +7,20 @@ async function loadSubjects() {
     .then((data) => {
       subjects = data;
       const table = document.getElementById("subjectsTable");
+      table.classList.remove("no-hover");
       let tableBody = table.querySelector("tbody");
       tableBody.innerHTML = "";
+
+      if (data.length == 0) {
+        const row = document.createElement("tr");
+        const noValueCell = document.createElement("td");
+        noValueCell.innerHTML = "Nincs elérhető tantárgy";
+        noValueCell.colSpan = 4;
+        noValueCell.classList.add("text-center");
+        table.classList.add("no-hover");
+        row.appendChild(noValueCell);
+        tableBody.appendChild(row);
+      }
 
       data.forEach((subject) => {
         const row = document.createElement("tr");
@@ -43,9 +55,9 @@ async function loadSubjects() {
           clickedRow.classList.add("active-row");
           selectedSubject = subjects.find((subject) => subject.id == row.id);
           // A form mezők értékeinek beállítása
-          document.getElementById("nameBox").value = selectedsubject.name;
-          document.getElementById("codeBox").value = selectedsubject.code; // Formátum: yyyy-mm-dd
-          document.getElementById("descriptionBox").value = selectedsubject.description;
+          document.getElementById("nameBox").value = selectedSubject.name;
+          document.getElementById("codeBox").value = selectedSubject.code; // Formátum: yyyy-mm-dd
+          document.getElementById("descriptionBox").value = selectedSubject.description;
         });
       });
     });

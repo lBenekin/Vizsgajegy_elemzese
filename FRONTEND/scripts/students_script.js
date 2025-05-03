@@ -102,8 +102,20 @@ async function loadStudents() {
     .then((data) => {
       students = data;
       const table = document.getElementById("studentsTable");
+      table.classList.remove("no-hover");
       let tableBody = table.querySelector("tbody");
       tableBody.innerHTML = "";
+
+      if (data.length == 0) {
+        const row = document.createElement("tr");
+        const noValueCell = document.createElement("td");
+        noValueCell.innerHTML = "Nincs elérhető tanuló";
+        noValueCell.colSpan = 4;
+        noValueCell.classList.add("text-center");
+        table.classList.add("no-hover");
+        row.appendChild(noValueCell);
+        tableBody.appendChild(row);
+      }
 
       data.forEach((student) => {
         const row = document.createElement("tr");

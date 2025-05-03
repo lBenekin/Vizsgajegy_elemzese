@@ -26,13 +26,13 @@
                             <a class="nav-link" href="subjects.html">Tantárgyak kezelése</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="statistics.html">Statisztika</a>
+                            <a class="nav-link active" href="statistics.html">Jegyek és statisztika</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <h1 class="text-center">Vizsgajegyek Statisztikája</h1>
+        <h1 class="text-center">Vizsgajegyek és statisztika</h1>
 
         <div class="row mt-4 m-4" id="selectorContainer">
             <h3>Tanulók</h3>
@@ -66,26 +66,40 @@
 
 
 
-        <div class="container">
+        <div class="container" id="addGradeContainer">
             <form id="addGradeForm">
-                <label for="gradeValue">Jegy:</label>
-                <select id="gradeValue" required>
-                  <option value="">Válassz jegyet</option>
-                  <option value="1">1 - Elégtelen</option>
-                  <option value="2">2 - Elégséges</option>
-                  <option value="3">3 - Közepes</option>
-                  <option value="4">4 - Jó</option>
-                  <option value="5">5 - Jeles</option>
-                </select>
+                <!-- <div id="gradeRadiosContainer">
+                    <input type="radio" name="" id="1">
+                    <input type="radio" name="" id="2">
+                    <input type="radio" name="" id="3">
+                    <input type="radio" name="" id="4">
+                    <input type="radio" name="" id="5">
+                </div> -->
+                <div id="gradeRadiosContainer" role="group" aria-label="Grade selection">
+                    <input type="radio" class="btn-check" name="grade" id="grade1" value="1" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="grade1">1</label>
+                  
+                    <input type="radio" class="btn-check" name="grade" id="grade2" value="2" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="grade2">2</label>
+                  
+                    <input type="radio" class="btn-check" name="grade" id="grade3" value="3" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="grade3">3</label>
+                  
+                    <input type="radio" class="btn-check" name="grade" id="grade4" value="4" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="grade4">4</label>
+                  
+                    <input type="radio" class="btn-check" name="grade" id="grade5" value="5" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="grade5">5</label>
+                  </div>
+                  
+                <textarea type="text" id="commentInput" placeholder="Írd ide a megjegyzést!"></textarea>
               
-                <label for="comment">Megjegyzés:</label>
-                <textarea type="text" id="commentInput" placeholder="Pl. dolgozat, felelés..."></textarea>
-              
-                <button type="button" onclick="showGrades()">Mentés</button>
+                <button type="button" onclick="addGrade()">Hozzáadás</button>
               </form>
         </div>
 
-        <div class="row text-center mt-4 m-4">
+        <div class="row text-center mt-5 m-4 ">
+            <h2>Statisztika</h2>
             <div class="col-md-4" >
                 <div class="card shadow" id="average-card">
                     <div class="card-body">

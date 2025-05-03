@@ -64,35 +64,35 @@ namespace ExamServer.Data
                     new Subject
                     {
                         Id = 1,
-                        Name = "Mathematics",
+                        Name = "Matematika",
                         Code = "MATH101",
                         Description = "Alapfokú matematika kurzus",
                     },
                     new Subject
                     {
                         Id = 2,
-                        Name = "English",
+                        Name = "Angol nyelv",
                         Code = "ENG101",
                         Description = "Angol nyelvi kurzus",
                     },
                     new Subject
                     {
                         Id = 3,
-                        Name = "History",
+                        Name = "Történelem",
                         Code = "HIST101",
                         Description = "Bevezetés a történelembe",
                     },
                     new Subject
                     {
                         Id = 4,
-                        Name = "IT",
+                        Name = "Informatika",
                         Code = "IT101",
                         Description = "Bevezetés az informatikába",
                     },
                     new Subject
                     {
                         Id = 5,
-                        Name = "PE",
+                        Name = "Testnevelés",
                         Code = "PE101",
                         Description = "Testnevelés",
                     }

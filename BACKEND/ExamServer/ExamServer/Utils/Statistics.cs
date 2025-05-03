@@ -68,7 +68,7 @@ namespace ExamServer.Utils
             }
             var count = sortedGrades.Count;
             if (count % 2 == 0)
-                return (sortedGrades[count / 2 - 1] + sortedGrades[count / 2]) / 2;
+                return (sortedGrades[count / 2 - 1] + sortedGrades[count / 2]) / 2.0;
             return sortedGrades[count / 2];
         }
 
