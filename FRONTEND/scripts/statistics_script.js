@@ -156,7 +156,7 @@ function showStatistics(studentId, subjectId) {
       const histogram = document.getElementById("histogram");
 
       yAxis.innerHTML = "";
-      histogram.innerHTML = "";
+      //histogram.innerHTML = "";
 
       const numLines = 6;
       for (let i = 0; i < numLines; i++) {
@@ -170,27 +170,52 @@ function showStatistics(studentId, subjectId) {
         histogram.appendChild(line);
 
         // Label
-        const label = document.createElement("div");
-        label.className = "y-axis-label";
-        label.style.bottom = `${ratio * 100}%`;
-        label.textContent = value;
-        yAxis.appendChild(label);
+        const yLabel = document.createElement("span");
+        yLabel.className = "y-axis-label";
+        yLabel.style.bottom = `${ratio * 100}%`;
+        yLabel.textContent = value;
+        yAxis.appendChild(yLabel);
       }
+      const xAxis = document.getElementById("xAxis"); // Ezt is vedd előre
 
+      xAxis.innerHTML = "";
       // Sávok kirajzolása
       if (data.distribution && Object.keys(data.distribution).length > 0) {
         Object.entries(data.distribution).forEach(([grade, count]) => {
-          const bar = document.createElement("div");
-          bar.className = "bar";
-          bar.style.height = (count / maxY) * 100 + "%";
-          bar.textContent = grade;
+          const existingGradeBar = document.getElementById(`gradeBar${grade}`);
+          const existingGradeLabel = document.getElementById(`gradeLabel${grade}`);
+          if (existingGradeBar) {
+            console.log("EXISTING");
+            existingGradeLabel.innerHTML = count;
+            existingGradeLabel.className = "";
+            if ((count / maxY) * 100 <= 14) {
+              existingGradeLabel.className = "bar-label";
+            }
+            requestAnimationFrame(() => {
+              existingGradeBar.style.height = (count / maxY) * 100 + "%"; // Ekkor fut le a CSS animáció
+            });
+          } else {
+            const bar = document.createElement("div");
+            bar.id = `gradeBar${grade}`;
+            const label = document.createElement("span");
+            label.innerHTML = count;
+            label.id = `gradeLabel${grade}`;
+            bar.className = "bar";
+            if ((count / maxY) * 100 <= 14) {
+              label.className = "bar-label";
+            }
 
-          if (count == 0) {
-            bar.style.height = "30px";
-            bar.style.backgroundColor = "rgba(255, 255, 255, 0)";
+            bar.appendChild(label);
+            histogram.appendChild(bar);
+            requestAnimationFrame(() => {
+              bar.style.height = (count / maxY) * 100 + "%"; // Ekkor fut le a CSS animáció
+            });
           }
 
-          histogram.appendChild(bar);
+          const xLabel = document.createElement("div");
+          xLabel.className = "x-axis-label";
+          xLabel.textContent = grade;
+          xAxis.appendChild(xLabel);
         });
       } else {
         histogram.innerHTML = "<p>Nincs elérhető adat.</p>";

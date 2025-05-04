@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="styles/statistics_style.css">
 </head>
 <body class="container">
-    <div id="content">
+    <div id="content" class="text-center">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="#">Jegykezelő</a>
@@ -98,8 +98,30 @@
               </form>
         </div>
 
-        <div class="row text-center mt-5 m-4 ">
-            <h2>Statisztika</h2>
+        
+        <h2 class="m-4">Vizsgajegyek eloszlása és differenciája</h2>
+        <div class="diagram-container d-flex m-4">
+            
+            <!-- Y tengely beosztások -->
+            <div class="histogram-area">
+                <div class="histogram-wrapper">
+                    <div id="yAxis" class="y-axis"></div>
+                    <!-- Hisztogram sávok -->
+                    <div id="histogram" class="diagram d-flex align-items-end"></div>
+                </div>
+                <div id="xAxis" class="x-axis"></div>
+                
+            </div>
+            
+            <!-- Esetleges másik diagram (pl. lineChart) -->
+            <div class="d-flex">
+                <canvas id="chartCanvas" width="400" height="300"></canvas>
+            </div>
+        </div>
+        <!--Here are the cards-->
+        <h2>Statisztika</h2>
+
+          <div class="row text-center mt-5 m-4 ">
             <div class="col-md-4" >
                 <div class="card shadow" id="average-card">
                     <div class="card-body">
@@ -125,23 +147,6 @@
                 </div>
             </div>
         </div>
-        <h3 class="m-4">Vizsgajegyek eloszlása</h3>
-
-        <div class="diagram-container d-flex m-4">
-            <div class="histogram-wrapper">
-                <div id="yAxis" class="y-axis"></div>
-          
-            <!-- Hisztogram sávok -->
-            <div id="histogram" class="diagram d-flex align-items-end"></div>
-              </div>
-            <!-- Y tengely beosztások -->
-            
-          
-            <!-- Esetleges másik diagram (pl. lineChart) -->
-            <div class="d-flex">
-              <canvas id="chartCanvas" width="400" height="300"></canvas>
-            </div>
-          </div>
     </div>
 
 </body>

@@ -1,5 +1,6 @@
 .bar {
     background-color: #B22222;
+    position:relative;
     /* A szélesség dinamikusan is állítható, itt most fix: */
     width: 100px;
     margin: 0px 5px 0px 5px;
@@ -14,8 +15,17 @@
         -1px -1px 2px black,
         1px -1px 2px black,
         -1px 1px 2px black;
-    transition: height 0.3s ease;
+    transition: height 0.4s ease;
     z-index: 2;
+  }
+  .bar-label {
+    position: absolute; /* Az elem pozicionálása a szülőhöz képest */  /* A sáv magasságának a felére kerül */
+    left: 50%; /* A sáv szélességének a közepére kerül */
+    transform: translate(-50%, -50%); /* A szöveget pontosan a közepére pozicionálja */
+    font-size: 18px;
+    color: white;
+    pointer-events: none;
+    margin-top: -15px;
   }
   .diagram-container {
     justify-content: center;
@@ -30,7 +40,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    width: 50%;
+    width: 100%;
     overflow: hidden;
     flex-grow: 1;
   }
@@ -39,7 +49,27 @@
     align-items: stretch;
     position: relative;
   }
+  .histogram-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .x-axis {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    margin-top: 10px;
+    gap: 10px;
+    margin-left: 40px;
+    height: 30px;
+  }
   
+  .x-axis-label {
+    width: 100px; /* ugyanannyi mint a .bar szélessége */
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
   .y-axis {
     width: 40px;
     position: relative;
@@ -49,7 +79,7 @@
     position: absolute;
     right: 5px;
     transform: translateY(50%);
-    font-size: 12px;
+    font-size: 16px;
     color: #555;
   }
   .grid-line {
