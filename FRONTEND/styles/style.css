@@ -52,14 +52,17 @@ body {
       text-align: center;
     }
     button{
+      display: flex;
       width: 200px;
     height: 50px;
-    padding: 5px;
+    padding: 10px;
     font-size: 20px;
     font-weight: bold;
     color: white;
     border-radius: 10px;
     background-color: #B22222;
+    align-items: center; 
+    justify-content: center;
     }
     button:active{
       position: relative;
@@ -80,7 +83,11 @@ body {
   padding: 20px;
   font-size: 18px;
   font-weight: bold;
+  max-width: 200px;
+  overflow-wrap: break-word;
   align-content: center;
+  justify-items: center;
+
 }
 .tableStyle thead th{
   font-size: 18px;

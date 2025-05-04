@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-function fetchStudents(studentId, subjectId) {
+function fetchStudents() {
   fetch("http://localhost:5196/api/students")
     .then((response) => response.json())
     .then((data) => {
@@ -101,6 +101,9 @@ function showGrades(studentId, subjectId) {
         const editButton = document.createElement("button");
         editButton.innerHTML = "Szerkesztés";
         editButton.classList.add("edit-button");
+        editButton.onclick = function (event) {
+          editGrade(event);
+        };
         const editButtonCell = document.createElement("td");
         editButtonCell.appendChild(editButton);
         row.appendChild(editButtonCell);
@@ -116,17 +119,15 @@ function showGrades(studentId, subjectId) {
         row.appendChild(deleteButtonCell);
 
         tableBody.appendChild(row);
-        setCardBackground(gradeSpan.id, grade.gradeValue);
+        gradeSpan.style.backgroundColor = getGradientBackground(grade.gradeValue);
       });
     });
 }
-function setCardBackground(cardId, value) {
-  const card = document.getElementById(cardId);
-  console.log(card);
+function getGradientBackground(value) {
   if (value < 3) {
-    card.style.backgroundColor = `rgb(255,${(value - 1) * 127.5} , 0)`;
+    return `rgb(255,${(value - 1) * 127.5} , 0)`;
   } else {
-    card.style.backgroundColor = `rgb(${255 - (value - 3) * 127.5}, 255, 0)`;
+    return `rgb(${255 - (value - 3) * 127.5}, 255, 0)`;
   }
 }
 function showStatistics(studentId, subjectId) {
@@ -136,37 +137,51 @@ function showStatistics(studentId, subjectId) {
       document.getElementById("average").textContent = data.average ?? "-";
       document.getElementById("median").textContent = data.median ?? "-";
       document.getElementById("mode").textContent = data.mode ?? "-";
-      setCardBackground("average-card", data.average);
-      setCardBackground("median-card", data.median);
-      setCardBackground("mode-card", data.mode);
+      document.getElementById("average-card").style.backgroundColor = getGradientBackground(data.average);
+      document.getElementById("median-card").style.backgroundColor = getGradientBackground(data.median);
+      document.getElementById("mode-card").style.backgroundColor = getGradientBackground(data.mode);
 
       //histogram
+      const rawMaxY = Math.max(...Object.values(data.distribution));
+
+      // Lépésköz meghatározása (pl. 2, 5, 10)
+      const step = Math.ceil(rawMaxY / 5); // mindig felfelé, hogy biztos elférjen
+
+      // Skála felső határa
+      const maxY = step * 5; // mindig öttel osztható érték
+
+      // Töröljük az előző vonalakat
+      const wrapper = document.querySelector(".histogram-wrapper");
+      const yAxis = document.querySelector(".y-axis");
       const histogram = document.getElementById("histogram");
+
+      yAxis.innerHTML = "";
       histogram.innerHTML = "";
 
-      // Dinamikus vízszintes vonalak (pl. 6 osztás = 0-5)
-      let maxY = 1; // Kezdő érték, hogy ne osztódjon nullával
-      if (data.distribution && Object.keys(data.distribution).length > 0) {
-        // Megkeressük a legnagyobb count értéket a distribution objektumban
-        maxY = Math.max(...Object.values(data.distribution)) + 1;
-      }
-      console.log("maxY: ", maxY);
+      const numLines = 6;
+      for (let i = 0; i < numLines; i++) {
+        const ratio = i / (numLines - 1);
+        const value = i * step;
 
-      // Dinamikus vízszintes vonalak (pl. 0-tól maxY-ig)
-      for (let i = 0; i <= maxY; i++) {
-        const line = document.createElement("hr");
+        // Grid line
+        const line = document.createElement("div");
         line.className = "grid-line";
-        line.style.marginBottom = "-40px";
-        line.style.bottom = `${(i / maxY) * 100}%`;
+        line.style.bottom = `${ratio * 100}%`;
         histogram.appendChild(line);
+
+        // Label
+        const label = document.createElement("div");
+        label.className = "y-axis-label";
+        label.style.bottom = `${ratio * 100}%`;
+        label.textContent = value;
+        yAxis.appendChild(label);
       }
 
       // Sávok kirajzolása
       if (data.distribution && Object.keys(data.distribution).length > 0) {
         Object.entries(data.distribution).forEach(([grade, count]) => {
-          let bar = document.createElement("div");
+          const bar = document.createElement("div");
           bar.className = "bar";
-
           bar.style.height = (count / maxY) * 100 + "%";
           bar.textContent = grade;
 
@@ -294,12 +309,61 @@ async function deleteGrade(e) {
   showStatistics(selectedStudentId, selectedSubjectId);
 }
 async function editGrade(e) {
-  //TODO
-  await fetch("http://localhost:5196/api/grades/" + selectedSubject.id, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(updatedSubject),
+  const row = e.target.closest("tr");
+  const gradeId = e.target.closest("tr").id;
+  const cells = row.querySelectorAll("td");
+
+  //Change button to save button
+  const saveButton = row.querySelector("button.edit-button");
+  saveButton.style = "background-color:rgb(1, 224, 1);";
+  saveButton.innerHTML = "Mentés";
+
+  const gradeCell = cells[0];
+  const grade = parseInt(row.querySelector("span").innerHTML);
+
+  const gradeSelector = document.createElement("select");
+  gradeSelector.classList.add("selector-grade-style");
+  for (let i = 1; i <= 5; i++) {
+    const gradeOption = document.createElement("option");
+    gradeOption.textContent = i;
+    gradeOption.style.backgroundColor = getGradientBackground(i);
+    gradeSelector.appendChild(gradeOption);
+  }
+  gradeSelector.value = grade;
+  gradeSelector.style.backgroundColor = getGradientBackground(gradeSelector.value);
+  gradeCell.innerHTML = "";
+  gradeCell.appendChild(gradeSelector);
+  gradeSelector.addEventListener("change", function () {
+    this.style.backgroundColor = getGradientBackground(this.value);
   });
+
+  const commentCell = cells[1];
+  comment = commentCell.innerHTML;
+  commentCell.innerHTML = "";
+  const commentTextArea = document.createElement("textarea");
+  commentTextArea.classList.add("comment-input-style");
+  commentTextArea.style.maxWidth = "200px";
+  commentTextArea.style.margin = "0px";
+  commentTextArea.placeholder = "Írd ide a megjegyzést!";
+  commentTextArea.value = comment;
+  commentCell.appendChild(commentTextArea);
+
+  saveButton.onclick = async function () {
+    const updatedGrade = {
+      studentId: selectedStudentId,
+      subjectId: selectedSubjectId,
+      gradeValue: gradeSelector.value,
+      comment: commentTextArea.value,
+    };
+
+    await fetch("http://localhost:5196/api/grades/" + gradeId, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedGrade),
+    });
+    await showGrades(selectedStudentId, selectedSubjectId);
+    await showStatistics(selectedStudentId, selectedSubjectId);
+  };
 }
 /*document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("chartCanvas");

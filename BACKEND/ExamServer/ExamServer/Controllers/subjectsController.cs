@@ -10,12 +10,10 @@ namespace ExamServer.Controllers
     {
         private readonly ISubjectRepository _repository;
 
-
         public subjectsController(ISubjectRepository repository)
         {
             _repository = repository;
         }
-
 
         [HttpGet]
         public IActionResult GetAll()
@@ -32,22 +30,7 @@ namespace ExamServer.Controllers
                 return NotFound();
             return Ok(subject);
         }
-        [HttpGet("{id}/grades")]
-        public IActionResult GetGradesBySubjectId(int id)
-        {
-            var subject = _repository.GetById(id);
-            if (subject == null)
-                return NotFound();
-            return Ok(subject.Grades);
-        }
-        [HttpGet("{id}/statistics")]
-        public IActionResult GetStudentStatistics(int id)
-        {
-            var statistics = _repository.GetSubjectStatistics(id);
-            if (statistics == null)
-                return NotFound();
-            return Ok(statistics);
-        }
+
         [HttpPost]
         public IActionResult Post([FromBody] Subject subject)
         {
@@ -57,17 +40,15 @@ namespace ExamServer.Controllers
             return CreatedAtAction(nameof(Get), new { id = subject.Id }, subject);
         }
 
-
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Subject subject)
         {
             if (subject == null)
                 return BadRequest("Subject cannot be null");
-            subject.Id = id; 
+            subject.Id = id;
             _repository.Update(subject);
             return NoContent();
         }
-
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

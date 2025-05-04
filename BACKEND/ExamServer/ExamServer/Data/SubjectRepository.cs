@@ -1,7 +1,7 @@
-﻿using ExamServer.Models;
+﻿using System;
+using ExamServer.Models;
 using ExamServer.Utils;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace ExamServer.Data
 {
@@ -10,7 +10,6 @@ namespace ExamServer.Data
         IEnumerable<Subject> GetAll();
 
         Subject GetById(int id);
-        Statistic GetSubjectStatistics(int id);
 
         void Add(Subject entity);
 
@@ -18,7 +17,8 @@ namespace ExamServer.Data
 
         void Delete(int id);
     }
-    public class SubjectRepository :ISubjectRepository
+
+    public class SubjectRepository : ISubjectRepository
     {
         private readonly SchoolDbContext _context;
 
@@ -34,25 +34,12 @@ namespace ExamServer.Data
 
         public Subject GetById(int id)
         {
-            return _context.Subjects
-                .Include(s => s.Grades)
+            return _context
+                .Subjects.Include(s => s.Grades)
                 .ThenInclude(g => g.Student)
                 .FirstOrDefault(s => s.Id == id);
         }
-        public Statistic GetSubjectStatistics(int id)
-        {
-            var subject = GetById(id);
-            if (subject == null)
-                return null;
-            var grades = subject.Grades.Select(g => g.GradeValue).ToList();
-            return new Statistic
-            {
-                Average = Math.Round(Statistics.GetAverage(grades), 2),
-                Median = Statistics.GetMedian(grades),
-                Mode = Statistics.GetMode(grades),
-                Distribution = Statistics.GetDistribution(grades)
-            };
-        }
+
         public void Add(Subject subject)
         {
             _context.Subjects.Add(subject);

@@ -92,7 +92,7 @@
                     <label class="btn btn-outline-danger" for="grade5">5</label>
                   </div>
                   
-                <textarea type="text" id="commentInput" placeholder="Írd ide a megjegyzést!"></textarea>
+                <textarea type="text" id="commentInput" class="comment-input-style" placeholder="Írd ide a megjegyzést!"></textarea>
               
                 <button type="button" onclick="addGrade()">Hozzáadás</button>
               </form>
@@ -128,11 +128,14 @@
         <h3 class="m-4">Vizsgajegyek eloszlása</h3>
 
         <div class="diagram-container d-flex m-4">
-            <!-- Y tengely beosztások -->
-            <div id="yAxis" class="y-axis"></div>
+            <div class="histogram-wrapper">
+                <div id="yAxis" class="y-axis"></div>
           
             <!-- Hisztogram sávok -->
             <div id="histogram" class="diagram d-flex align-items-end"></div>
+              </div>
+            <!-- Y tengely beosztások -->
+            
           
             <!-- Esetleges másik diagram (pl. lineChart) -->
             <div class="d-flex">

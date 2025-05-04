@@ -211,38 +211,6 @@
   },
   {
     "ContainingType": "ExamServer.Controllers.studentsController",
-    "Method": "GetGradesByStudentId",
-    "RelativePath": "api/students/{id}/grades",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ExamServer.Controllers.studentsController",
-    "Method": "GetStudentStatistics",
-    "RelativePath": "api/students/{id}/statistics",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ExamServer.Controllers.studentsController",
     "Method": "GetSubjectsByStudentId",
     "RelativePath": "api/students/{id}/subjects",
     "HttpMethod": "GET",
@@ -346,38 +314,6 @@
     "Method": "Delete",
     "RelativePath": "api/subjects/{id}",
     "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ExamServer.Controllers.subjectsController",
-    "Method": "GetGradesBySubjectId",
-    "RelativePath": "api/subjects/{id}/grades",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ExamServer.Controllers.subjectsController",
-    "Method": "GetStudentStatistics",
-    "RelativePath": "api/subjects/{id}/statistics",
-    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [

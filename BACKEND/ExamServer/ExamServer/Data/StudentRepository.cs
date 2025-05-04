@@ -12,7 +12,6 @@ namespace ExamServer.Data
 
         Student GetById(int id);
         IEnumerable<Subject> GetSubjectByStudentId(int id);
-        Statistic GetStudentStatistics(int id);
         Statistic GetStudentStatisticsBySubject(int id, int subjectId);
         IEnumerable<Grade> GetStudentGradesBySubject(int id, int subjectId);
         void Add(Student entity);
@@ -59,21 +58,6 @@ namespace ExamServer.Data
                 .ToList();
 
             return subjects;
-        }
-
-        public Statistic GetStudentStatistics(int id)
-        {
-            var student = GetById(id);
-            if (student == null)
-                return null;
-            var grades = student.Grades.Select(g => g.GradeValue).ToList();
-            return new Statistic
-            {
-                Average = Math.Round(Statistics.GetAverage(grades), 2),
-                Median = Statistics.GetMedian(grades),
-                Mode = Statistics.GetMode(grades),
-                Distribution = Statistics.GetDistribution(grades),
-            };
         }
 
         public Statistic GetStudentStatisticsBySubject(int id, int subjectId)

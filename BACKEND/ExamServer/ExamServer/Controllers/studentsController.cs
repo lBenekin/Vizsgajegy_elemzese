@@ -11,7 +11,6 @@ namespace ExamServer.Controllers
     {
         private readonly IStudentRepository _repository;
 
-
         public studentsController(IStudentRepository repository)
         {
             _repository = repository;
@@ -32,6 +31,7 @@ namespace ExamServer.Controllers
                 return NotFound();
             return Ok(student);
         }
+
         [HttpGet("{id}/subjects")]
         public IActionResult GetSubjectsByStudentId(int id)
         {
@@ -40,22 +40,7 @@ namespace ExamServer.Controllers
                 return NotFound();
             return Ok(subjects);
         }
-        [HttpGet("{id}/grades")]
-        public IActionResult GetGradesByStudentId(int id)
-        {
-            var student = _repository.GetById(id);
-            if (student == null)
-                return NotFound();
-            return Ok(student.Grades);
-        }
-        [HttpGet("{id}/statistics")]
-        public IActionResult GetStudentStatistics(int id)
-        {
-            var statistics = _repository.GetStudentStatistics(id);
-            if (statistics == null)
-                return NotFound();
-            return Ok(statistics);
-        }
+
         [HttpGet("{id}/{subjectId}/statistics")]
         public IActionResult GetStudentSubjectStatistics(int id, int subjectId)
         {
@@ -64,6 +49,7 @@ namespace ExamServer.Controllers
                 return NotFound();
             return Ok(statistics);
         }
+
         [HttpGet("{id}/{subjectId}/grades")]
         public IActionResult GetStudentSubjectGrades(int id, int subjectId)
         {
@@ -72,6 +58,7 @@ namespace ExamServer.Controllers
                 return NotFound();
             return Ok(grades);
         }
+
         [HttpPost]
         public IActionResult Post([FromBody] Student student)
         {
@@ -82,16 +69,16 @@ namespace ExamServer.Controllers
             return CreatedAtAction(nameof(Get), new { id = student.Id }, student);
         }
 
-
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Student student)
         {
             if (student == null)
                 return BadRequest("Student cannot be null");
-            student.Id = id; 
+            student.Id = id;
             _repository.Update(student);
             return NoContent();
         }
+
         [HttpPut("{id}/subjects")]
         public IActionResult PutSubjects(int id, List<int> subjectIds)
         {
@@ -112,7 +99,5 @@ namespace ExamServer.Controllers
             _repository.Delete(id);
             return NoContent();
         }
-        
     }
 }
-

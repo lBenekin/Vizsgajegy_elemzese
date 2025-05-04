@@ -347,52 +347,6 @@
         }
       }
     },
-    "/api/students/{id}/grades": {
-      "get": {
-        "tags": [
-          "students"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/students/{id}/statistics": {
-      "get": {
-        "tags": [
-          "students"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/students/{id}/{subjectId}/statistics": {
       "get": {
         "tags": [
@@ -561,52 +515,6 @@
         }
       },
       "delete": {
-        "tags": [
-          "subjects"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/subjects/{id}/grades": {
-      "get": {
-        "tags": [
-          "subjects"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/subjects/{id}/statistics": {
-      "get": {
         "tags": [
           "subjects"
         ],
