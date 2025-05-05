@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{73886B2E-D34A-46C4-8624-8A8D423F03D3}|ExamServer\\ExamServer.csproj|solutionrelative:examserver\\utils\\statistics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{73886B2E-D34A-46C4-8624-8A8D423F03D3}|ExamServer\\ExamServer.csproj|d:\\egyetem\\4.f\u00E9l\u00E9v\\full-stack\\vizsgajegyekelemzese_bi496e_kiacz\\backend\\examserver\\examserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73886B2E-D34A-46C4-8624-8A8D423F03D3}|ExamServer\\ExamServer.csproj|solutionrelative:examserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{73886B2E-D34A-46C4-8624-8A8D423F03D3}|ExamServer\\ExamServer.csproj|d:\\egyetem\\4.f\u00E9l\u00E9v\\full-stack\\vizsgajegyekelemzese_bi496e_kiacz\\backend\\examserver\\examserver\\data\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{73886B2E-D34A-46C4-8624-8A8D423F03D3}|ExamServer\\ExamServer.csproj|solutionrelative:examserver\\data\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -49,10 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{73886B2E-D34A-46C4-8624-8A8D423F03D3}|ExamServer\\ExamServer.csproj|d:\\egyetem\\4.f\u00E9l\u00E9v\\full-stack\\vizsgajegyekelemzese_bi496e_kiacz\\backend\\examserver\\examserver\\models\\subject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{73886B2E-D34A-46C4-8624-8A8D423F03D3}|ExamServer\\ExamServer.csproj|solutionrelative:examserver\\models\\subject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{73886B2E-D34A-46C4-8624-8A8D423F03D3}|ExamServer\\ExamServer.csproj|d:\\egyetem\\4.f\u00E9l\u00E9v\\full-stack\\vizsgajegyekelemzese_bi496e_kiacz\\backend\\examserver\\examserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73886B2E-D34A-46C4-8624-8A8D423F03D3}|ExamServer\\ExamServer.csproj|solutionrelative:examserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,7 +66,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "SubjectRepository.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Data\\SubjectRepository.cs",
               "RelativeDocumentMoniker": "ExamServer\\Data\\SubjectRepository.cs",
@@ -74,12 +74,11 @@
               "RelativeToolTip": "ExamServer\\Data\\SubjectRepository.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-02T18:35:01.606Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-02T18:35:01.606Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "subjectsController.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Controllers\\subjectsController.cs",
               "RelativeDocumentMoniker": "ExamServer\\Controllers\\subjectsController.cs",
@@ -87,25 +86,23 @@
               "RelativeToolTip": "ExamServer\\Controllers\\subjectsController.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAA4wBAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T12:59:00.237Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-15T12:59:00.237Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Program.cs",
               "RelativeDocumentMoniker": "ExamServer\\Program.cs",
               "ToolTip": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Program.cs",
               "RelativeToolTip": "ExamServer\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwsAAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T12:57:48.77Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-15T12:57:48.77Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "GradeRepository.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Data\\GradeRepository.cs",
               "RelativeDocumentMoniker": "ExamServer\\Data\\GradeRepository.cs",
@@ -113,12 +110,11 @@
               "RelativeToolTip": "ExamServer\\Data\\GradeRepository.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAAAC4AAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T12:53:11.601Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-15T12:53:11.601Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "gradesController.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Controllers\\gradesController.cs",
               "RelativeDocumentMoniker": "ExamServer\\Controllers\\gradesController.cs",
@@ -126,12 +122,11 @@
               "RelativeToolTip": "ExamServer\\Controllers\\gradesController.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAAA4wDIAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T12:50:23.043Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-15T12:50:23.043Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Grade.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Models\\Grade.cs",
               "RelativeDocumentMoniker": "ExamServer\\Models\\Grade.cs",
@@ -139,12 +134,11 @@
               "RelativeToolTip": "ExamServer\\Models\\Grade.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAqwBkAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T11:29:40.009Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-15T11:29:40.009Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Subject.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Models\\Subject.cs",
               "RelativeDocumentMoniker": "ExamServer\\Models\\Subject.cs",
@@ -152,12 +146,11 @@
               "RelativeToolTip": "ExamServer\\Models\\Subject.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T12:47:45.785Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-14T12:47:45.785Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Statistic.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Models\\Statistic.cs",
               "RelativeDocumentMoniker": "ExamServer\\Models\\Statistic.cs",
@@ -165,12 +158,11 @@
               "RelativeToolTip": "ExamServer\\Models\\Statistic.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T12:47:35.519Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-14T12:47:35.519Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Student.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Models\\Student.cs",
               "RelativeDocumentMoniker": "ExamServer\\Models\\Student.cs",
@@ -178,12 +170,11 @@
               "RelativeToolTip": "ExamServer\\Models\\Student.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABEAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T09:40:10.889Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-14T09:40:10.889Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "StudentRepository.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Data\\StudentRepository.cs",
               "RelativeDocumentMoniker": "ExamServer\\Data\\StudentRepository.cs",
@@ -191,12 +182,11 @@
               "RelativeToolTip": "ExamServer\\Data\\StudentRepository.cs",
               "ViewState": "AgIAAEEAAAAAAAAAAAAWwE8AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T09:37:46.711Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-14T09:37:46.711Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "studentsController.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Controllers\\studentsController.cs",
               "RelativeDocumentMoniker": "ExamServer\\Controllers\\studentsController.cs",
@@ -204,12 +194,11 @@
               "RelativeToolTip": "ExamServer\\Controllers\\studentsController.cs",
               "ViewState": "AgIAABUAAAAAAAAAAIAzwCkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T09:37:36.483Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-14T09:37:36.483Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "SchoolDbContext.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Data\\SchoolDbContext.cs",
               "RelativeDocumentMoniker": "ExamServer\\Data\\SchoolDbContext.cs",
@@ -217,8 +206,7 @@
               "RelativeToolTip": "ExamServer\\Data\\SchoolDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T07:37:20.33Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-26T07:37:20.33Z"
             },
             {
               "$type": "Document",
@@ -226,9 +214,9 @@
               "Title": "Statistics.cs",
               "DocumentMoniker": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Utils\\Statistics.cs",
               "RelativeDocumentMoniker": "ExamServer\\Utils\\Statistics.cs",
-              "ToolTip": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Utils\\Statistics.cs*",
-              "RelativeToolTip": "ExamServer\\Utils\\Statistics.cs*",
-              "ViewState": "AgIAAHUAAAAAAAAAAAAqwH8AAAAAAAAAAAAAAA==",
+              "ToolTip": "D:\\Egyetem\\4.f\u00E9l\u00E9v\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\Utils\\Statistics.cs",
+              "RelativeToolTip": "ExamServer\\Utils\\Statistics.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAawDQAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-26T07:34:31.9Z",
               "EditorCaption": ""

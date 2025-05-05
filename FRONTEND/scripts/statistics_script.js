@@ -1,10 +1,12 @@
 let selectedGrade = null;
 let selectedStudentId = null;
 let selectedSubjectId = null;
+let studentGrades = [];
 document.addEventListener("DOMContentLoaded", () => {
   const studentsSelector = document.getElementById("studentsSelector");
   const subjectsSelector = document.getElementById("subjectsSelector");
   fetchStudents();
+  generateHistogram();
   studentsSelector.addEventListener("change", function () {
     selectedStudentId = this.value;
     if (selectedStudentId) {
@@ -18,8 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
     selectedStudentId = studentsSelector.value;
     selectedSubjectId = this.value;
     if (selectedSubjectId) {
-      showStatistics(selectedStudentId, selectedSubjectId);
       showGrades(selectedStudentId, selectedSubjectId);
+      showStatistics(selectedStudentId, selectedSubjectId);
     } else {
       clearSubjects(); // Ha nincs kiválasztott diák, töröljük a tárgyakat
     }
@@ -56,8 +58,8 @@ function fetchSubjectsForStudent(studentId) {
 
       // automatikusan meghívjuk a stat/jegyek lekérőt az első tárgyra
       selectedSubjectId = subjectsSelector.value;
-      showStatistics(studentId, selectedSubjectId);
       showGrades(studentId, selectedSubjectId);
+      showStatistics(studentId, selectedSubjectId);
     });
 }
 
@@ -65,6 +67,7 @@ function showGrades(studentId, subjectId) {
   fetch(`http://localhost:5196/api/students/${studentId}/${subjectId}/grades`)
     .then((response) => response.json())
     .then((data) => {
+      studentGrades = [];
       const table = document.getElementById("gradesTable");
       let tableBody = table.querySelector("tbody");
       tableBody.innerHTML = "";
@@ -83,6 +86,7 @@ function showGrades(studentId, subjectId) {
         if (grade.gradeValue == -1) {
           return;
         }
+        studentGrades.push(grade.gradeValue);
         const row = document.createElement("tr");
         row.id = grade.id;
 
@@ -130,8 +134,60 @@ function getGradientBackground(value) {
     return `rgb(${255 - (value - 3) * 127.5}, 255, 0)`;
   }
 }
-function showStatistics(studentId, subjectId) {
-  fetch(`http://localhost:5196/api/students/${studentId}/${subjectId}/statistics`)
+function generateHistogram() {
+  const maxY = 5; // mindig öttel osztható érték
+
+  // Töröljük az előző vonalakat
+  const wrapper = document.querySelector(".histogram-wrapper");
+  const yAxis = document.querySelector(".y-axis");
+  const histogram = document.getElementById("histogram");
+  histogram.innerHTML = "";
+  yAxis.innerHTML = "";
+  //histogram.innerHTML = "";
+
+  const numLines = 6;
+  for (let i = 0; i < numLines; i++) {
+    const ratio = i / (numLines - 1);
+    const value = i;
+
+    // Grid line
+    const line = document.createElement("div");
+    line.className = "grid-line";
+    line.style.bottom = `${ratio * 100}%`;
+    histogram.appendChild(line);
+
+    // Label
+    const yLabel = document.createElement("span");
+    yLabel.className = "y-axis-label";
+    yLabel.style.bottom = `${ratio * 100}%`;
+    yLabel.textContent = value;
+    yAxis.appendChild(yLabel);
+  }
+  const xAxis = document.getElementById("xAxis");
+
+  xAxis.innerHTML = "";
+  // Sávok kirajzolása
+  for (let i = 1; i <= 5; i++) {
+    const bar = document.createElement("div");
+    bar.id = `gradeBar${i}`;
+    bar.style.height = "0%";
+    const label = document.createElement("span");
+    label.id = `gradeLabel${i}`;
+    bar.className = "bar";
+
+    bar.appendChild(label);
+    histogram.appendChild(bar);
+
+    const xLabel = document.createElement("div");
+    xLabel.className = "x-axis-label";
+    xLabel.textContent = i;
+    xAxis.appendChild(xLabel);
+  }
+}
+async function showStatistics(studentId, subjectId) {
+  const canvas = document.getElementById("chartCanvas");
+  const ctx = canvas.getContext("2d");
+  await fetch(`http://localhost:5196/api/students/${studentId}/${subjectId}/statistics`)
     .then((response) => response.json())
     .then((data) => {
       document.getElementById("average").textContent = data.average ?? "-";
@@ -156,36 +212,26 @@ function showStatistics(studentId, subjectId) {
       const histogram = document.getElementById("histogram");
 
       yAxis.innerHTML = "";
-      //histogram.innerHTML = "";
 
       const numLines = 6;
       for (let i = 0; i < numLines; i++) {
+        // Label
         const ratio = i / (numLines - 1);
         const value = i * step;
-
-        // Grid line
-        const line = document.createElement("div");
-        line.className = "grid-line";
-        line.style.bottom = `${ratio * 100}%`;
-        histogram.appendChild(line);
-
-        // Label
         const yLabel = document.createElement("span");
         yLabel.className = "y-axis-label";
         yLabel.style.bottom = `${ratio * 100}%`;
         yLabel.textContent = value;
         yAxis.appendChild(yLabel);
       }
-      const xAxis = document.getElementById("xAxis"); // Ezt is vedd előre
-
-      xAxis.innerHTML = "";
+      //histogram.innerHTML = "";
       // Sávok kirajzolása
       if (data.distribution && Object.keys(data.distribution).length > 0) {
         Object.entries(data.distribution).forEach(([grade, count]) => {
           const existingGradeBar = document.getElementById(`gradeBar${grade}`);
           const existingGradeLabel = document.getElementById(`gradeLabel${grade}`);
+
           if (existingGradeBar) {
-            console.log("EXISTING");
             existingGradeLabel.innerHTML = count;
             existingGradeLabel.className = "";
             if ((count / maxY) * 100 <= 14) {
@@ -194,51 +240,29 @@ function showStatistics(studentId, subjectId) {
             requestAnimationFrame(() => {
               existingGradeBar.style.height = (count / maxY) * 100 + "%"; // Ekkor fut le a CSS animáció
             });
-          } else {
-            const bar = document.createElement("div");
-            bar.id = `gradeBar${grade}`;
-            const label = document.createElement("span");
-            label.innerHTML = count;
-            label.id = `gradeLabel${grade}`;
-            bar.className = "bar";
-            if ((count / maxY) * 100 <= 14) {
-              label.className = "bar-label";
-            }
-
-            bar.appendChild(label);
-            histogram.appendChild(bar);
-            requestAnimationFrame(() => {
-              bar.style.height = (count / maxY) * 100 + "%"; // Ekkor fut le a CSS animáció
-            });
           }
-
-          const xLabel = document.createElement("div");
-          xLabel.className = "x-axis-label";
-          xLabel.textContent = grade;
-          xAxis.appendChild(xLabel);
         });
       } else {
         histogram.innerHTML = "<p>Nincs elérhető adat.</p>";
       }
+
+      //Linechart
+
+      const differences = data.difference; // [2, 1, 1]
+
+      drawLineChart(studentGrades, differences);
     })
     .catch((error) => {
-      console.error("API hiba:", error);
-      document.getElementById("histogram").innerHTML = "<p>Hiba történt az adatok betöltésekor.</p>";
-      document.getElementById("lineChart").innerHTML = "<p>Hiba történt az adatok betöltésekor.</p>";
+      generateHistogram();
+      document.getElementById("average").textContent = "-";
+      document.getElementById("median").textContent = "-";
+      document.getElementById("mode").textContent = "-";
+      document.getElementById("average-card").style.backgroundColor = "white";
+      document.getElementById("median-card").style.backgroundColor = "white";
+      document.getElementById("mode-card").style.backgroundColor = "white";
     });
 
-  const canvas = document.getElementById("chartCanvas");
-  const ctx = canvas.getContext("2d");
-
   // Adatok betöltése az API-ból
-  fetch(`http://localhost:5196/api/students/${studentId}/${subjectId}/statistics`) // Cseréld le a megfelelő API URL-re
-    .then((response) => response.json())
-    .then((data) => {
-      const differences = data.difference; // [2, 1, 1]
-      const grades = [2, 3, 4, 5]; // Az osztályzatok skálája
-      drawLineChart(grades, differences);
-    })
-    .catch((error) => console.error("Hiba történt az API hívás során:", error));
 
   function drawLineChart(grades, differences) {
     if (!differences || differences.length === 0) {
@@ -262,16 +286,17 @@ function showStatistics(studentId, subjectId) {
     }
 
     function drawAxes() {
+      ctx.font = "18px Arial";
       ctx.strokeStyle = "black";
       ctx.beginPath();
       ctx.moveTo(padding, padding);
       ctx.lineTo(padding, canvas.height - padding);
-      ctx.lineTo(canvas.width - padding, canvas.height - padding);
+      ctx.lineTo(canvas.width - (padding + 20), canvas.height - padding);
       ctx.stroke();
 
       ctx.textAlign = "center";
       grades.forEach((grade, i) => {
-        const { x, y } = getCanvasCoords(i, 0);
+        const { x, y } = getCanvasCoords(i - 1, 0);
         ctx.fillText(grade, x, y + 20);
       });
 
@@ -284,7 +309,7 @@ function showStatistics(studentId, subjectId) {
 
     function drawChartLine() {
       ctx.beginPath();
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "#B22222";
       ctx.lineWidth = 2;
 
       differences.forEach((diff, i) => {
@@ -305,7 +330,7 @@ function showStatistics(studentId, subjectId) {
 }
 async function addGrade() {
   const gradeValue = document.querySelector('#gradeRadiosContainer input[name="grade"]:checked').value;
-  console.log(gradeValue);
+
   const comment = document.getElementById("commentInput").value;
   const newGrade = {
     studentId: selectedStudentId,
@@ -313,7 +338,6 @@ async function addGrade() {
     gradeValue: gradeValue,
     comment: comment,
   };
-  console.log(JSON.stringify(newGrade));
 
   await fetch("http://localhost:5196/api/grades/", {
     method: "POST",
@@ -330,8 +354,8 @@ async function deleteGrade(e) {
     headers: { "Content-Type": "application/json" },
     body: null,
   });
-  showGrades(selectedStudentId, selectedSubjectId);
-  showStatistics(selectedStudentId, selectedSubjectId);
+  await showGrades(selectedStudentId, selectedSubjectId);
+  await showStatistics(selectedStudentId, selectedSubjectId);
 }
 async function editGrade(e) {
   const row = e.target.closest("tr");

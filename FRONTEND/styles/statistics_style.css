@@ -79,7 +79,7 @@
     position: absolute;
     right: 5px;
     transform: translateY(50%);
-    font-size: 16px;
+    font-size: 18px;
     color: #555;
   }
   .grid-line {
@@ -170,4 +170,9 @@ input[type="radio"]{
   font-size: 26px;
   border-radius: 10px;
   border: black solid 1px
+}
+#chartCanvas {
+  width: 100%;
+  height: auto;
+  max-width: 600px;
 }

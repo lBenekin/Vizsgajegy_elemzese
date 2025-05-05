@@ -50,6 +50,10 @@ namespace ExamServer.Utils
         public static double GetMedian(List<int> grades)
         {
             List<int> sortedGrades = grades.OrderBy(g => g).ToList();
+            if (sortedGrades.Count < 1)
+            {
+                return 0;
+            }
             if (sortedGrades[0] == -1)
             {
                 sortedGrades.RemoveAt(0);
