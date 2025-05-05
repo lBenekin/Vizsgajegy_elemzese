@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const subjectsSelector = document.getElementById("subjectsSelector");
   fetchStudents();
   generateHistogram();
+  drawLineChart([0], []);
+
   studentsSelector.addEventListener("change", function () {
     selectedStudentId = this.value;
     if (selectedStudentId) {
@@ -20,15 +22,17 @@ document.addEventListener("DOMContentLoaded", () => {
     selectedStudentId = studentsSelector.value;
     selectedSubjectId = this.value;
     if (selectedSubjectId) {
-      showGrades(selectedStudentId, selectedSubjectId);
-      showStatistics(selectedStudentId, selectedSubjectId);
+      (async () => {
+        await showGrades(selectedStudentId, selectedSubjectId);
+        await showStatistics(selectedStudentId, selectedSubjectId);
+      })();
     } else {
-      clearSubjects(); // Ha nincs kiválasztott diák, töröljük a tárgyakat
+      clearSubjects();
     }
   });
 });
-function fetchStudents() {
-  fetch("http://localhost:5196/api/students")
+async function fetchStudents() {
+  await fetch("http://localhost:5196/api/students")
     .then((response) => response.json())
     .then((data) => {
       //studentsSelector = document.getElementById("studentsSelector");
@@ -40,10 +44,10 @@ function fetchStudents() {
       });
     });
 }
-function fetchSubjectsForStudent(studentId) {
+async function fetchSubjectsForStudent(studentId) {
   subjectsSelector = document.getElementById("subjectsSelector");
   subjectsSelector.innerHTML = "";
-  fetch(`http://localhost:5196/api/students/${studentId}/subjects`)
+  await fetch(`http://localhost:5196/api/students/${studentId}/subjects`)
     .then((response) => response.json())
     .then((data) => {
       if (data.length === 0) return;
@@ -58,73 +62,72 @@ function fetchSubjectsForStudent(studentId) {
 
       // automatikusan meghívjuk a stat/jegyek lekérőt az első tárgyra
       selectedSubjectId = subjectsSelector.value;
-      showGrades(studentId, selectedSubjectId);
-      showStatistics(studentId, selectedSubjectId);
+      (async () => {
+        await showGrades(selectedStudentId, selectedSubjectId);
+        await showStatistics(selectedStudentId, selectedSubjectId);
+      })();
     });
 }
 
-function showGrades(studentId, subjectId) {
-  fetch(`http://localhost:5196/api/students/${studentId}/${subjectId}/grades`)
+async function showGrades(studentId, subjectId) {
+  await fetch(`http://localhost:5196/api/students/${studentId}/${subjectId}/grades`)
     .then((response) => response.json())
     .then((data) => {
       studentGrades = [];
       const table = document.getElementById("gradesTable");
       let tableBody = table.querySelector("tbody");
-      tableBody.innerHTML = "";
 
-      if (data.length == 1 && data[0].gradeValue == -1) {
-        const row = document.createElement("tr");
-        const noValueCell = document.createElement("td");
-        noValueCell.innerHTML = "Nincs elérhető jegy";
-        noValueCell.colSpan = 4;
-        noValueCell.classList.add("text-center");
-        row.appendChild(noValueCell);
-        tableBody.appendChild(row);
+      if (data.length <= 1 && data[0].gradeValue == -1) {
+        tableBody.innerHTML = `<tr>
+                        <td colspan="4" class="text-center">Nincs elérhető jegy</td>
+                    </tr>`;
+      } else {
+        tableBody.innerHTML = "";
+
+        data.forEach((grade) => {
+          if (grade.gradeValue == -1) {
+            return;
+          }
+          studentGrades.push(grade.gradeValue);
+          const row = document.createElement("tr");
+          row.id = grade.id;
+
+          const valueCell = document.createElement("td");
+          const gradeSpan = document.createElement("span");
+          gradeSpan.id = `${grade.id}-grade`;
+          gradeSpan.innerHTML = grade.gradeValue;
+          gradeSpan.classList.add("grade-style");
+          valueCell.appendChild(gradeSpan);
+          row.appendChild(valueCell);
+
+          const commentCell = document.createElement("td");
+          commentCell.textContent = grade.comment.trim().length === 0 ? "Nincs megjegyzés" : `${grade.comment}`;
+          row.appendChild(commentCell);
+
+          const editButton = document.createElement("button");
+          editButton.innerHTML = "Szerkesztés";
+          editButton.classList.add("edit-button");
+          editButton.onclick = function (event) {
+            editGrade(event);
+          };
+          const editButtonCell = document.createElement("td");
+          editButtonCell.appendChild(editButton);
+          row.appendChild(editButtonCell);
+
+          const deleteButton = document.createElement("button");
+          deleteButton.innerHTML = "Törlés";
+          deleteButton.classList.add("delete-button");
+          deleteButton.onclick = function (event) {
+            deleteGrade(event);
+          };
+          const deleteButtonCell = document.createElement("td");
+          deleteButtonCell.appendChild(deleteButton);
+          row.appendChild(deleteButtonCell);
+
+          tableBody.appendChild(row);
+          gradeSpan.style.backgroundColor = getGradientBackground(grade.gradeValue);
+        });
       }
-
-      data.forEach((grade) => {
-        if (grade.gradeValue == -1) {
-          return;
-        }
-        studentGrades.push(grade.gradeValue);
-        const row = document.createElement("tr");
-        row.id = grade.id;
-
-        const valueCell = document.createElement("td");
-        const gradeSpan = document.createElement("span");
-        gradeSpan.id = `${grade.id}-grade`;
-        gradeSpan.innerHTML = grade.gradeValue;
-        gradeSpan.classList.add("grade-style");
-        valueCell.appendChild(gradeSpan);
-        row.appendChild(valueCell);
-
-        const commentCell = document.createElement("td");
-        commentCell.textContent = grade.comment.trim().length === 0 ? "Nincs megjegyzés" : `${grade.comment}`;
-        row.appendChild(commentCell);
-
-        const editButton = document.createElement("button");
-        editButton.innerHTML = "Szerkesztés";
-        editButton.classList.add("edit-button");
-        editButton.onclick = function (event) {
-          editGrade(event);
-        };
-        const editButtonCell = document.createElement("td");
-        editButtonCell.appendChild(editButton);
-        row.appendChild(editButtonCell);
-
-        const deleteButton = document.createElement("button");
-        deleteButton.innerHTML = "Törlés";
-        deleteButton.classList.add("delete-button");
-        deleteButton.onclick = function (event) {
-          deleteGrade(event);
-        };
-        const deleteButtonCell = document.createElement("td");
-        deleteButtonCell.appendChild(deleteButton);
-        row.appendChild(deleteButtonCell);
-
-        tableBody.appendChild(row);
-        gradeSpan.style.backgroundColor = getGradientBackground(grade.gradeValue);
-      });
     });
 }
 function getGradientBackground(value) {
@@ -185,8 +188,6 @@ function generateHistogram() {
   }
 }
 async function showStatistics(studentId, subjectId) {
-  const canvas = document.getElementById("chartCanvas");
-  const ctx = canvas.getContext("2d");
   await fetch(`http://localhost:5196/api/students/${studentId}/${subjectId}/statistics`)
     .then((response) => response.json())
     .then((data) => {
@@ -249,10 +250,14 @@ async function showStatistics(studentId, subjectId) {
       //Linechart
 
       const differences = data.difference; // [2, 1, 1]
+      console.log(differences);
+      console.log(studentGrades);
 
       drawLineChart(studentGrades, differences);
     })
     .catch((error) => {
+      studentGrades = [];
+      drawLineChart([1], []);
       generateHistogram();
       document.getElementById("average").textContent = "-";
       document.getElementById("median").textContent = "-";
@@ -260,73 +265,78 @@ async function showStatistics(studentId, subjectId) {
       document.getElementById("average-card").style.backgroundColor = "white";
       document.getElementById("median-card").style.backgroundColor = "white";
       document.getElementById("mode-card").style.backgroundColor = "white";
+      console.log("Grades:", grades);
+      console.log("Differences:", data.difference);
     });
 
   // Adatok betöltése az API-ból
+}
+function drawLineChart(grades, differences) {
+  const canvas = document.getElementById("chartCanvas");
+  const ctx = canvas.getContext("2d");
 
-  function drawLineChart(grades, differences) {
-    if (!differences || differences.length === 0) {
-      console.warn("Nincs elérhető 'difference' adat.");
-      return;
-    }
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // ← Tisztítás
+  const padding = 50;
+  const width = canvas.width - 2 * padding;
+  const height = canvas.height - 2 * padding;
+  const maxDiff = Math.max(...differences, 1); // minimum 1
+  const stepX = width / (grades.length - 1);
+  const stepY = height / maxDiff;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // ← Tisztítás
-    const padding = 50;
-    const width = canvas.width - 2 * padding;
-    const height = canvas.height - 2 * padding;
-    const maxDiff = Math.max(...differences, 1); // minimum 1
-
-    const stepX = width / (grades.length - 1);
-    const stepY = height / maxDiff;
-
-    function getCanvasCoords(index, value) {
-      const x = padding + index * stepX;
-      const y = canvas.height - padding - value * stepY;
-      return { x, y };
-    }
-
-    function drawAxes() {
-      ctx.font = "18px Arial";
-      ctx.strokeStyle = "black";
-      ctx.beginPath();
-      ctx.moveTo(padding, padding);
-      ctx.lineTo(padding, canvas.height - padding);
-      ctx.lineTo(canvas.width - (padding + 20), canvas.height - padding);
-      ctx.stroke();
-
-      ctx.textAlign = "center";
-      grades.forEach((grade, i) => {
-        const { x, y } = getCanvasCoords(i - 1, 0);
-        ctx.fillText(grade, x, y + 20);
-      });
-
-      ctx.textAlign = "right";
-      for (let i = 0; i <= maxDiff; i++) {
-        const { x, y } = getCanvasCoords(0, i);
-        ctx.fillText(i, x - 10, y + 5);
-      }
-    }
-
-    function drawChartLine() {
-      ctx.beginPath();
-      ctx.strokeStyle = "#B22222";
-      ctx.lineWidth = 2;
-
-      differences.forEach((diff, i) => {
-        const { x, y } = getCanvasCoords(i, diff);
-        if (i === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      });
-
-      ctx.stroke();
-    }
-
-    drawAxes();
-    drawChartLine();
+  function getCanvasCoords(index, value) {
+    const x = padding + index * stepX;
+    const y = canvas.height - padding - value * stepY;
+    return { x, y };
   }
+  if (!differences || differences.length === 0) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // ← Tisztítás
+    drawAxes();
+
+    console.warn("Nincs elérhető 'difference' adat.");
+    return;
+  }
+
+  function drawAxes() {
+    ctx.font = "18px Arial";
+    ctx.strokeStyle = "black";
+    ctx.beginPath();
+    ctx.moveTo(padding, padding);
+    ctx.lineTo(padding, canvas.height - padding);
+    ctx.lineTo(canvas.width - padding, canvas.height - padding);
+    ctx.stroke();
+
+    ctx.textAlign = "center";
+    grades.forEach((grade, i) => {
+      const { x, y } = getCanvasCoords(i - 1, 0);
+      ctx.fillText(grade, x, y + 20);
+    });
+
+    ctx.textAlign = "right";
+    for (let i = 0; i <= maxDiff; i++) {
+      const { x, y } = getCanvasCoords(0, i);
+      ctx.fillText(i, x - 5, y + 5);
+    }
+  }
+
+  function drawChartLine() {
+    ctx.beginPath();
+    ctx.strokeStyle = "#B22222";
+    ctx.lineWidth = 2;
+
+    differences.forEach((diff, i) => {
+      const { x, y } = getCanvasCoords(i, diff);
+      if (i === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    });
+
+    ctx.stroke();
+  }
+
+  drawAxes();
+  drawChartLine();
 }
 async function addGrade() {
   const gradeValue = document.querySelector('#gradeRadiosContainer input[name="grade"]:checked').value;
@@ -344,8 +354,8 @@ async function addGrade() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newGrade),
   });
-  showGrades(selectedStudentId, selectedSubjectId);
-  showStatistics(selectedStudentId, selectedSubjectId);
+  await showGrades(selectedStudentId, selectedSubjectId);
+  await showStatistics(selectedStudentId, selectedSubjectId);
 }
 async function deleteGrade(e) {
   const gradeId = e.target.closest("tr").id;
@@ -414,81 +424,3 @@ async function editGrade(e) {
     await showStatistics(selectedStudentId, selectedSubjectId);
   };
 }
-/*document.addEventListener("DOMContentLoaded", () => {
-  const canvas = document.getElementById("chartCanvas");
-  const ctx = canvas.getContext("2d");
-
-  // Adatok betöltése az API-ból
-  fetch("http://localhost:5196/api/students/1/2/statistics") // Cseréld le a megfelelő API URL-re
-    .then((response) => response.json())
-    .then((data) => {
-      const differences = data.difference; // [2, 1, 1]
-      const grades = [2, 3, 4, 5]; // Az osztályzatok skálája
-      drawLineChart(grades, differences);
-    })
-    .catch((error) => console.error("Hiba történt az API hívás során:", error));
-
-  function drawLineChart(grades, differences) {
-    // Vászon mérete és beállítások
-    const padding = 50;
-    const width = canvas.width - 2 * padding;
-    const height = canvas.height - 2 * padding;
-
-    // Y tengely normalizálása (a különbségek maximuma alapján)
-    const maxDiff = Math.max(...differences);
-    const stepX = width / (grades.length - 1);
-    const stepY = height / maxDiff;
-
-    // Koordináták átalakítása
-    function getCanvasCoords(index, value) {
-      const x = padding + index * stepX;
-      const y = canvas.height - padding - value * stepY;
-      return { x, y };
-    }
-
-    // Tengelyek rajzolása
-    function drawAxes() {
-      ctx.beginPath();
-      ctx.strokeStyle = "black";
-      ctx.moveTo(padding, padding);
-      ctx.lineTo(padding, canvas.height - padding);
-      ctx.lineTo(canvas.width - padding, canvas.height - padding);
-      ctx.stroke();
-
-      // X tengely (osztályzatok)
-      ctx.textAlign = "center";
-      grades.forEach((grade, i) => {
-        const { x, y } = getCanvasCoords(i, 0);
-        ctx.fillText(grade, x, y + 20);
-      });
-
-      // Y tengely (különbségek)
-      ctx.textAlign = "right";
-      for (let i = 0; i <= maxDiff; i++) {
-        const { x, y } = getCanvasCoords(0, i);
-        ctx.fillText(i, x - 10, y + 5);
-      }
-    }
-
-    // Vonaldiagram rajzolása
-    function drawChartLine() {
-      ctx.beginPath();
-      ctx.strokeStyle = "blue";
-      ctx.lineWidth = 2;
-
-      differences.forEach((diff, i) => {
-        const { x, y } = getCanvasCoords(i, diff);
-        if (i === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      });
-
-      ctx.stroke();
-    }
-
-    drawAxes();
-    drawChartLine();
-  }
-});*/

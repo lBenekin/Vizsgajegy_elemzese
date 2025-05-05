@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vizsgajegyek Statisztikája</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="scripts/statistics_script.js"></script>
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/statistics_style.css">
 </head>
@@ -47,7 +46,7 @@
 
         <div class="container mt-5">
             <!-- Görgethető tartalom, amit beállítunk -->
-            <div class="scrollable-table-container">
+            <div class="scrollable-container">
               <table id="gradesTable" class="table table-striped table-bordered text-center tableStyle no-hover">
                 <thead>
                   <tr>
@@ -58,6 +57,9 @@
                   </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td colspan="4" class="text-center" id="hiddenCell">Nincs elérhető jegy</td>
+                    </tr>
                   <!-- Itt töltjük fel az adatokat dinamikusan -->
                 </tbody>
               </table>
@@ -148,6 +150,7 @@
             </div>
         </div>
     </div>
+    <script src="scripts/statistics_script.js"></script>
 
 </body>
 </html>

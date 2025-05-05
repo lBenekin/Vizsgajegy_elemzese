@@ -11,7 +11,10 @@ namespace ExamServer.Utils
             {
                 grades.RemoveAt(falseGradeIndex);
             }
-
+            if (grades.Count < 1)
+            {
+                return null;
+            }
             var gradeRange = new Dictionary<double, int>
             {
                 { 1, 0 },
@@ -38,6 +41,10 @@ namespace ExamServer.Utils
             if (falseGradeIndex != -1)
             {
                 grades.RemoveAt(falseGradeIndex);
+            }
+            if (grades.Count < 1)
+            {
+                return 0;
             }
             var mode = grades
                 .GroupBy(g => g)
@@ -71,7 +78,10 @@ namespace ExamServer.Utils
             {
                 grades.RemoveAt(falseGradeIndex);
             }
-
+            if (grades.Count < 1)
+            {
+                return 0;
+            }
             double sum = 0;
             for (int i = 0; i < grades.Count; i++)
             {
@@ -86,6 +96,10 @@ namespace ExamServer.Utils
             if (falseGradeIndex != -1)
             {
                 grades.RemoveAt(falseGradeIndex);
+            }
+            if (grades.Count < 1)
+            {
+                return null;
             }
             var differences = new List<int>();
             //differences.Add(grades[0]);

@@ -109,7 +109,7 @@ body {
 .saveButtonStyle:hover{
   background-color: rgb(27, 107, 21);
 }
-.scrollable-table-container {
+.scrollable-container {
   max-height: 400px; /* Beállíthatod a kívánt maximális magasságot */
   overflow-y: auto;  /* Automatikus függőleges görgetés, ha szükséges */
   margin-bottom: 10px;

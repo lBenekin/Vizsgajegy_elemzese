@@ -104,74 +104,67 @@ async function loadStudents() {
       const table = document.getElementById("studentsTable");
       table.classList.remove("no-hover");
       let tableBody = table.querySelector("tbody");
-      tableBody.innerHTML = "";
 
       if (data.length == 0) {
-        const row = document.createElement("tr");
-        const noValueCell = document.createElement("td");
-        noValueCell.innerHTML = "Nincs elérhető tanuló";
-        noValueCell.colSpan = 4;
-        noValueCell.classList.add("text-center");
-        table.classList.add("no-hover");
-        row.appendChild(noValueCell);
-        tableBody.appendChild(row);
-      }
+        tableBody.innerHTML = `<tr><td colspan="4" class="text-center no-hover">Nincs elérhető tanuló</td></tr>`;
+      } else {
+        tableBody.innerHTML = "";
+        data.forEach((student) => {
+          const row = document.createElement("tr");
+          row.id = student.id;
+          const nameCell = document.createElement("td");
+          nameCell.textContent = student.name;
+          row.appendChild(nameCell);
 
-      data.forEach((student) => {
-        const row = document.createElement("tr");
-        row.id = student.id;
-        const nameCell = document.createElement("td");
-        nameCell.textContent = student.name;
-        row.appendChild(nameCell);
+          const dobCell = document.createElement("td");
+          dobCell.textContent = new Date(student.dateOfBirth).toLocaleDateString();
+          row.appendChild(dobCell);
 
-        const dobCell = document.createElement("td");
-        dobCell.textContent = new Date(student.dateOfBirth).toLocaleDateString();
-        row.appendChild(dobCell);
+          const emailCell = document.createElement("td");
+          emailCell.textContent = student.email;
+          row.appendChild(emailCell);
 
-        const emailCell = document.createElement("td");
-        emailCell.textContent = student.email;
-        row.appendChild(emailCell);
+          const subjectsCell = document.createElement("td");
+          if (student.subjects.length === 0) {
+            subjectsCell.textContent = "Még nincs tárgya";
+            subjectsCell.style.color = "red";
+          } else {
+            subjectsCell.textContent = student.subjects.map((subject) => subject.name).join(", ");
+            subjectsCell.style.color = "black";
+          }
 
-        const subjectsCell = document.createElement("td");
-        if (student.subjects.length === 0) {
-          subjectsCell.textContent = "Még nincs tárgya";
-          subjectsCell.style.color = "red";
-        } else {
-          subjectsCell.textContent = student.subjects.map((subject) => subject.name).join(", ");
-          subjectsCell.style.color = "black";
-        }
+          row.appendChild(subjectsCell);
+          tableBody.appendChild(row);
 
-        row.appendChild(subjectsCell);
-        tableBody.appendChild(row);
+          row.addEventListener("click", function (e) {
+            // A kattintott sor adatainak kinyerése
+            const clickedRow = e.currentTarget;
+            // Adatok kinyerése a sorból (dataset használata)
+            document.querySelectorAll("#studentsTable tbody tr").forEach((r) => {
+              r.classList.remove("active-row");
+            });
 
-        row.addEventListener("click", function (e) {
-          // A kattintott sor adatainak kinyerése
-          const clickedRow = e.currentTarget;
-          // Adatok kinyerése a sorból (dataset használata)
-          document.querySelectorAll("#studentsTable tbody tr").forEach((r) => {
-            r.classList.remove("active-row");
+            clickedRow.classList.add("active-row");
+            selectedStudent = students.find((student) => student.id == row.id);
+            // A form mezők értékeinek beállítása
+            document.getElementById("nameBox").value = selectedStudent.name;
+            document.getElementById("emailBox").value = selectedStudent.email;
+            document.getElementById("dateBox").value = new Date(selectedStudent.dateOfBirth).toISOString().split("T")[0]; // Formátum: yyyy-mm-dd
+            rightDiv = document.getElementById("right");
+            rightDiv.innerHTML = "";
+            selectedStudent.subjects.forEach((subject) => {
+              subjectElement = document.createElement("div");
+              subjectElement.classList.add("list");
+              subjectElement.draggable = true;
+              subjectElement.id = subject.id;
+              subjectElement.innerHTML = subject.name;
+              rightDiv.appendChild(subjectElement);
+            });
+
+            updateSubjectEditor();
           });
-
-          clickedRow.classList.add("active-row");
-          selectedStudent = students.find((student) => student.id == row.id);
-          // A form mezők értékeinek beállítása
-          document.getElementById("nameBox").value = selectedStudent.name;
-          document.getElementById("emailBox").value = selectedStudent.email;
-          document.getElementById("dateBox").value = new Date(selectedStudent.dateOfBirth).toISOString().split("T")[0]; // Formátum: yyyy-mm-dd
-          rightDiv = document.getElementById("right");
-          rightDiv.innerHTML = "";
-          selectedStudent.subjects.forEach((subject) => {
-            subjectElement = document.createElement("div");
-            subjectElement.classList.add("list");
-            subjectElement.draggable = true;
-            subjectElement.id = subject.id;
-            subjectElement.innerHTML = subject.name;
-            rightDiv.appendChild(subjectElement);
-          });
-
-          updateSubjectEditor();
         });
-      });
+      }
     });
 }
 function clearInputs() {

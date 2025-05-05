@@ -51,8 +51,8 @@
 
         <div class=" container mt-5">
             <!-- Görgethető tartalom, amit beállítunk -->
-            <div class="scrollable-table-container">
-              <table id="studentsTable" class="table table-striped table-bordered text-center tableStyle">
+            <div class="scrollable-container">
+              <table id="studentsTable" class="table table-striped table-bordered text-center tableStyle no-hover">
                 <thead>
                   <tr>
                     <th>Diák neve</th>
@@ -80,15 +80,15 @@
             </div>
             <div id="edit-student-subjects-container">
                 <h2>Tantárgyak szerkesztése</h2>
-                <div class="list-container">
+                <div class="list-container ">
                   <div class="list-column">
                     <h4>Felvehető tantárgyak</h4>
-                    <div id="left">
+                    <div id="left" class="scrollable-container">
                     </div>
                   </div>
                   <div class="list-column">
                     <h4>Tanuló tantárgyai</h4>
-                    <div id="right"></div>
+                    <div id="right" class="scrollable-container"></div>
                   </div>
                 </div>
               </div>
