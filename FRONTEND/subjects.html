@@ -40,7 +40,7 @@
                 <input type="text" placeholder="Leírás" id="addDescriptionBox" required>
             </div>
             <div class="form-button-container">
-                <button id="addStudentButton" onclick="addSubject()">Hozzáadás</button>
+                <button id="addSubjectButton">Hozzáadás</button>
             </div>
         </div>
         <div class="container mt-5">
@@ -67,11 +67,12 @@
                 <input type="text" placeholder="Leírás" id="descriptionBox" required>
             </div>
             <div class="form-button-container" id="edit-form-button-container">
-                <button id="delete-button" class="deleteButtonStyle" onclick="deleteSubject()">Tantárgy törlése</button>
-                <button id="save-button" class="saveButtonStyle" onclick="saveSubject()">Mentés</button>
+                <button id="delete-button" class="deleteButtonStyle">Tantárgy törlése</button>
+                <button id="save-button" class="saveButtonStyle">Mentés</button>
             </div>
         </div>
     </div>
-    <script src="scripts/subjects_script.js"></script>
+    <!-- <script src="scripts/subjects_script.js"></script> -->
+    <script type="module" src="/scripts/subject_scripts/subjectMain.js"></script>
 </body>
 </html>

@@ -78,7 +78,7 @@ async function showGrades(studentId, subjectId) {
       let tableBody = table.querySelector("tbody");
 
       if (data.length <= 1 && data[0].gradeValue == -1) {
-        tableBody.innerHTML = `<tr>
+        tableBody.innerHTML = `<tr class="no-hover">
                         <td colspan="4" class="text-center">Nincs elérhető jegy</td>
                     </tr>`;
       } else {
@@ -90,6 +90,7 @@ async function showGrades(studentId, subjectId) {
           }
           studentGrades.push(grade.gradeValue);
           const row = document.createElement("tr");
+          row.classList.add("no-hover");
           row.id = grade.id;
 
           const valueCell = document.createElement("td");
@@ -250,8 +251,8 @@ async function showStatistics(studentId, subjectId) {
       //Linechart
 
       const differences = data.difference; // [2, 1, 1]
-      console.log(differences);
-      console.log(studentGrades);
+      //console.log(differences);
+      //console.log(studentGrades);
 
       drawLineChart(studentGrades, differences);
     })
@@ -265,8 +266,8 @@ async function showStatistics(studentId, subjectId) {
       document.getElementById("average-card").style.backgroundColor = "white";
       document.getElementById("median-card").style.backgroundColor = "white";
       document.getElementById("mode-card").style.backgroundColor = "white";
-      console.log("Grades:", grades);
-      console.log("Differences:", data.difference);
+      //console.log("Grades:", grades);
+      //console.log("Differences:", data.difference);
     });
 
   // Adatok betöltése az API-ból
@@ -348,14 +349,15 @@ async function addGrade() {
     gradeValue: gradeValue,
     comment: comment,
   };
-
-  await fetch("http://localhost:5196/api/grades/", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newGrade),
-  });
-  await showGrades(selectedStudentId, selectedSubjectId);
-  await showStatistics(selectedStudentId, selectedSubjectId);
+  if (selectedStudentId && selectedSubjectId) {
+    await fetch("http://localhost:5196/api/grades/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newGrade),
+    });
+    await showGrades(selectedStudentId, selectedSubjectId);
+    await showStatistics(selectedStudentId, selectedSubjectId);
+  }
 }
 async function deleteGrade(e) {
   const gradeId = e.target.closest("tr").id;

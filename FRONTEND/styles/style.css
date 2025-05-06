@@ -70,7 +70,12 @@ body {
     }
 
 
-.tableStyle:not(.no-hover) tbody tr:hover td{
+/* .tableStyle:not(.no-hover) tbody tr:hover td{
+  background-color: #e87777;
+    border: #e87777 1px solid;
+    cursor: pointer;
+} */
+.tableStyle tbody tr:not(.no-hover):hover td{
   background-color: #e87777;
     border: #e87777 1px solid;
     cursor: pointer;
