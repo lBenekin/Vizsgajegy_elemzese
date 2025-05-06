@@ -45,7 +45,6 @@ async function fetchStudents() {
     });
 }
 async function fetchSubjectsForStudent(studentId) {
-  subjectsSelector = document.getElementById("subjectsSelector");
   subjectsSelector.innerHTML = "";
   await fetch(`http://localhost:5196/api/students/${studentId}/subjects`)
     .then((response) => response.json())
@@ -342,13 +341,14 @@ function drawLineChart(grades, differences) {
 async function addGrade() {
   const gradeValue = document.querySelector('#gradeRadiosContainer input[name="grade"]:checked').value;
 
-  const comment = document.getElementById("commentInput").value;
+  const comment = document.getElementById("commentInput");
   const newGrade = {
     studentId: selectedStudentId,
     subjectId: selectedSubjectId,
     gradeValue: gradeValue,
-    comment: comment,
+    comment: comment.value,
   };
+  comment.value = "";
   if (selectedStudentId && selectedSubjectId) {
     await fetch("http://localhost:5196/api/grades/", {
       method: "POST",
