@@ -7,7 +7,10 @@ export function drawLineChart(grades, differences) {
 
   const width = canvas.width - 2 * padding;
   const height = canvas.height - 2 * padding;
-  const maxDiff = Math.max(...differences, 1);
+  let maxDiff = 1;
+  if (differences) {
+    maxDiff = Math.max(...differences, 1);
+  }
   const stepX = grades.length > 1 ? width / (grades.length - 1) : width;
   const stepY = height / maxDiff;
 
@@ -32,7 +35,6 @@ export function drawLineChart(grades, differences) {
       const { x, y } = getCoords(i - 1, 0);
       if (i > 0) {
         ctx.fillText(grade, x, y + 20);
-        console.log(i);
       }
     });
 

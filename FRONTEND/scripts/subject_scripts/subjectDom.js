@@ -4,25 +4,18 @@ export let subjects = [];
 export let selectedSubject = null;
 
 export async function loadSubjects() {
-  const data = await getSubjects();
-  subjects = data;
-
   const table = document.getElementById("subjectsTable");
   const tbody = table.querySelector("tbody");
   table.classList.remove("no-hover");
-  tbody.innerHTML = "";
-
-  if (subjects.length === 0) {
-    const row = document.createElement("tr");
-    const cell = document.createElement("td");
-    cell.colSpan = 4;
-    cell.className = "text-center";
-    cell.textContent = "Nincs elérhető tantárgy";
-    row.appendChild(cell);
-    table.classList.add("no-hover");
-    tbody.appendChild(row);
+  const subjects = await getSubjects().catch((error) => {
+    tbody.innerHTML = `<tr class="no-hover"><td colspan="4" class="text-center">Nincs elérhető tantárgy</td></tr>`;
+  });
+  if (!subjects || subjects.length == 0) {
+    tbody.innerHTML = `<tr class="no-hover"><td colspan="4" class="text-center">Nincs elérhető tantárgy</td></tr>`;
     return;
   }
+
+  tbody.innerHTML = "";
 
   subjects.forEach((subject) => {
     const row = document.createElement("tr");

@@ -1,4 +1,5 @@
 export function generateHistogram() {
+  console.log("generatehist");
   const histogram = document.getElementById("histogram");
   const yAxis = document.querySelector(".y-axis");
   const xAxis = document.getElementById("xAxis");
@@ -41,35 +42,37 @@ export function generateHistogram() {
   }
 }
 export function updateHistogram(distribution) {
-  const rawMaxY = Math.max(...Object.values(distribution));
+  if (distribution == null) {
+    generateHistogram();
+  } else {
+    const rawMaxY = Math.max(...Object.values(distribution));
 
-  // Lépésköz meghatározása (pl. 2, 5, 10)
-  const step = Math.ceil(rawMaxY / 5); // mindig felfelé, hogy biztos elférjen
+    // Lépésköz meghatározása (pl. 2, 5, 10)
+    const step = Math.ceil(rawMaxY / 5); // mindig felfelé, hogy biztos elférjen
 
-  // Skála felső határa
-  const maxY = step * 5; // mindig öttel osztható érték
+    // Skála felső határa
+    const maxY = step * 5; // mindig öttel osztható érték
 
-  // Töröljük az előző vonalakat
-  const wrapper = document.querySelector(".histogram-wrapper");
-  const yAxis = document.querySelector(".y-axis");
-  const histogram = document.getElementById("histogram");
+    // Töröljük az előző vonalakat
+    const wrapper = document.querySelector(".histogram-wrapper");
+    const yAxis = document.querySelector(".y-axis");
+    const histogram = document.getElementById("histogram");
 
-  yAxis.innerHTML = "";
+    yAxis.innerHTML = "";
 
-  const numLines = 6;
-  for (let i = 0; i < numLines; i++) {
-    // Label
-    const ratio = i / (numLines - 1);
-    const value = i * step;
-    const yLabel = document.createElement("span");
-    yLabel.className = "y-axis-label";
-    yLabel.style.bottom = `${ratio * 100}%`;
-    yLabel.textContent = value;
-    yAxis.appendChild(yLabel);
-  }
-  //histogram.innerHTML = "";
-  // Sávok kirajzolása
-  if (distribution && Object.keys(distribution).length > 0) {
+    const numLines = 6;
+    for (let i = 0; i < numLines; i++) {
+      // Label
+      const ratio = i / (numLines - 1);
+      const value = i * step;
+      const yLabel = document.createElement("span");
+      yLabel.className = "y-axis-label";
+      yLabel.style.bottom = `${ratio * 100}%`;
+      yLabel.textContent = value;
+      yAxis.appendChild(yLabel);
+    }
+    //histogram.innerHTML = "";
+    // Sávok kirajzolása
     Object.entries(distribution).forEach(([grade, count]) => {
       const existingGradeBar = document.getElementById(`gradeBar${grade}`);
       const existingGradeLabel = document.getElementById(`gradeLabel${grade}`);
@@ -85,7 +88,5 @@ export function updateHistogram(distribution) {
         });
       }
     });
-  } else {
-    histogram.innerHTML = "<p>Nincs elérhető adat.</p>";
   }
 }

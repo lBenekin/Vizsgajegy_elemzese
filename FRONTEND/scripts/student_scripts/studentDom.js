@@ -5,14 +5,15 @@ export let students = [];
 export let selectedStudent = null;
 
 export async function loadStudents() {
-  students = await getStudents();
   const tableBody = document.querySelector("#studentsTable tbody");
-  tableBody.innerHTML = "";
-
-  if (students.length === 0) {
+  students = await getStudents().catch((error) => {
+    tableBody.innerHTML = `<tr class="no-hover"><td colspan="4" class="text-center">Nincs elérhető tanuló</td></tr>`;
+  });
+  if (!students || students.length == 0) {
     tableBody.innerHTML = `<tr class="no-hover"><td colspan="4" class="text-center">Nincs elérhető tanuló</td></tr>`;
     return;
   }
+  tableBody.innerHTML = "";
 
   students.forEach((student) => {
     const row = document.createElement("tr");

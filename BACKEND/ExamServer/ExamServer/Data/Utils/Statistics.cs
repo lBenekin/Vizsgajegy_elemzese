@@ -85,7 +85,7 @@
             {
                 sum += grades[i];
             }
-            return sum / grades.Count;
+            return Math.Round(sum / grades.Count, 2);
         }
 
         public static List<int> GetDifference(List<int> grades)
