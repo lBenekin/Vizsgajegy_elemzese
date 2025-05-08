@@ -406,7 +406,7 @@ async function editGrade(e) {
   commentTextArea.style.maxWidth = "200px";
   commentTextArea.style.margin = "0px";
   commentTextArea.placeholder = "Írd ide a megjegyzést!";
-  commentTextArea.value = comment;
+  commentTextArea.value = comment == "Nincs megjegyzés!" ? "" : comment;
   commentCell.appendChild(commentTextArea);
 
   saveButton.onclick = async function () {
