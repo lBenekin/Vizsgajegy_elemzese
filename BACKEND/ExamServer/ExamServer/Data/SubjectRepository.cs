@@ -1,6 +1,6 @@
 ﻿using System;
+using ExamServer.Data.Utils;
 using ExamServer.Models;
-using ExamServer.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExamServer.Data

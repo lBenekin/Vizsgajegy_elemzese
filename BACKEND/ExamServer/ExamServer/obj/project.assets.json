@@ -5166,11 +5166,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Egyetem\\4.félév\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\ExamServer.csproj",
+      "projectUniqueName": "D:\\Egyetem\\4.félév\\Full-Stack\\elvilegjocommit\\Vizsgajegy_elemzese\\BACKEND\\ExamServer\\ExamServer\\ExamServer.csproj",
       "projectName": "ExamServer",
-      "projectPath": "D:\\Egyetem\\4.félév\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\ExamServer.csproj",
+      "projectPath": "D:\\Egyetem\\4.félév\\Full-Stack\\elvilegjocommit\\Vizsgajegy_elemzese\\BACKEND\\ExamServer\\ExamServer\\ExamServer.csproj",
       "packagesPath": "C:\\Users\\Bence\\.nuget\\packages\\",
-      "outputPath": "D:\\Egyetem\\4.félév\\Full-Stack\\VIZSGAJEGYEKELEMZESE_BI496E_KIACZ\\BACKEND\\ExamServer\\ExamServer\\obj\\",
+      "outputPath": "D:\\Egyetem\\4.félév\\Full-Stack\\elvilegjocommit\\Vizsgajegy_elemzese\\BACKEND\\ExamServer\\ExamServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Visual Studio Shared\\NuGetPackages"

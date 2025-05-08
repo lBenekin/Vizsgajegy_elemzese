@@ -1,6 +1,6 @@
 ﻿using System;
+using ExamServer.Data.Utils;
 using ExamServer.Models;
-using ExamServer.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 
@@ -153,58 +153,5 @@ namespace ExamServer.Data
 
             _context.SaveChanges();
         }
-        //private List<int> GetDifference(List<int> grades)
-        //{
-        //    var differences = new List<int>();
-        //    for (int i = 0; i < grades.Count - 1; i++)
-        //    {
-        //        differences.Add(Math.Abs(grades[i + 1] - grades[i]));
-        //    }
-        //    return differences;
-        //}
-        //private Dictionary<double, int> GetDistribution(List<int> grades)
-        //{
-
-        //    var gradeRange = new Dictionary<double, int>
-        //    {
-        //        { 1, 0 },
-        //        { 2, 0 },
-        //        { 3, 0 },
-        //        { 4, 0 },
-        //        { 5, 0 }
-        //    };
-
-        //    foreach (var grade in grades)
-        //    {
-        //        if (gradeRange.ContainsKey(grade))
-        //        {
-        //            gradeRange[grade]++;
-        //        }
-        //    }
-
-        //    return gradeRange;
-        //}
-        //private double GetMode(List<int> grades)
-        //{
-        //    var mode = grades.GroupBy(g => g)
-        //        .OrderByDescending(g => g.Count())
-        //        .Select(g => g.Key)
-        //        .FirstOrDefault();
-        //    return mode;
-        //}
-
-        //private double GetMedian(List<int> grades)
-        //{
-        //    grades.Sort();
-        //    var count = grades.Count;
-        //    if (count % 2 == 0)
-        //        return (grades[count / 2 - 1] + grades[count / 2]) / 2;
-        //    return grades[count / 2];
-        //}
-
-        //private double GetAverage(List<int> grades)
-        //{
-        //    return grades.Average();
-        //}
     }
 }

@@ -12,19 +12,22 @@ namespace ExamServer.Data
         void Update(Grade grade);
 
         void Delete(int id);
-
     }
+
     public class GradeRepository : IGradeRepository
     {
         private readonly SchoolDbContext _context;
-        public GradeRepository(SchoolDbContext context) 
+
+        public GradeRepository(SchoolDbContext context)
         {
             _context = context;
         }
+
         public IEnumerable<Grade> GetAll()
         {
             return _context.Grades.ToList();
         }
+
         public void Add(Grade grade)
         {
             _context.Grades.Add(grade);
@@ -41,7 +44,6 @@ namespace ExamServer.Data
             }
         }
 
-
         public Student GetById(int id)
         {
             throw new NotImplementedException();
@@ -49,15 +51,6 @@ namespace ExamServer.Data
 
         public void Update(Grade grade)
         {
-            /*var existingGrade = _context.Grades.Find(grade.Id);
-            existingGrade = grade;
-            if (existingGrade != null)
-            {
-                existingGrade.GradeValue = grade.GradeValue;
-                existingGrade.Comment = grade.Comment;
-                existingGrade.IsRealGrade = grade.IsRealGrade;
-                _context.SaveChanges();
-            }*/
             _context.Grades.Update(grade);
             _context.SaveChanges();
         }

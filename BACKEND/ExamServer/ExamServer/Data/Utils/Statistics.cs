@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace ExamServer.Utils
+﻿namespace ExamServer.Data.Utils
 {
     public class Statistics
     {
