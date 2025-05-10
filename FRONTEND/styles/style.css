@@ -37,7 +37,7 @@ body {
 
     
       
-    /*.diagram widtfh: 48% kell és akkor dinamikus*/
+
     .nav-link{
         font-size: large;
     }
@@ -69,12 +69,6 @@ body {
       top: 2px;
     }
 
-
-/* .tableStyle:not(.no-hover) tbody tr:hover td{
-  background-color: #e87777;
-    border: #e87777 1px solid;
-    cursor: pointer;
-} */
 .tableStyle tbody tr:not(.no-hover):hover td{
   background-color: #e87777;
     border: #e87777 1px solid;
@@ -115,8 +109,8 @@ body {
   background-color: rgb(27, 107, 21);
 }
 .scrollable-container {
-  max-height: 400px; /* Beállíthatod a kívánt maximális magasságot */
-  overflow-y: auto;  /* Automatikus függőleges görgetés, ha szükséges */
+  max-height: 400px;
+  overflow-y: auto;  
   margin-bottom: 10px;
-  border: 1px solid #ddd; /* A táblázat körüli keret */
+  border: 1px solid #ddd; 
 }

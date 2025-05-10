@@ -91,7 +91,7 @@ export async function showStatistics(studentId, subjectId) {
 
   const distribution = data.distribution;
   const differences = data.difference;
-  //histogram
+  //Histogram
   updateHistogram(distribution);
   //Linechart
   drawLineChart(studentGrades, differences);

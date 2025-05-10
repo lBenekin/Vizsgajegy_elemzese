@@ -11,27 +11,25 @@ namespace ExamServer.Controllers
     public class gradesController : ControllerBase
     {
         private readonly IGradeRepository _repository;
+
         public gradesController(IGradeRepository repository)
         {
             _repository = repository;
         }
 
-        // GET: api/<gradesController>
         [HttpGet]
         public IActionResult GetAll()
         {
-            var grades = _repository.GetAll(); 
+            var grades = _repository.GetAll();
             return Ok(grades);
         }
 
-        // GET api/<gradesController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<gradesController>
         [HttpPost]
         public IActionResult Post([FromBody] Grade grade)
         {
@@ -41,7 +39,6 @@ namespace ExamServer.Controllers
             return CreatedAtAction(nameof(Get), new { id = grade.Id }, grade);
         }
 
-        // PUT api/<gradesController>/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Grade grade)
         {
@@ -52,7 +49,6 @@ namespace ExamServer.Controllers
             return NoContent();
         }
 
-        // DELETE api/<gradesController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

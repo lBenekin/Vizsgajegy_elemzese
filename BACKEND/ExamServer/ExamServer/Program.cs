@@ -15,10 +15,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 app.UseRouting();
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
+app.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
 
 if (app.Environment.IsDevelopment())
 {
@@ -26,8 +23,5 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(x => x
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader());
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.Run();

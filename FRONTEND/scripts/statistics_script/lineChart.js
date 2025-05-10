@@ -7,13 +7,18 @@ export function drawLineChart(grades, differences) {
 
   const width = canvas.width - 2 * padding;
   const height = canvas.height - 2 * padding;
+
+  //Default difference if difference is null
   let maxDiff = 1;
   if (differences) {
-    maxDiff = Math.max(...differences, 1);
+    maxDiff = Math.max(...differences, 1); //Get max difference
   }
+
+  //Calculate steps between grades and differences
   const stepX = grades.length > 1 ? width / (grades.length - 1) : width;
   const stepY = height / maxDiff;
 
+  //Get the coords for drawing lines
   function getCoords(index, value) {
     return {
       x: padding + index * stepX,
@@ -25,11 +30,12 @@ export function drawLineChart(grades, differences) {
     ctx.font = "18px Arial";
     ctx.strokeStyle = "black";
     ctx.beginPath();
-    ctx.moveTo(padding, padding);
-    ctx.lineTo(padding, canvas.height - padding);
-    ctx.lineTo(canvas.width - padding, canvas.height - padding);
+    ctx.moveTo(padding, padding); //Start of y
+    ctx.lineTo(padding, canvas.height - padding); //start of y line
+    ctx.lineTo(canvas.width - padding, canvas.height - padding); //start of x line
     ctx.stroke();
 
+    //Generate x axis labels
     ctx.textAlign = "center";
     grades.forEach((grade, i) => {
       const { x, y } = getCoords(i - 1, 0);
@@ -38,6 +44,7 @@ export function drawLineChart(grades, differences) {
       }
     });
 
+    //Generate y axis labels
     ctx.textAlign = "right";
     for (let i = 0; i <= maxDiff; i++) {
       const { x, y } = getCoords(0, i);

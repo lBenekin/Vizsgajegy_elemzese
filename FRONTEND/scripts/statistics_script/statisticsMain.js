@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
     selectedStudentId = this.value;
     if (selectedStudentId) {
       fetchSubjectsForStudent(selectedStudentId);
-      //showStatistics(selectedStudentId);
     }
   });
   subjectsSelector.addEventListener("change", function () {
@@ -62,7 +61,7 @@ async function fetchSubjectsForStudent(studentId) {
     const option = document.createElement("option");
     option.value = subject.id;
     option.textContent = `${subject.name}`;
-    if (index === 0) option.selected = true; // első kiválasztása
+    if (index === 0) option.selected = true; // Select the first one
     subjectsSelector.appendChild(option);
   });
   selectedSubjectId = subjectsSelector.value;

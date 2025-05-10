@@ -1,7 +1,6 @@
 .bar {
     background-color: #B22222;
     position:relative;
-    /* A szélesség dinamikusan is állítható, itt most fix: */
     width: 100px;
     margin: 0px 5px 0px 5px;
     display: inline-block;
@@ -19,9 +18,9 @@
     z-index: 2;
   }
   .bar-label {
-    position: absolute; /* Az elem pozicionálása a szülőhöz képest */  /* A sáv magasságának a felére kerül */
-    left: 50%; /* A sáv szélességének a közepére kerül */
-    transform: translate(-50%, -50%); /* A szöveget pontosan a közepére pozicionálja */
+    position: absolute;
+    left: 50%; 
+    transform: translate(-50%, -50%);
     font-size: 18px;
     color: white;
     pointer-events: none;
@@ -65,7 +64,7 @@
   }
   
   .x-axis-label {
-    width: 100px; /* ugyanannyi mint a .bar szélessége */
+    width: 100px;
     text-align: center;
     font-size: 18px;
     font-weight: bold;

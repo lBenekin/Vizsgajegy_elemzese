@@ -1,5 +1,4 @@
 export function generateHistogram() {
-  console.log("generatehist");
   const histogram = document.getElementById("histogram");
   const yAxis = document.querySelector(".y-axis");
   const xAxis = document.getElementById("xAxis");
@@ -8,6 +7,7 @@ export function generateHistogram() {
   yAxis.innerHTML = "";
   xAxis.innerHTML = "";
 
+  //Generate lines in the background
   const numLines = 6;
   for (let i = 0; i < numLines; i++) {
     const ratio = i / (numLines - 1);
@@ -23,6 +23,7 @@ export function generateHistogram() {
     yAxis.appendChild(label);
   }
 
+  //Generate x axis labels and the bars
   for (let i = 1; i <= 5; i++) {
     const bar = document.createElement("div");
     bar.id = `gradeBar${i}`;
@@ -47,22 +48,18 @@ export function updateHistogram(distribution) {
   } else {
     const rawMaxY = Math.max(...Object.values(distribution));
 
-    // Lépésköz meghatározása (pl. 2, 5, 10)
-    const step = Math.ceil(rawMaxY / 5); // mindig felfelé, hogy biztos elférjen
+    const step = Math.ceil(rawMaxY / 5);
+    //5 is the top border
 
-    // Skála felső határa
-    const maxY = step * 5; // mindig öttel osztható érték
+    const maxY = step * 5;
 
-    // Töröljük az előző vonalakat
-    const wrapper = document.querySelector(".histogram-wrapper");
+    // Delete and regenerate the lines in the background
     const yAxis = document.querySelector(".y-axis");
-    const histogram = document.getElementById("histogram");
 
     yAxis.innerHTML = "";
 
     const numLines = 6;
     for (let i = 0; i < numLines; i++) {
-      // Label
       const ratio = i / (numLines - 1);
       const value = i * step;
       const yLabel = document.createElement("span");
@@ -71,8 +68,8 @@ export function updateHistogram(distribution) {
       yLabel.textContent = value;
       yAxis.appendChild(yLabel);
     }
-    //histogram.innerHTML = "";
-    // Sávok kirajzolása
+
+    // Draw Bars
     Object.entries(distribution).forEach(([grade, count]) => {
       const existingGradeBar = document.getElementById(`gradeBar${grade}`);
       const existingGradeLabel = document.getElementById(`gradeLabel${grade}`);
@@ -84,7 +81,7 @@ export function updateHistogram(distribution) {
           existingGradeLabel.className = "bar-label";
         }
         requestAnimationFrame(() => {
-          existingGradeBar.style.height = (count / maxY) * 100 + "%"; // Ekkor fut le a CSS animáció
+          existingGradeBar.style.height = (count / maxY) * 100 + "%";
         });
       }
     });

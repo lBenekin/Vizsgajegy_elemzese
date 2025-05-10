@@ -45,7 +45,6 @@
         </div>    
 
         <div class="container mt-5">
-            <!-- Görgethető tartalom, amit beállítunk -->
             <div class="scrollable-container">
               <table id="gradesTable" class="table table-striped table-bordered text-center tableStyle no-hover">
                 <thead>
@@ -60,7 +59,6 @@
                     <tr class="no-hover">
                         <td colspan="4" class="text-center" id="hiddenCell">Nincs elérhető jegy</td>
                     </tr>
-                  <!-- Itt töltjük fel az adatokat dinamikusan -->
                 </tbody>
               </table>
             </div>
@@ -70,13 +68,6 @@
 
         <div class="container" id="addGradeContainer">
             <form id="addGradeForm">
-                <!-- <div id="gradeRadiosContainer">
-                    <input type="radio" name="" id="1">
-                    <input type="radio" name="" id="2">
-                    <input type="radio" name="" id="3">
-                    <input type="radio" name="" id="4">
-                    <input type="radio" name="" id="5">
-                </div> -->
                 <div id="gradeRadiosContainer" role="group" aria-label="Grade selection">
                     <input type="radio" class="btn-check" name="grade" id="grade1" value="1" autocomplete="off">
                     <label class="btn btn-outline-danger" for="grade1">1</label>
@@ -104,10 +95,11 @@
         <h2 class="m-4">Vizsgajegyek eloszlása és differenciája</h2>
         <div class="diagram-container d-flex m-4">
             
-            <!-- Y tengely beosztások -->
+            <!--Histogram-->
             <div class="histogram-area">
+                <!--Warpping y axis lines and labels-->
                 <div class="histogram-wrapper">
-                    <div id="yAxis" class="y-axis"></div>
+                    <div id="yAxis" class="y-axis"></div> <!-- Y axis steps -->
                     <!-- Hisztogram sávok -->
                     <div id="histogram" class="diagram d-flex align-items-end"></div>
                 </div>
@@ -115,12 +107,12 @@
                 
             </div>
             
-            <!-- Esetleges másik diagram (pl. lineChart) -->
+
             <div class="d-flex">
                 <canvas id="chartCanvas" width="600" height="300"></canvas>
             </div>
         </div>
-        <!--Here are the cards-->
+        <!--Statistic cards-->
         <h2>Statisztika</h2>
 
           <div class="row text-center mt-5 m-4 ">

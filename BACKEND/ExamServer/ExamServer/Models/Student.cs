@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace ExamServer.Models
@@ -14,17 +14,15 @@ namespace ExamServer.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } 
-        public string Name { get; set; } 
+        public int Id { get; set; }
+        public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Email { get; set; }
+
         [JsonIgnore]
         public ICollection<Grade> Grades { get; set; }
-        [NotMapped] //Nem rakja Db-be
-        public IEnumerable<Subject> Subjects => Grades
-            ?.Select(g => g.Subject)
-            .Distinct()
-            .ToList();
-    }
 
+        [NotMapped] //Doesn't put to database
+        public IEnumerable<Subject> Subjects => Grades?.Select(g => g.Subject).Distinct().ToList();
+    }
 }
